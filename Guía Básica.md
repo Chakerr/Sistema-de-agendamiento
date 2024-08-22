@@ -159,8 +159,3 @@ Los archivos `.md` son simples documentos de texto que usamos para escribir nota
 ## 7. Licencia del Proyecto
 
 Este proyecto está bajo una licencia llamada **MIT**, lo que significa que otras personas pueden usar nuestro código si respetan algunas condiciones.
-
-   Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
-   ```
-
----
