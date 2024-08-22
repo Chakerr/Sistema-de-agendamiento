@@ -160,13 +160,6 @@ Los archivos `.md` son simples documentos de texto que usamos para escribir nota
 
 Este proyecto está bajo una licencia llamada **MIT**, lo que significa que otras personas pueden usar nuestro código si respetan algunas condiciones.
 
-### 7.1 ¿Cómo Incluir la Licencia?
-
-1. Abre el archivo `README.md` del proyecto.
-2. Añade lo siguiente al final:
-   ```markdown
-   ## Licencia
-
    Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
    ```
 
