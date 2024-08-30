@@ -158,4 +158,12 @@ Los archivos `.md` son simples documentos de texto que usamos para escribir nota
 
 ## 7. Licencia del Proyecto
 
-Este proyecto está bajo una licencia llamada **MIT**, lo que significa que otras personas pueden usar nuestro código si respetan algunas condiciones.
+Este proyecto está bajo una licencia llamada **All Rights Reserved**, lo que significa que esta licencia es una declaración clara y formal de que todo el código y contenido de este proyecto están completamente protegidos por derechos de autor. se incluyen los nombres de todos los autores, lo que significa que ninguno de nosotros, ni nadie más, puede utilizar, modificar, distribuir, copiar, o reproducir este código sin obtener primero el permiso de todos los autores involucrados.
+
+También se especifico que cualquier infracción a estos términos será tratada de manera legal, bajo las leyes de derechos de autor y tratados internacionales aplicables. Esto nos da una base legal sólida para proteger nuestro trabajo de usos no autorizados.
+
+Además, se añadio un medio de contacto, en caso de que alguien quiera solicitar autorización para utilizar el código. Esto nos da control total sobre quién puede acceder y utilizar nuestro trabajo, asegurando que se mantenga dentro de los términos que nosotros decidamos.
+
+En resumen, esta licencia asegura que nuestro trabajo está protegido y nos da la seguridad de que nadie más puede beneficiarse de nuestro esfuerzo sin nuestro consentimiento explícito.
+
+
