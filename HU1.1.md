@@ -1,7 +1,7 @@
 # Versión 1.0
 **31/08/2024**
 
-## Historia de Usuario 1.1 – Registro e inicio de sesión por parte del usuario
+## Historia de Usuario 1.1 – Registro e inicio de sesión por parte del usuario.
 
 ### Descripción:
 
