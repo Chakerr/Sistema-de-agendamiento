@@ -1,0 +1,17 @@
+## YAML Template.
+---
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Laboratory
+    username: postgres
+    password: Nicom2004$
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
