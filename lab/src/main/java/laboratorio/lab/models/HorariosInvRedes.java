@@ -21,16 +21,55 @@ public class HorariosInvRedes {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column
+    @Column(name = "HORA")
     private Time hora;
 
-    @Column
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "FECHA")
     private Date fecha;
 
-    @Column
+    @Column(name = "CANTIDAD_PARCIAL")
     private int cantidadParcial;
 
-    @ManyToOne
-    @JoinColumn(name = "Id_Inventario")
-    private Inventarios inventario;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public int getCantidadParcial() {
+        return cantidadParcial;
+    }
+
+    public void setCantidadParcial(int cantidadParcial) {
+        this.cantidadParcial = cantidadParcial;
+    }
 }

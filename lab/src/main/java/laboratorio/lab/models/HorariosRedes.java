@@ -22,16 +22,44 @@ public class HorariosRedes {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column
+    @Column(name = "HORA")
     private Time hora;
 
-    @Column
+    @Column(name = "FECHA")
     private Date fecha;
 
-    @Column
+    @Column(name = "CAPACIDAD_PARCIAL")
     private int capacidadParcial;
 
-    @ManyToOne
-    @JoinColumn(name = "id_lab")
-    private LabRedes labRedes;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Time getHora() {
+        return hora;
+    }
+
+    public void setHora(Time hora) {
+        this.hora = hora;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+    public int getCapacidadParcial() {
+        return capacidadParcial;
+    }
+
+    public void setCapacidadParcial(int capacidadParcial) {
+        this.capacidadParcial = capacidadParcial;
+    }
 }

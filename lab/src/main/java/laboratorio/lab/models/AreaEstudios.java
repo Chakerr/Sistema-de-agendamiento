@@ -16,18 +16,36 @@ import java.util.List;
 public class AreaEstudios {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idArea;
 
-    @Column
+    @Column(name = "AREA")
     private String area;
-
-    @OneToMany(mappedBy = "id_area")
-    private List<AreaInventario> areaInventarioList;
-//    @ManyToMany(mappedBy = "areaEstudiosList")
-//    private List<Inventarios> inventarioList;
 
 
     @OneToMany(mappedBy = "id_areaEstudio")
     private List<Reservas> reservasList;
+
+    public Integer getIdArea() {
+        return idArea;
+    }
+
+    public void setIdArea(Integer idArea) {
+        this.idArea = idArea;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public List<Reservas> getReservasList() {
+        return reservasList;
+    }
+
+    public void setReservasList(List<Reservas> reservasList) {
+        this.reservasList = reservasList;
+    }
 }

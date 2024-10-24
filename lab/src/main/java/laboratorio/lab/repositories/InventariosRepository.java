@@ -4,4 +4,5 @@ import laboratorio.lab.models.Inventarios;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface InventariosRepository extends JpaRepository<Inventarios,Integer> {
+    Inventarios findByEquipo(String name);
 }

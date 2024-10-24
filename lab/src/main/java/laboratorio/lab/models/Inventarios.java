@@ -20,30 +20,35 @@ public class Inventarios {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idInventario;
 
-    @Column
+    @Column(name = "EQUIPO")
     private String equipo;
 
-    @Column
+    @Column(name = "CANTIDAD")
     private int cantidad;
 
-    @Column
-    private String marca;
+    public Integer getIdInventario() {
+        return idInventario;
+    }
 
-    @Column
-    private String placa;
+    public void setIdInventario(Integer idInventario) {
+        this.idInventario = idInventario;
+    }
 
-    @OneToMany(mappedBy = "inventario")
-    private List<HorariosInvRedes> horarios = new ArrayList<>();
+    public String getEquipo() {
+        return equipo;
+    }
 
-    @OneToMany(mappedBy = "id_inventario")
-    private List<AreaInventario> areaInventarioList;
-//    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "AREAS_INVENTARIO",
-//            joinColumns = @JoinColumn(name = "id_inventario", referencedColumnName = "idInventario"),
-//            inverseJoinColumns = @JoinColumn(name = "id_Area", referencedColumnName = "idArea")
-//    )
-//    private List <AreaEstudios> areaEstudiosList;
+    public void setEquipo(String equipo) {
+        this.equipo = equipo;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 
 
 
