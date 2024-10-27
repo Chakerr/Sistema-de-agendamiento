@@ -18,7 +18,6 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "RESERVAS")
 public class Reservas {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -47,17 +46,6 @@ public class Reservas {
 
     @OneToMany(mappedBy = "reserva")
     private List<Equipos> equiposList;
-
-//    //@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    @ManyToMany
-//    @JoinTable(
-//            name = "RESERVAS_EST",
-//            joinColumns = @JoinColumn(name = "id_reserva", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "id_estudiante", referencedColumnName = "id_codigo")
-//    )
-//    //@JsonManagedReference(value = "relacion2")
-//    @JsonBackReference(value = "relacionEstudianteReservas")
-//    private List<Estudiantes> estudiantesList;
 
     @ManyToMany
     @JoinTable(

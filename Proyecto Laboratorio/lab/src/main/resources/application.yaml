@@ -19,8 +19,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: rayajax777@gmail.com
-    password:  klzx ocmk uuii oday
+    username: laboratoristaupc@gmail.com
+    password:  ezim tduj kezy gzld
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true

@@ -1,4 +1,5 @@
 package laboratorio.lab.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +21,8 @@ public class AreaEstudios {
     @Column(name = "AREA")
     private String area;
 
-
     @OneToMany(mappedBy = "id_areaEstudio")
+    @JsonIgnore
     private List<Reservas> reservasList;
 
     public Integer getIdArea() {

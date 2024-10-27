@@ -1,8 +1,6 @@
 package laboratorio.lab.services;
 
-import laboratorio.lab.models.Estudiantes;
 import laboratorio.lab.models.VerificarToken;
-import laboratorio.lab.repositories.EstudiantesRepository;
 import laboratorio.lab.repositories.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -58,10 +58,6 @@ public class EstudiantesService {
     }
 
     public List<EstudiantesDto> saveEstudiantes(@RequestBody List<Estudiantes> estudiantesList) {
-//        for(Estudiantes estu : estudiantesList){
-//            estu.getId_carrera().getEstudiantesList().add(estu);
-//            carrerasRepository.save(estu.getId_carrera());
-//        }
         return estudiantesRepository.saveAll(estudiantesList).stream().map(estudiantesMapper::EstudiantesToDto).collect(Collectors.toList());
     }
 }

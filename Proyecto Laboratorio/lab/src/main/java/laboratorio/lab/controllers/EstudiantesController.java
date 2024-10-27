@@ -9,9 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/estudiantes")
 public class EstudiantesController {
 
     private EstudiantesService estudiantesService;
@@ -25,7 +27,7 @@ public class EstudiantesController {
         this.emailService = emailService;
     }
 
-    @PostMapping("/estudiantes/save")
+    @PostMapping("/save")
     private Estudiantes saveEstudiante(@RequestBody Estudiantes estudiante){
         return estudiantesService.saveEstudiante(estudiante);
     }
@@ -34,7 +36,7 @@ public class EstudiantesController {
     public ResponseEntity<String> login(@RequestBody Estudiantes estudiante) {
         boolean esAutenticado = autenticacionService.autenticar(estudiante.getId_codigo(), estudiante.getContrasena());
         if (esAutenticado) {
-            emailService.sendSimpleEmail("felipetrivinogarzon@gmail.com", "Prueba","Este es el body");
+           // emailService.sendSimpleEmail("felipetrivinogarzon@gmail.com", "Prueba","Este es el body");
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

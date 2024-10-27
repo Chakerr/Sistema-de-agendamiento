@@ -4,8 +4,11 @@ import laboratorio.lab.dtos.EstudiantesDto;
 import laboratorio.lab.exceptions.ExceptionReserva;
 import laboratorio.lab.models.Estudiantes;
 import laboratorio.lab.models.Reservas;
+import laboratorio.lab.services.AutenticationService;
 import laboratorio.lab.services.EstudiantesService;
-import laboratorio.lab.services.ReservaService;
+import laboratorio.lab.services.ReservasService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,16 +17,34 @@ import java.util.List;
 @RequestMapping("/ResEst")
 public class ResEstController {
     private EstudiantesService estudiantesService;
-    private ReservaService reservasService;
+    private AutenticationService autenticacionService;
+    private ReservasService reservasService;
 
-    public ResEstController(EstudiantesService estudiantesService, ReservaService reservasService) {
+    public ResEstController(EstudiantesService estudiantesService, AutenticationService autenticacionService, ReservasService reservasService) {
         this.estudiantesService = estudiantesService;
+        this.autenticacionService = autenticacionService;
         this.reservasService = reservasService;
+    }
+
+    @PostMapping("/saveEst")
+    private Estudiantes saveEstudiante(@RequestBody Estudiantes estudiante){
+        return estudiantesService.saveEstudiante(estudiante);
     }
 
     @PostMapping("/saveS")
     private List<EstudiantesDto> saveEstudiantes(@RequestBody List<Estudiantes> estudiantesList){
         return estudiantesService.saveEstudiantes(estudiantesList);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody Estudiantes estudiante) {
+
+        boolean esAutenticado = autenticacionService.autenticar(estudiante.getId_codigo(), estudiante.getContrasena());
+        if (esAutenticado) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @GetMapping("/reservas")
@@ -40,5 +61,10 @@ public class ResEstController {
                 request.getId_areaEstudio().getIdArea()
         );
         return nuevaReserva;
+    }
+
+    @DeleteMapping("/borrarRes/{id}")
+    public Reservas borrarReserva(@PathVariable Integer id){
+        return reservasService.borrarReserva(id);
     }
 }

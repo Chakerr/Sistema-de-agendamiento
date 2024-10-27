@@ -17,7 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "ESTUDIANTES")
 public class Estudiantes {
-
     @Id
     private Integer id_codigo;
 
@@ -36,17 +35,73 @@ public class Estudiantes {
     @Column(name = "CONTRASENA")
     private String contrasena;
 
-    @Column(name = "CODIGO_CARNET")
-    private String codigoCarnet;
-
     @ManyToOne
     @JoinColumn(name = "ID_CARRERA")
-    @JsonBackReference(value = "carrera-estudiantes")
+    @JsonBackReference(value = "relacion1")
     private Carreras id_carrera;
 
     @ManyToMany(mappedBy = "estudiantesList")
     @JsonIgnore
     private List<Reservas> reservasList;
+
+    @Column(name = "CODIGO_CARNET")
+    private String codigoCarnet;
+
+    public void setId_codigo(Integer id_codigo) {
+        this.id_codigo = id_codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(int cedula) {
+        this.cedula = cedula;
+    }
+
+    public int getVisitas() {
+        return visitas;
+    }
+
+    public void setVisitas(int visitas) {
+        this.visitas = visitas;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public Carreras getId_carrera() {
+        return id_carrera;
+    }
+
+    public void setId_carrera(Carreras id_carrera) {
+        this.id_carrera = id_carrera;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+    public List<Reservas> getReservasList() {
+        return reservasList;
+    }
+
+    public void setReservasList(List<Reservas> reservasList) {
+        this.reservasList = reservasList;
+    }
 
     public Integer getId_codigo() {
         return id_codigo;
@@ -56,35 +111,11 @@ public class Estudiantes {
         return contrasena;
     }
 
-    public String getCodigoCarnet() {return codigoCarnet;}
+    public String getCodigoCarnet() {
+        return codigoCarnet;
+    }
 
-    public String getCorreo() {return correo;}
-
-    public String getNombre() {return nombre;}
-
-    public int getCedula() {return cedula;}
-
-    public int getVisitas() {return visitas;}
-
-    public Carreras getId_carrera() {return id_carrera;}
-
-    public List<Reservas> getReservasList() {return reservasList;}
-
-    public void setId_codigo(Integer id_codigo) {this.id_codigo = id_codigo;}
-
-    public void setNombre(String nombre) {this.nombre = nombre;}
-
-    public void setCedula(int cedula) {this.cedula = cedula;}
-
-    public void setVisitas(int visitas) {this.visitas = visitas;}
-
-    public void setCorreo(String correo) {this.correo = correo;}
-
-    public void setContrasena(String contrasena) {this.contrasena = contrasena;}
-
-    public void setCodigoCarnet(String codigoCarnet) {this.codigoCarnet = codigoCarnet;}
-
-    public void setId_carrera(Carreras id_carrera) {this.id_carrera = id_carrera;}
-
-    public void setReservasList(List<Reservas> reservasList) {this.reservasList = reservasList;}
+    public void setCodigoCarnet(String codigoCarnet) {
+        this.codigoCarnet = codigoCarnet;
+    }
 }

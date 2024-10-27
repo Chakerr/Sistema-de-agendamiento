@@ -1,5 +1,6 @@
 package laboratorio.lab.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,6 +26,7 @@ public class Equipos {
 
     @ManyToOne
     @JoinColumn(name = "id_reserva",nullable = false)
+    @JsonIgnore
     private Reservas reserva;
 
     public Integer getId_equipo() {

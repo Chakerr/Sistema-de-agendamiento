@@ -21,10 +21,9 @@ public class AutenticarTokenController {
     }
 
     @PostMapping("/pre-register")
-    public ResponseEntity<String> preRegister(@RequestBody Estudiantes estudiante ) {
+    public ResponseEntity<String> preRegister(@RequestBody Estudiantes estudiante) {
         String token = tokenService.generarToken(estudiante.getCorreo());
-        System.out.println("El correo recibido es: " + estudiante.getCorreo());
-        emailService.sendSimpleEmail(estudiante.getCorreo(), "Verificación Por Token","Su token es: " + token);
+        emailService.sendSimpleEmail(estudiante.getCorreo(), "Verificación Por Token","Su token es: \n" + token);
         System.out.println("Token enviado: " + token);
         return ResponseEntity.ok("Token de verificación enviado al correo");
     }
