@@ -9,28 +9,43 @@ document.addEventListener('DOMContentLoaded', async () => {
             const response = await fetch('http://localhost:8080/api/inventario');
             const inventario = await response.json();
 
-
             inventarioContainer.innerHTML = '';
-
 
             inventario.forEach(item => {
                 const inventarioItem = document.createElement('div');
                 inventarioItem.classList.add('inventario-item');
                 inventarioItem.innerHTML = `
-                    <input type="checkbox" id="${item.nombre}" name="inventario" value="${item.nombre}">
+                    <input type="checkbox" id="${item.nombre}" name="inventario" value="${item.nombre}" class="inventario-checkbox">
                     <label for="${item.nombre}">
                         <img src="${item.imagenUrl}" alt="${item.nombre}" class="inventario-img">
                         ${item.nombre} - Descripción: ${item.descripcion}
                     </label>
+                    <label for="cantidad_${item.nombre}">Cantidad:</label>
+                    <input type="number" id="cantidad_${item.nombre}" name="cantidad_${item.nombre}" value="1" min="1" style="width: 50px;" disabled>
                 `;
                 inventarioContainer.appendChild(inventarioItem);
             });
+
+
+            const checkboxes = document.querySelectorAll('.inventario-checkbox');
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', (e) => {
+                    const cantidadInput = document.getElementById(`cantidad_${checkbox.value}`);
+                    cantidadInput.disabled = !checkbox.checked; 
+                    if (checkbox.checked) {
+                        cantidadInput.value = 1;
+                    }
+                });
+            });
+
         } catch (error) {
             console.error('Error al obtener el inventario:', error);
         }
     };
 
+
     await obtenerInventario();
+    
     cantidadAcompanantesInput.addEventListener('input', () => {
         acompanantesContainer.innerHTML = '';
 
@@ -97,6 +112,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 alert('Reserva creada con éxito');
                 reservaForm.reset();
                 acompanantesContainer.innerHTML = '';
+                inventarioContainer.innerHTML = '';
             } else {
                 alert('Error al crear la reserva');
             }
