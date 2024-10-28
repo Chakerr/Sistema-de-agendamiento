@@ -1,0 +1,79 @@
+/* Estilos para el formulario de registro */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; /* Ocupa toda la altura de la pantalla */
+    max-width: 90%; /* Limita el ancho total */
+    margin: 0 auto; /* Centra el main */
+}
+
+h2 {
+    color: var(--color-principal);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: var(--color-acento);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px; /* Limitar el ancho del formulario */
+    min-width: 300px; /* Ancho mínimo */
+    margin: 0 auto; /* Centra el formulario */
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input[type="number"],
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px; /* Espacio entre elementos */
+}
+
+button {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Hacer el botón del mismo ancho que el formulario */
+    margin-top: 30px; /* Cambia 30px al espacio que desees */
+    border-radius: 5px; /* Cambia 5px a la medida que desees para el redondeado */
+}
+
+button:hover {
+    background-color: var(--color-secundario);
+}
+
+/* Mensaje de feedback */
+#message {
+    margin-top: 20px;
+    text-align: center;
+    color: green; /* O el color que prefieras para mensajes de éxito */
+}
+
+.select-carrera {
+    margin-bottom: 20px; /* Ajusta el valor según tus necesidades */
+}

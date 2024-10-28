@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; /* Ocupa toda la altura de la pantalla */
+    max-width: 90%; /* Limita el ancho total */
+    margin: 0 auto; /* Centra el main */
+}
+
+form {
+    background-color: var(--color-acento);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px; /* Limitar el ancho del formulario */
+    min-width: 300px; /* Ancho mínimo */
+    margin: 20px auto; /* Centra el formulario */
+}
+
+label {
+    display: block;
+    padding: 10px;
+    margin-bottom: 15px;
+    color: var(--color-texto);
+}
+
+input {
+    width: 320px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    color: var(--color-texto);
+}
+
+button {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Hacer el botón del mismo ancho que el formulario */
+    margin-top: 30px; /* Espacio entre elementos */
+    border-radius: 5px; /* Redondeo consistente */
+}
+
+button:hover {
+    background-color: var(--color-acento);
+}
+
+.register-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.register-section a {
+    color: var(--color-principal);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-section a:hover {
+    color: var(--color-secundario);
+}

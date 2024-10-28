@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+    </header>
+    <main>
+        <h2>Iniciar Sesión</h2>
+
+        <!-- Selección de tipo de usuario -->
+        <div>
+            <button id="studentLoginBtn">Iniciar sesión como Estudiante</button>
+            <button id="adminLoginBtn">Iniciar sesión como Administrador/Laboratorista</button>
+        </div>
+
+        <!-- Formulario de inicio de sesión -->
+        <form id="loginForm" style="display: none;">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="id_codigo" required>
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="contrasena" required>
+            <button type="submit">Entrar</button>
+        </form>
+
+        <div id="message"></div> <!-- Para mostrar mensajes de error o éxito -->
+        <div class="register-section">
+            <p>¿No tienes cuenta? <a href="registro.html" id="registerLink">Regístrate aquí</a></p>
+        </div>
+    </main>
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    
+    <script>
+        // JavaScript para manejar la selección de tipo de usuario
+        const studentLoginBtn = document.getElementById('studentLoginBtn');
+        const adminLoginBtn = document.getElementById('adminLoginBtn');
+        const loginForm = document.getElementById('loginForm');
+
+        studentLoginBtn.addEventListener('click', () => {
+            loginForm.style.display = 'block';
+            loginForm.dataset.userType = 'student'; // Puedes usar esto para diferenciar en el backend
+        });
+
+        adminLoginBtn.addEventListener('click', () => {
+            loginForm.style.display = 'block';
+            loginForm.dataset.userType = 'admin'; // Puedes usar esto para diferenciar en el backend
+        });
+    </script>
+</body>
+</html>

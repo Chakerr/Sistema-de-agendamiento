@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Reservas</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/usuario-reservas.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+    </header>
+    <main>
+        <h1>Gestionar Reservas</h1>
+        
+        <h2>Reservas Creadas</h2>
+        <div id="reservasList">
+            <!-- Aquí se mostrarán las reservas -->
+        </div>
+
+        <h2>Detalles de la Reserva</h2>
+        <div id="reservaDetalles" style="display: none;">
+            <h3 id="reservaTitulo"></h3>
+            <p><strong>Laboratorio:</strong> <span id="reservaLaboratorio"></span></p>
+            <p><strong>Fecha:</strong> <span id="reservaFecha"></span></p>
+            <p><strong>Hora:</strong> <span id="reservaHora"></span></p>
+            <p><strong>Materiales Reservados:</strong></p>
+            <ul id="materialesList"></ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/usuario-reservas.js"></script>
+</body>
+</html>

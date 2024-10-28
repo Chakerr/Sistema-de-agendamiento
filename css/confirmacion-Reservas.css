@@ -1,0 +1,62 @@
+/* Estilos específicos para la página de Confirmación de Reserva */
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: var(--color-fondo);
+    padding: 20px;
+}
+
+.confirmacion {
+    max-width: 600px;
+    width: 100%;
+    background-color: var(--color-acento);
+    border: 1px solid var(--color-principal);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    color: var(--color-secundario);
+}
+
+.confirmacion h1 {
+    color: var(--color-principal);
+    margin-bottom: 20px;
+}
+
+.detalles-reserva {
+    background-color: var(--color-fondo);
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: var(--color-secundario);
+}
+
+.detalles-reserva h2 {
+    color: var(--color-principal);
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+.detalles-reserva p {
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+button {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--color-secundario);
+}
