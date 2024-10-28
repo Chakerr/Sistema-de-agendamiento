@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportar Incidencia</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/problemas-incidencias.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="dashboard.html">Mi Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="incidencias">
+            <h1>Reportar Incidencia</h1>
+            <form id="incidenciaForm">
+                <label for="laboratorio">Laboratorio:</label>
+                <select id="laboratorio" name="laboratorio" required>
+                    <option value="fisica">Laboratorio de Física</option>
+                    <option value="quimica">Laboratorio de Química</option>
+                    <option value="computo">Laboratorio de Cómputo</option>
+                </select>
+                
+                <label for="descripcion">Descripción de la Incidencia:</label>
+                <textarea id="descripcion" name="descripcion" rows="4" required></textarea>
+                
+                <label for="foto">Subir Foto (opcional):</label>
+                <input type="file" id="foto" name="foto">
+                
+                <button type="submit">Enviar Incidencia</button>
+            </form>
+            <div id="message"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/incidencias.js"></script>
+</body>
+</html>

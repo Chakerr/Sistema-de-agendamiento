@@ -1,0 +1,89 @@
+/* usuario-reservas.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 80vh; /* Ocupa toda la altura de la pantalla */
+    max-width: 90%; /* Limita el ancho total */
+    margin: 0 auto; /* Centra el main */
+}
+
+h1, h2 {
+    color: var(--color-secundario);
+}
+
+form {
+    background-color: var(--color-fondo);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px; /* Limitar el ancho del formulario */
+    min-width: 300px; /* Ancho mínimo */
+    margin: 0 auto; /* Centra el formulario */
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--color-texto);
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--color-acento);
+}
+
+#laboratoriosList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.laboratorio {
+    background-color: var(--color-fondo);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 10px;
+    flex: 1 1 calc(25% - 20px); /* Ajusta el ancho de los laboratorios */
+}
+
+.laboratorio h3 {
+    margin-top: 0;
+    color: var(--color-secundario);
+}
+
+.inventario-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.inventario-img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 5px;
+    background-color: var(--color-acento);
+}

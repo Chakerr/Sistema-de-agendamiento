@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Inicio</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/inicio.css">
+</head>
+<body>
+    <header>
+        <button class="hamburger">☰</button>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="inicio.html">Inicio</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h2>Bienvenido al sistema de reservas de laboratorios de la Universidad Piloto de Colombia</h2>
+        <div class="carousel">
+            <div class="carousel-images">
+                <img src="img/universidad-piloto-de-colombia.jpg" alt="Imagen 1" class="carousel-image active">
+                <img src="img/BOGOTA-Universidad-piloto.jpg" alt="Imagen 2" class="carousel-image">
+                <img src="img/Laboratorio piloto.jpg" alt="Imagen 3" class="carousel-image">
+            </div>
+            <div class="carousel-indicators">
+                <div onclick="currentImage(0)" class="active"></div>
+                <div onclick="currentImage(1)"></div>
+                <div onclick="currentImage(2)"></div>
+            </div>
+        </div>
+        <p>En nuestra plataforma, podrás acceder a laboratorios equipados, coordinar tus reservas y gestionar todas las reservas de laboratorios.</p>
+        <a href="login.html" class="btn">Iniciar Sesión</a>
+    </div>
+        
+    </div>
+
+    <div class="features">
+        <h2>Características</h2>
+        <div class="feature">
+            <h3>Laboratorios Equipados</h3>
+            <p>Contamos con laboratorios modernos y equipados.</p>
+        </div>
+        <div class="feature">
+            <h3>Asesoría</h3>
+            <p>Brindamos apoyo y asesoría a nuestros estudiantes.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+    <script src="js/inicio.js"></script>
+</body>
+</html>

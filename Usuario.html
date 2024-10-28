@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Usuario</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/usuario.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+    </header>
+    
+    <main>
+        <section class="dashboard">
+            <h1>Bienvenido</h1>
+            <div class="reservas">
+                <h2>Mis Reservas Activas</h2>
+                <ul id="listaReservas">
+                    <!-- Las reservas se cargarán dinámicamente aquí -->
+                </ul>
+            </div>
+            <div class="acciones">
+                <button onclick="window.location.href='reservas.html'">Hacer Nueva Reserva</button>
+                <button onclick="window.location.href='perfil.html'">Ver Perfil</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

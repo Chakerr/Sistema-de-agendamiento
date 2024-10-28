@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas de Laboratorios</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/reservas.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+    </header>
+
+    <main>
+        <h1>Crear Reserva</h1>
+
+        <form id="reservaForm">
+            <label for="laboratorio">Seleccione un Laboratorio:</label>
+            <select id="laboratorio" name="laboratorio" required>
+                <option value="">Seleccione un laboratorio</option>
+                <option value="Lab 1">Laboratorio </option>
+                <!-- Puedes agregar más laboratorios aquí -->
+            </select>
+
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+
+            <label for="hora_inicio">Hora de inicio:</label>
+            <input type="time" id="hora_inicio" name="hora_inicio" required>
+
+            <label for="hora_fin">Hora final:</label>
+            <input type="time" id="hora_fin" name="hora_fin" required>
+
+            <label for="cantidad_acompanantes">Cantidad de acompañantes:</label>
+            <input type="number" id="cantidad_acompanantes" name="cantidad_acompanantes" min="0" required>
+
+            <div id="acompanantesContainer"></div>
+
+            <h2>Seleccione el Inventario</h2>
+            <div id="inventarioContainer">
+            </div>
+            <button type="submit">Crear Reserva</button>
+        </form>
+
+        <h2>Laboratorios Disponibles</h2>
+        <div id="laboratoriosList">
+            <div class="laboratorio">
+                <h3>Laboratorio 1</h3>
+                <p>Descripción: Laboratorio.</p>
+                <p>Capacidad: 24 personas</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/reservas.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz del Laboratorista</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/laboratorista.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+    </header>
+
+    <main>
+        <h1>Panel del Laboratorista</h1>
+        
+        <!-- Botón para confirmar asistencia o reserva -->
+        <section id="asistencia">
+            <h2>Confirmar Asistencia/Reserva</h2>
+            <button id="confirmarAsistenciaBtn">Confirmar Asistencia</button>
+        </section>
+
+        <!-- Sección de gestión de reservas -->
+        <section id="gestionReservas">
+            <h2>Gestión de Reservas</h2>  
+            <input type="text" id="codigoEstudianteReservas" placeholder="Código del Estudiante">
+            <button id="consultarReservasBtn">Consultar Reservas</button>
+            <div id="listaReservas">
+                <!-- Aquí se cargará la lista de reservas -->
+            </div>
+            <div id="resultadoReservas"></div>
+        </section>
+
+        <!-- Sección de gestión de materiales -->
+        <section id="gestionMateriales">
+            <h2>Número de Visitas</h2>
+            <input type="text" id="codigoEstudianteVisitas" placeholder="Código del estudiante">
+            <button id="consultarVisitasBtn">Consultar Visitas</button>
+            <div id="resultadoVisitas"></div>
+            <div id="totalVisitas"></div>
+        </section>
+
+        <section class="cuadro visitas">
+            <h1>Total de Visitas</h1>
+            <p id="numero-visitas">0</p>
+            <p class="descripcion">Número total de visitas registradas en el sistema.</p>
+        </section>
+    
+        <section class="cuadro reservas">
+            <h1>Total de Reservas</h1>
+            <p id="numero-reservas">0</p>
+            <button id="ver-detalles" onclick="toggleDetalles()">Ver Detalles de Reservas</button>
+            <div id="detalles-reserva" class="detalles" style="display: none;">
+                <!-- Aquí se mostrarán los detalles de las reservas -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+
+</html>
