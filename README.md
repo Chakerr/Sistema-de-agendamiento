@@ -19,20 +19,6 @@ El sistema ha sido desarrollado con una arquitectura modular que permite el crec
 
 Para más detalles, consulta la documentación completa en el repositorio, donde se incluyen diagramas de arquitectura, estructura de la base de datos y las API disponibles para integración.
 
-## 📌 Roadmap
-
-### Fase 1: MVP (Producto Mínimo Viable)
-- Implementación de la gestión básica de reservas.
-- Creación de un inventario básico de recursos.
-
-### Fase 2: Optimización y Automatización
-- Agregar automatización de notificaciones para las reservas.
-- Desarrollar una interfaz optimizada para dispositivos móviles.
-
-### Fase 3: Expansión y Escalabilidad
-- Implementación de reportes y estadísticas sobre el uso de los laboratorios.
-- Integración con otros sistemas internos de la universidad.
-
 ## 🤝 Colaboradores
 
 - **Arquitecto**: [@Tomver27](https://github.com/Tomver27)
