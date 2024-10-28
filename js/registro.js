@@ -9,9 +9,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData(form);
         const data = {
-            id_codigo: formData.get('codigo_estudiante'), // Asegúrate de que el nombre del campo coincida
-            correo: formData.get('correo'),
-            contrasena: formData.get('contrasena')
+            id_codigo: formData.get('codigo_estudiante'),
+            fecha: formData.get('fecha') || new Date().toISOString().split('T')[0], 
+            hora_inicio: formData.get('hora_inicio') || "", 
+            horas: formData.get('horas') ? parseInt(formData.get('horas'), 10) : null, 
+            numero_personas: formData.get('numero_personas') ? parseInt(formData.get('numero_personas'), 10) : null,
+            estado: formData.get('estado') === 'true', 
+            id_areaEstudio: {
+                idArea: formData.get('id_area') ? parseInt(formData.get('id_area'), 10) : null, 
+                area: formData.get('area') || "" 
+            },
+            equiposList: [] 
         };
 
         try {

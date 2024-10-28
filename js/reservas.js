@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             checkboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', (e) => {
                     const cantidadInput = document.getElementById(`cantidad_${checkbox.value}`);
-                    cantidadInput.disabled = !checkbox.checked; 
+                    cantidadInput.disabled = !checkbox.checked;
                     if (checkbox.checked) {
                         cantidadInput.value = 1;
                     }
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
     await obtenerInventario();
-    
+
     cantidadAcompanantesInput.addEventListener('input', () => {
         acompanantesContainer.innerHTML = '';
 
@@ -91,14 +91,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         const inventarioItems = document.querySelectorAll('input[name="inventario"]:checked');
         inventarioItems.forEach(item => {
             inventarioSeleccionado.push(item.value);
-        });
+        }); 
+        const fecha = formData.get('fecha');
+        const [day, month, year] = fecha.split('/');
+        const formattedDate = fecha ? fecha.split('/').reverse().join('-') : new Date().toISOString().split('T')[0];
+        
         const data = {
-            laboratorio: formData.get('laboratorio'),
-            fecha: formData.get('fecha'),
+            id_codigo: formData.get('codigo_estudiante'),
+            fecha: formattedDate,
             hora_inicio: formData.get('hora_inicio'),
-            hora_fin: formData.get('hora_fin'),
-            acompanantes: acompanantes,
-            inventario: inventarioSeleccionado
+            horas: parseInt(formData.get('horas'), 10),
+            numero_personas: parseInt(formData.get('numero_personas'), 10),
+            correo: formData.get('correo'),
+            contrasena: formData.get('contrasena')
         };
 
         try {
