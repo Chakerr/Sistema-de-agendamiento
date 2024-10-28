@@ -26,26 +26,26 @@ public class ResEstController {
         this.reservasService = reservasService;
     }
 
-    @PostMapping("/saveEst")
-    private Estudiantes saveEstudiante(@RequestBody Estudiantes estudiante){
-        return estudiantesService.saveEstudiante(estudiante);
-    }
+//    @PostMapping("/saveEst")
+//    private Estudiantes saveEstudiante(@RequestBody Estudiantes estudiante){
+//        return estudiantesService.saveEstudiante(estudiante);
+//    }
 
-    @PostMapping("/saveS")
-    private List<EstudiantesDto> saveEstudiantes(@RequestBody List<Estudiantes> estudiantesList){
-        return estudiantesService.saveEstudiantes(estudiantesList);
-    }
+    //@PostMapping("/saveS")
+    //private List<EstudiantesDto> saveEstudiantes(@RequestBody List<Estudiantes> estudiantesList){
+      //  return estudiantesService.saveEstudiantes(estudiantesList);
+    //}
 
-    @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Estudiantes estudiante) {
-
-        boolean esAutenticado = autenticacionService.autenticar(estudiante.getId_codigo(), estudiante.getContrasena());
-        if (esAutenticado) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestBody Estudiantes estudiante) {
+//
+//        boolean esAutenticado = autenticacionService.autenticar(estudiante.getId_codigo(), estudiante.getContrasena());
+//        if (esAutenticado) {
+//            return ResponseEntity.ok().build();
+//        } else {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//        }
+//    }
 
     @GetMapping("/reservas")
     public List<Reservas> verReservas(){

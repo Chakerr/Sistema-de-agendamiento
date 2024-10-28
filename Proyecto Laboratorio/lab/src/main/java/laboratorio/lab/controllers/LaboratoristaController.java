@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/administradores")
 public class LaboratoristaController {
 
     private AutenticationLaboratoristaService autenticationLaboratoristaService;
@@ -34,9 +35,9 @@ public class LaboratoristaController {
         }
     }
 
-    @PostMapping("/reservas-activas")
-    public List<Reservas> obtenerReservaPorEstudiante(@RequestBody Estudiantes estudiante) {
-        return laboratoristaService.ReservasporEstudiante(estudiante.getId_codigo());
+    @GetMapping("/reservas-activas/{idCodigo}")
+    public List<Reservas> obtenerReservaPorEstudiante(@PathVariable Integer idCodigo) {
+        return laboratoristaService.ReservasporEstudiante(idCodigo);
     }
 
     @GetMapping("/total-visitas")
