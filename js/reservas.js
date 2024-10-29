@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const reservaForm = document.getElementById('reservaForm');
-    const cantidadAcompanantesInput = document.getElementById('cantidad_acompanantes');
+    const cantidadAcompanantesInput = document.getElementById('numero_personas'); // Cambiado aquí
     const acompanantesContainer = document.getElementById('acompanantesContainer');
     const inventarioContainer = document.getElementById('inventarioContainer');
 
@@ -10,39 +10,22 @@ document.addEventListener('DOMContentLoaded', async () => {
             const inventario = await response.json();
 
             inventarioContainer.innerHTML = '';
-
             inventario.forEach(item => {
                 const inventarioItem = document.createElement('div');
                 inventarioItem.classList.add('inventario-item');
                 inventarioItem.innerHTML = `
-                    <input type="checkbox" id="${item.nombre}" name="inventario" value="${item.nombre}" class="inventario-checkbox">
+                    <input type="checkbox" id="${item.nombre}" name="inventario" value="${item.nombre}">
                     <label for="${item.nombre}">
                         <img src="${item.imagenUrl}" alt="${item.nombre}" class="inventario-img">
                         ${item.nombre} - Descripción: ${item.descripcion}
                     </label>
-                    <label for="cantidad_${item.nombre}">Cantidad:</label>
-                    <input type="number" id="cantidad_${item.nombre}" name="cantidad_${item.nombre}" value="1" min="1" style="width: 50px;" disabled>
                 `;
                 inventarioContainer.appendChild(inventarioItem);
             });
-
-
-            const checkboxes = document.querySelectorAll('.inventario-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', (e) => {
-                    const cantidadInput = document.getElementById(`cantidad_${checkbox.value}`);
-                    cantidadInput.disabled = !checkbox.checked;
-                    if (checkbox.checked) {
-                        cantidadInput.value = 1;
-                    }
-                });
-            });
-
         } catch (error) {
             console.error('Error al obtener el inventario:', error);
         }
     };
-
 
     await obtenerInventario();
 
@@ -53,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (isNaN(cantidad) || cantidad < 0) {
             return;
         }
+
         for (let i = 1; i <= cantidad; i++) {
             const div = document.createElement('div');
             div.classList.add('acompanante');
@@ -72,12 +56,13 @@ document.addEventListener('DOMContentLoaded', async () => {
             acompanantesContainer.appendChild(div);
         }
     });
+
     reservaForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const formData = new FormData(reservaForm);
         const acompanantes = [];
-        const cantidad = parseInt(formData.get('cantidad_acompanantes'));
+        const cantidad = parseInt(formData.get('numero_personas'));
 
         for (let i = 1; i <= cantidad; i++) {
             const acompanante = {
@@ -87,24 +72,41 @@ document.addEventListener('DOMContentLoaded', async () => {
             };
             acompanantes.push(acompanante);
         }
+
         const inventarioSeleccionado = [];
         const inventarioItems = document.querySelectorAll('input[name="inventario"]:checked');
         inventarioItems.forEach(item => {
             inventarioSeleccionado.push(item.value);
-        }); 
+        });
+
         const fecha = formData.get('fecha');
         const [day, month, year] = fecha.split('/');
         const formattedDate = fecha ? fecha.split('/').reverse().join('-') : new Date().toISOString().split('T')[0];
-        
+
+        const horaInicio = formData.get('hora_inicio');
+        const horasSumar = parseInt(formData.get('Horas'), 10);
+
+        const [hora, minutos] = horaInicio.split(':').map(Number);
+        const fechaHoraInicio = new Date(`${formattedDate}T${horaInicio}`);
+        fechaHoraInicio.setHours(fechaHoraInicio.getHours() + horasSumar);
+
+        const horasFin = `${String(fechaHoraInicio.getHours()).padStart(2, '0')}:${String(fechaHoraInicio.getMinutes()).padStart(2, '0')}`;
+
         const data = {
-            id_codigo: formData.get('codigo_estudiante'),
             fecha: formattedDate,
-            hora_inicio: formData.get('hora_inicio'),
-            horas: parseInt(formData.get('horas'), 10),
+            hora_inicio: horaInicio + ":00",
+            horas: horasSumar,
+            horas_fin: horasFin + ":00",
             numero_personas: parseInt(formData.get('numero_personas'), 10),
-            correo: formData.get('correo'),
-            contrasena: formData.get('contrasena')
+            estado: false, 
+            id_areaEstudio: {
+                idArea: parseInt(formData.get('areaEstudio'), 10) // Asegúrate de que esto sea un número
+            },
+            equiposList: inventarioSeleccionado,
+            estudiantesList: acompanantes
         };
+
+        alert(JSON.stringify(data, null, 2));
 
         try {
             const response = await fetch('http://localhost:8080/reservas', {
@@ -117,7 +119,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 alert('Reserva creada con éxito');
                 reservaForm.reset();
                 acompanantesContainer.innerHTML = '';
-                inventarioContainer.innerHTML = '';
             } else {
                 alert('Error al crear la reserva');
             }

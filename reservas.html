@@ -23,7 +23,7 @@
             <label for="laboratorio">Seleccione un Laboratorio:</label>
             <select id="laboratorio" name="laboratorio" required>
                 <option value="">Seleccione un laboratorio</option>
-                <option value="Lab 1">Laboratorio </option>
+                <option value="Lab 1">Redes y telecomunicaciones</option>
                 <!-- Puedes agregar más laboratorios aquí -->
             </select>
 
@@ -31,20 +31,42 @@
             <input type="date" id="fecha" name="fecha" required>
 
             <label for="hora_inicio">Hora de inicio:</label>
-            <input type="time" id="hora_inicio" name="hora_inicio" required>
+            <input type="time" id="hora_inicio" name="hora_inicio" step="3600" required>
 
-            <label for="hora_fin">Hora final:</label>
-            <input type="time" id="hora_fin" name="hora_fin" required>
+            <label for="Horas">Horas:</label>
+            <select id="Horas" name="Horas" required>
+                <option value="" disabled selected>Seleccione una hora</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+            </select>
 
-            <label for="cantidad_acompanantes">Cantidad de acompañantes:</label>
-            <input type="number" id="cantidad_acompanantes" name="cantidad_acompanantes" min="0" required>
+            <label for="areaEstudio">Area de estudio:</label>
+            <select id="areaEstudio" name="areaEstudio" required>
+                <option value="" disabled selected>Seleccione una área</option>
+                <option value="1">Fundamentos de ingeniería</option>
+                <option value="2">Electrónica Básica</option>
+                <option value="3">Desarrollo de aplicaciones WEB</option>
+                <option value="4">IoT</option>
+                <option value="5">Electiva Diciplinar: Domótica</option>
+                <option value="6">Sistemas Operativos</option>
+                <option value="7">Teoría General de Sistemas</option>
+                <option value="8">Redes de Datos</option>
+                <option value="9">Tesis de Grado</option>
+                <option value="10">Transmisión de datos</option>
+                <option value="11">Redes y Comunicaciones</option>
+
+            </select>
+
+            <label for="numero_personas">Cantidad de acompañantes:</label>
+            <input type="number" id="numero_personas" name="numero_personas" min="0" required>
 
             <div id="acompanantesContainer"></div>
 
             <h2>Seleccione el Inventario</h2>
             <div id="inventarioContainer">
 
-                <!-- El JavaScript generará los elementos de inventario aquí -->
+
 
             </div>
             <button type="submit">Crear Reserva</button>
@@ -65,6 +87,19 @@
     </footer>
 
     <script src="js/reservas.js"></script>
+    <script>
+        // Función para asegurar que solo se acepten horas exactas
+        function ajustarHoraExacta(input) {
+            const [hora, minuto] = input.value.split(':').map(Number);
+            if (minuto !== 0) {
+                input.value = `${hora.toString().padStart(2, '0')}:00`;
+            }
+        }
+
+        // Asignar la función al evento 'change' de los campos de hora
+        document.getElementById('hora_inicio').addEventListener('change', (e) => ajustarHoraExacta(e.target));
+    </script>
+</body>
 </body>
 
 </html>
