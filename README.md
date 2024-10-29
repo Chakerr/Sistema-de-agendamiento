@@ -29,7 +29,7 @@ Para más detalles, consulta la documentación completa en el repositorio, donde
 
 ## 📝 Licencia
 
-Este proyecto está bajo la licencia [MIT](LICENSE), lo que permite su libre uso, modificación y distribución. Por favor, consulta el archivo `LICENSE` para más detalles.
+Este proyecto está bajo la licencia [MIT](LICENSE), lo que permite su libre uso, modificación y distribución. Por favor, consulta el archivo [LICENSE](LICENSE) para más detalles.
 
 ---
 
