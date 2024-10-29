@@ -118,7 +118,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             const cantidadInput = document.getElementById(`cantidad_${item.value}`);
             const cantidad = cantidadInput ? parseInt(cantidadInput.value) : 0;
                 inventarioSeleccionado.push({
-                    id_equipo: parseInt(item.value,10), // ID del equipo
+                    id_equipo: item.value, // ID del equipo
                     nombre: item.nextElementSibling.innerText, // Nombre del equipo
                     cantidad: cantidad // Cantidad seleccionada
                 });

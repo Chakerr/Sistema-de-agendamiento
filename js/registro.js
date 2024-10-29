@@ -1,40 +1,32 @@
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const messageDiv = document.getElementById('message');
-    const tokenField = document.getElementById('tokenField'); // Campo de token
+    const tokenField = document.getElementById('token'); // Campo de token de entrada
+    const tokenFieldDiv = document.getElementById('tokenField'); // Div que contiene el campo de token
     const verifyTokenButton = document.getElementById('verifyToken'); // Botón para verificar el token
+    let storedData = {}; // Variable para almacenar los datos del formulario
 
+    // Manejar el envío del formulario de registro
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const formData = new FormData(form);
-        const data = {
+        storedData = { // Guardar datos para reutilizar en la verificación del token
             id_codigo: formData.get('codigo_estudiante'),
-            fecha: formData.get('fecha') || new Date().toISOString().split('T')[0], 
-            hora_inicio: formData.get('hora_inicio') || "", 
-            horas: formData.get('horas') ? parseInt(formData.get('horas'), 10) : null, 
-            numero_personas: formData.get('numero_personas') ? parseInt(formData.get('numero_personas'), 10) : null,
-            estado: formData.get('estado') === 'true', 
-            id_areaEstudio: {
-                idArea: formData.get('id_area') ? parseInt(formData.get('id_area'), 10) : null, 
-                area: formData.get('area') || "" 
-            },
-            equiposList: [] 
+            correo: formData.get('correo'),
+            contrasena: formData.get('contrasena')
         };
 
         try {
-            const response = await fetch('http://localhost:8080/registro', {  // URL del backend
+            const response = await fetch('http://localhost:8080/pre-register', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(storedData),
             });
 
             if (response.ok) {
-                // Mostrar el campo para ingresar el token
-                tokenField.style.display = 'block'; 
-                verifyTokenButton.style.display = 'block'; // Mostrar el botón para verificar el token
+                // Mostrar el campo para ingresar el token y el botón de verificación
+                tokenFieldDiv.style.display = 'block';
                 messageDiv.textContent = 'Registro exitoso. Ingresa el token enviado a tu correo electrónico.';
             } else {
                 messageDiv.textContent = 'Error en el registro. Intenta de nuevo.';
@@ -50,23 +42,43 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = tokenField.value; // Obtener el valor del token
         const tokenData = {
             token: token,
-            id_codigo: formData.get('codigo_estudiante'), // Reutilizar el id_codigo
-            correo: formData.get('correo'),
-            contrasena: formData.get('contrasena')
+            id_codigo: storedData.id_codigo, // Usar datos guardados
+            correo: storedData.correo,
+            contrasena: storedData.contrasena
         };
 
         try {
-            const tokenResponse = await fetch('http://localhost:8080/verificar-token', { // URL para verificar el token
+            const tokenResponse = await fetch('http://localhost:8080/verify-token', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(tokenData),
             });
 
             if (tokenResponse.ok) {
-                messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
-                // Aquí podrías redirigir al usuario a la página de inicio de sesión o realizar otras acciones
+                    messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
+                    setTimeout(() => {
+                        window.location.href = '/Sistema-de-agendamiento-frontend/login.html';
+                    }, 2000);
+                const selectCarrera = document.getElementById('carrera');
+                const registro = {
+                    id_codigo: storedData.id_codigo,
+                    nombre: document.getElementById('nombre').value, // Reutilizar el nombre
+                    cedula: document.getElementById('cedula').value,
+                    correo: storedData.correo,
+                    contrasena: storedData.contrasena,
+                    id_carrera: {
+                        id: selectCarrera.value,
+                        carrera: selectCarrera.options[selectCarrera.selectedIndex].text
+                    }
+                    
+                };
+
+                // Guardar los datos finales de registro en la base de datos
+                await fetch('http://localhost:8080/estudiantes/save', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(registro),
+                });
             } else {
                 messageDiv.textContent = 'Token inválido. Intenta de nuevo.';
             }
