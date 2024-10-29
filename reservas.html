@@ -71,15 +71,6 @@
             </div>
             <button type="submit">Crear Reserva</button>
         </form>
-
-        <h2>Laboratorios Disponibles</h2>
-        <div id="laboratoriosList">
-            <div class="laboratorio">
-                <h3>Laboratorio 1</h3>
-                <p>Descripción: Laboratorio.</p>
-                <p>Capacidad: 24 personas</p>
-            </div>
-        </div>
     </main>
 
     <footer>
@@ -87,18 +78,6 @@
     </footer>
 
     <script src="js/reservas.js"></script>
-    <script>
-        // Función para asegurar que solo se acepten horas exactas
-        function ajustarHoraExacta(input) {
-            const [hora, minuto] = input.value.split(':').map(Number);
-            if (minuto !== 0) {
-                input.value = `${hora.toString().padStart(2, '0')}:00`;
-            }
-        }
-
-        // Asignar la función al evento 'change' de los campos de hora
-        document.getElementById('hora_inicio').addEventListener('change', (e) => ajustarHoraExacta(e.target));
-    </script>
 </body>
 </body>
 

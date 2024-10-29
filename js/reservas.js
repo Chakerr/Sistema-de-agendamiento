@@ -6,18 +6,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const obtenerInventario = async () => {
         try {
-            const response = await fetch('http://localhost:8080/api/inventario');
+            const response = await fetch('http://localhost:8080/inventarios/obtener');
             const inventario = await response.json();
-
+    
             inventarioContainer.innerHTML = '';
             inventario.forEach(item => {
                 const inventarioItem = document.createElement('div');
                 inventarioItem.classList.add('inventario-item');
                 inventarioItem.innerHTML = `
-                    <input type="checkbox" id="${item.nombre}" name="inventario" value="${item.nombre}">
-                    <label for="${item.nombre}">
-                        <img src="${item.imagenUrl}" alt="${item.nombre}" class="inventario-img">
-                        ${item.nombre} - Descripción: ${item.descripcion}
+                    <input type="checkbox" id="${item.equipo}" name="inventario" value="${item.idInventario}">
+                    <label for="${item.equipo}">
+                        ${item.equipo}
                     </label>
                 `;
                 inventarioContainer.appendChild(inventarioItem);
@@ -46,16 +45,38 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <label for="nombre_acompanante_${i}">Nombre:</label>
                 <input type="text" id="nombre_acompanante_${i}" name="nombre_acompanante_${i}" required>
                 
-                <label for="cedula_acompanante_${i}">Cédula:</label>
+                <label for="cedula_acompanante_${i}">Codigo:</label>
                 <input type="text" id="cedula_acompanante_${i}" name="cedula_acompanante_${i}" required>
-                
-                <label for="carrera_acompanante_${i}">Carrera:</label>
-                <input type="text" id="carrera_acompanante_${i}" name="carrera_acompanante_${i}" required>
             `;
 
             acompanantesContainer.appendChild(div);
         }
     });
+
+    function ajustarHoraExacta(input) {
+        const [hora, minuto] = input.value.split(':').map(Number);
+        if (minuto !== 0) {
+            input.value = `${hora.toString().padStart(2, '0')}:00`;
+        }
+    }
+
+    document.getElementById('reservaForm').addEventListener('submit', (e) => {
+        const horaInicio = document.getElementById('hora_inicio').value;
+        const [hora, minutos] = horaInicio.split(':').map(Number);
+        const horaTotal = hora * 60 + minutos;
+
+        // Convertir las horas de inicio y fin en minutos
+        const inicioValido = 6 * 60; // 6 AM
+        const finValido = 20 * 60;    // 8 PM
+
+        if (horaTotal < inicioValido || horaTotal >= finValido) {
+            e.preventDefault(); // Evitar el envío del formulario
+            alert('Por favor, seleccione una hora entre 6 AM y 8 PM.');
+        }
+    });
+
+    // Asignar la función al evento 'change' de los campos de hora
+    document.getElementById('hora_inicio').addEventListener('change', (e) => ajustarHoraExacta(e.target));
 
     reservaForm.addEventListener('submit', async (e) => {
         e.preventDefault();
