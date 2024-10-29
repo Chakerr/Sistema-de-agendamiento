@@ -8,23 +8,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         try {
             const response = await fetch('http://localhost:8080/inventarios/obtener');
             const inventario = await response.json();
-    
+
             inventarioContainer.innerHTML = '';
             inventario.forEach(item => {
                 const inventarioItem = document.createElement('div');
                 inventarioItem.classList.add('inventario-item');
                 inventarioItem.innerHTML = `
-                    <input type="checkbox" id="${item.equipo}" name="inventario" value="${item.idInventario}">
-                    <label for="${item.equipo}">
-                        ${item.equipo}
-                    </label>
-                `;
+                <input type="checkbox" id="${item.equipo}" name="inventario" value="${item.idInventario}" onchange="toggleCantidadInput(this)">
+                <label for="${item.equipo}">
+                    ${item.equipo}
+                </label>
+                <div class="cantidad-container" style="display: none;">
+                    <label for="cantidad_${item.idInventario}">Cantidad:</label>
+                    <input type="number" id="cantidad_${item.idInventario}" name="cantidad_${item.idInventario}" min="1" style="width: 50px;">
+                </div>
+            `;
                 inventarioContainer.appendChild(inventarioItem);
             });
         } catch (error) {
             console.error('Error al obtener el inventario:', error);
         }
     };
+
+    function toggleCantidadInput(checkbox) {
+        const cantidadContainer = checkbox.nextElementSibling.nextElementSibling;
+        if (checkbox.checked) {
+            cantidadContainer.style.display = 'block';
+        } else {
+            cantidadContainer.style.display = 'none';
+            cantidadContainer.querySelector('input[type="number"]').value = '';
+        }
+    }
 
     await obtenerInventario();
 
@@ -45,8 +59,11 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <label for="nombre_acompanante_${i}">Nombre:</label>
                 <input type="text" id="nombre_acompanante_${i}" name="nombre_acompanante_${i}" required>
                 
-                <label for="cedula_acompanante_${i}">Codigo:</label>
+                <label for="cedula_acompanante_${i}">Cedula:</label>
                 <input type="text" id="cedula_acompanante_${i}" name="cedula_acompanante_${i}" required>
+
+                <label for="id_codigo_${i}">Codigo:</label>
+                <input type="text" id="id_codigo_${i}" name="id_codigo_${i}" required>
             `;
 
             acompanantesContainer.appendChild(div);
@@ -87,9 +104,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         for (let i = 1; i <= cantidad; i++) {
             const acompanante = {
+                id_codigo: formData.get(`id_codigo_${i}`),
                 nombre: formData.get(`nombre_acompanante_${i}`),
-                cedula: formData.get(`cedula_acompanante_${i}`),
-                carrera: formData.get(`carrera_acompanante_${i}`)
+                cedula: formData.get(`cedula_acompanante_${i}`)
+                
             };
             acompanantes.push(acompanante);
         }
@@ -97,7 +115,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const inventarioSeleccionado = [];
         const inventarioItems = document.querySelectorAll('input[name="inventario"]:checked');
         inventarioItems.forEach(item => {
-            inventarioSeleccionado.push(item.value);
+            const cantidadInput = document.getElementById(`cantidad_${item.value}`);
+            const cantidad = cantidadInput ? parseInt(cantidadInput.value) : 0;
+                inventarioSeleccionado.push({
+                    id_equipo: parseInt(item.value,10), // ID del equipo
+                    nombre: item.nextElementSibling.innerText, // Nombre del equipo
+                    cantidad: cantidad // Cantidad seleccionada
+                });
+            //inventarioSeleccionado.push(item.value);
         });
 
         const fecha = formData.get('fecha');
@@ -119,7 +144,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             horas: horasSumar,
             horas_fin: horasFin + ":00",
             numero_personas: parseInt(formData.get('numero_personas'), 10),
-            estado: false, 
+            estado: false,
             id_areaEstudio: {
                 idArea: parseInt(formData.get('areaEstudio'), 10) // Asegúrate de que esto sea un número
             },
