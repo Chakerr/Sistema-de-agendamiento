@@ -25,6 +25,7 @@ Para más detalles, consulta la documentación completa en el repositorio, donde
 - **Desarrollador Frontend**: [@Chakerr](https://github.com/Chakerr)
 - **Desarrolladores Backend**: [@Nicolas041020](https://github.com/Nicolas041020), [@Petriv2004](https://github.com/Petriv2004)
 - **Análisis de Requerimientos**: [@JulianNova2004](https://github.com/JulianNova2004)
+- **Prubas**: [@JulianNova2004](https://github.com/JulianNova2004), [@Tomver27](https://github.com/Tomver27),[@Chakerr](https://github.com/Chakerr), [@Nicolas041020](https://github.com/Nicolas041020), [@Petriv2004](https://github.com/Petriv2004)
 
 
 ## 📝 Licencia
