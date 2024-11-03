@@ -128,6 +128,26 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error al consultar detalles de la reserva:', error));
     }
 
+    function cargarCalendario(reservas) {
+        const eventos = reservas.map(reserva => ({
+            title: `Reserva: ${reserva.id}`,
+            start: `${reserva.fecha}T${reserva.hora_inicio}`, // Formato ISO
+            end: `${reserva.fecha}T${reserva.hora_fin}` // Formato ISO
+        }));
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            defaultDate: moment().format('YYYY-MM-DD'),
+            editable: false,
+            events: eventos,
+            eventLimit: true // permite ver más eventos si hay muchos
+        });
+    }
+
     document.getElementById('consultarReservasBtn').addEventListener('click', consultarReservas);
     document.getElementById('ver-detalles').addEventListener('click', verDetallesReserva);
     
