@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz del Laboratorista</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/laboratorista.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+    </header>
+
+    <main>
+        <h1>Panel del Laboratorista</h1>
+        <section id="asistencia">
+            <h2>Confirmar Asistencia con RFID</h2>
+            <button id="confirmarAsistenciaBtn">Confirmar Asistencia</button>
+        </section>
+        <section id="asistencia">
+            <h2>Confirmar Asistencia con cedula</h2>
+            <label for="cedula">Cedula:</label>
+            <input type="number" id="cedula" name="cedula" required>
+            <button id="confirmarAsistenciaBtn">Confirmar Asistencia</button>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+    <script src="js/confirmacion.js"></script>
+</body>
+</html>
