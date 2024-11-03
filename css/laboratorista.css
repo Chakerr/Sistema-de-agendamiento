@@ -1,3 +1,4 @@
+
 /* General adjustments */
 html, body {
     height: 100%;
@@ -119,4 +120,23 @@ footer {
 .detalles p {
     color: var(--color-secundario);
     margin: 5px 0;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 270px;
+}
+
+.btn:hover {
+    background-color: var(--color-secundario);
 }

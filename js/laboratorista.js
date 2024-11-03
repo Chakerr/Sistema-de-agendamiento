@@ -1,30 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    function leerRFID() {
-        return 'RFID_' + Math.random().toString(36).substr(2, 9);
-    }
 
-    function enviarAlBackend(codigo) {
-        fetch('https://tu-backend-api.com/api/confirmarAsistencia', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ codigoRFID: codigo })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Confirmación enviada:', data);
-            alert('Asistencia confirmada correctamente.');
-        })
-        .catch(error => {
-            console.error('Error al enviar los datos:', error);
-            alert('Hubo un error al confirmar la asistencia.');
-        });
-    }
+    const fechaInput = document.getElementById('fecha');
 
-    document.getElementById('confirmarAsistenciaBtn').addEventListener('click', function() {
-        let codigo = leerRFID();
-        enviarAlBackend(codigo);
+    fechaInput.addEventListener('change', (event) => {
+        const fechaSeleccionada = new Date(event.target.value);
+        const diaSemana = fechaSeleccionada.getDay();
+
+        if (diaSemana === 6) { // 0 es domingo
+            alert('No se pueden seleccionar domingos. Por favor, elija otro día.');
+            fechaInput.value = '';
+            fechaInput.focus();
+        }
     });
 
     function cargarReservas() {
@@ -94,6 +80,40 @@ document.addEventListener('DOMContentLoaded', () => {
         consultarTotalReservas();
     }
 
+    function consultarReservasPorFecha() {
+        const fechaSeleccionada = document.getElementById('fecha').value;
+    
+        if (!fechaSeleccionada) {
+            alert('Por favor, selecciona una fecha.');
+            return;
+        }
+    
+        fetch(``)
+            .then(response => response.json())
+            .then(reservas => {
+                const resultadoReservasPorFecha = document.getElementById('resultadoReservasPorFecha');
+                resultadoReservasPorFecha.innerHTML = '';
+    
+                if (Array.isArray(reservas) && reservas.length > 0) {
+                    reservas.forEach(reserva => {
+                        const reservaDiv = document.createElement('div');
+                        reservaDiv.classList.add('reserva-item');
+                        reservaDiv.innerHTML = `
+                            <p><strong>ID:</strong> ${reserva.id}</p>
+                            <p><strong>Fecha:</strong> ${reserva.fecha}</p>
+                            <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
+                            <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
+                            <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
+                        `;
+                        resultadoReservasPorFecha.appendChild(reservaDiv);
+                    });
+                } else {
+                    resultadoReservasPorFecha.textContent = `No hay reservas para la fecha seleccionada: ${fechaSeleccionada}.`;
+                }
+            })
+            .catch(error => console.error('Error al consultar reservas por fecha:', error));
+    }
+
     function verDetallesReserva() {
         console.log("Botón 'Ver Detalles de Reservas' presionado."); // Comprobación inicial
         
@@ -150,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('consultarReservasBtn').addEventListener('click', consultarReservas);
     document.getElementById('ver-detalles').addEventListener('click', verDetallesReserva);
+    document.getElementById('consultarReservasFechasBtn').addEventListener('click', consultarReservasPorFecha);
     
     document.getElementById('consultarVisitasBtn').addEventListener('click', function() {
         const codigoEstudiante = document.getElementById('codigoEstudianteVisitas').value;

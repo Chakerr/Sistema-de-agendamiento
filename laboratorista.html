@@ -20,10 +20,9 @@
     <main>
         <h1>Panel del Laboratorista</h1>
         
-        <!-- Botón para confirmar asistencia o reserva -->
         <section id="asistencia">
-            <h2>Confirmar Asistencia/Reserva</h2>
-            <button id="confirmarAsistenciaBtn">Confirmar Asistencia</button>
+            <h2>Confirmar Asistencia de la reserva</h2>
+            <a href="confirmacion.html" class="btn">Confirmar asistencia</a>
         </section>
 
         <!-- Sección de gestión de reservas -->
@@ -35,6 +34,17 @@
                 <!-- Aquí se cargará la lista de reservas -->
             </div>
             <div id="resultadoReservas"></div>
+        </section>
+
+        <section id="gestionReservasPorFechas">
+            <h2>Gestión de Reservas Activas por Fecha</h2>  
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+            <button id="consultarReservasFechasBtn">Consultar Reservas por Fecha</button>
+            <div id="listaReservasPorFecha">
+                <!-- Aquí se cargará la lista de reservas por fecha -->
+            </div>
+            <div id="resultadoReservasPorFecha"></div>
         </section>
 
         <!-- Sección de gestión de materiales -->
