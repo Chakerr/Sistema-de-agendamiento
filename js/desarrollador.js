@@ -35,32 +35,37 @@ function modificarEstudiante() {
     })
     .catch(error => console.error('Error:', error));
 }
-
-// Función para consultar todos los estudiantes
 function consultarEstudiantes() {
     fetch('http://localhost:8080/jsons/estudiantes')
-    .then(response => response.json())
-    .then(data => {
-        const resultContainer = document.getElementById('resultContainer');
-        resultContainer.innerHTML = '';
+        .then(response => response.json())
+        .then(data => {
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
 
-        if (data.length === 0) {
-            resultContainer.innerHTML = '<p>No hay estudiantes registrados.</p>';
-            return;
-        }
+            if (data.length === 0) {
+                resultContainer.innerHTML = '<p>No hay estudiantes registrados.</p>';
+                return;
+            }
 
-        const table = document.createElement('table');
-        const headerRow = document.createElement('tr');
-        headerRow.innerHTML = '<th>ID</th><th>Código del Carnet</th>';
-        table.appendChild(headerRow);
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<th>ID</th><th>Nombre</th><th>Cédula</th><th>Visitas</th><th>Correo</th><th>Código</th>';
+            table.appendChild(headerRow);
 
-        data.forEach(estudiante => {
-            const row = document.createElement('tr');
-            row.innerHTML = `<td>${estudiante.id_codigo}</td><td>${estudiante.codigoCarnet}</td>`;
-            table.appendChild(row);
-        });
+            data.forEach(estudiante => {
+                const row = document.createElement('tr');
+                row.innerHTML =` 
+                    <td>${estudiante.id_codigo}</td>
+                    <td>${estudiante.nombre}</td>
+                    <td>${estudiante.cedula}</td>
+                    <td>${estudiante.visitas}</td>
+                    <td>${estudiante.correo}</td>
+                    <td>${estudiante.codigoCarnet}</td>`
+                ;
+                table.appendChild(row);
+            });
 
-        resultContainer.appendChild(table);
-    })
-    .catch(error => console.error('Error:', error));
+            resultContainer.appendChild(table);
+        })
+        .catch(error => console.error('Error:', error));
 }
