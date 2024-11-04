@@ -73,11 +73,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             div.classList.add('acompanante');
 
             div.innerHTML = `
-                <h3>Acompañante ${i}</h3>
+                <h3>Estudiante ${i}</h3>
                 <label for="nombre_acompanante_${i}">Nombre:</label>
                 <input type="text" id="nombre_acompanante_${i}" name="nombre_acompanante_${i}" required>
 
-                <label for="id_codigo_${i}">Código:</label>
+                <label for="id_codigo_${i}">Código o Cédula (para no estudiante):</label>
                 <input type="text" id="id_codigo_${i}" name="id_codigo_${i}" required>
 
                 <label for="carrera_acompanante_${i}">Seleccione una Carrera:</label>
@@ -89,6 +89,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <option value="4">Ingeniería Financiera</option>
             `;
             acompanantesContainer.appendChild(div);
+
+            const nombreField = div.querySelector(`#nombre_acompanante_${i}`);
+            nombreField.addEventListener('input', (e) => {
+                // Reemplaza cualquier carácter que no sea letra, espacio
+                nombreField.value = nombreField.value.replace(/[^a-zA-Z\s]/g, '');
+            });
+
         }
     });
 

@@ -16,13 +16,7 @@ main {
     margin: 0 auto; /* Centra el main */
 }
 
-h1 {
-    color: var(--color-principal);
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.perfil {
+form {
     background-color: var(--color-acento);
     padding: 20px;
     border-radius: 8px;
@@ -30,20 +24,23 @@ h1 {
     width: 90%;
     max-width: 400px; /* Limitar el ancho del formulario */
     min-width: 300px; /* Ancho mínimo */
-    margin: 0 auto; /* Centra el formulario */
+    margin: 20px auto; /* Centra el formulario */
 }
 
 label {
     display: block;
-    margin: 10px 0 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    color: var(--color-texto);
 }
 
 input {
-    width: 100%; /* Usar todo el ancho disponible */
+    width: 320px;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid var(--color-secundario);
     border-radius: 5px;
+    color: var(--color-texto);
 }
 
 button {
@@ -54,11 +51,25 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: 100%; /* Hacer el botón del mismo ancho que el formulario */
-    margin-top: 15px; /* Espacio entre botones */
+    margin-top: 30px; /* Espacio entre elementos */
     border-radius: 5px; /* Redondeo consistente */
 }
 
 button:hover {
-    background-color: var(--color-secundario);
+    background-color: var(--color-acento);
 }
 
+.register-section {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.register-section a {
+    color: var(--color-principal);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-section a:hover {
+    color: var(--color-secundario);
+}

@@ -1,20 +1,33 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    const listaReservas = document.getElementById('listaReservas');
+document.addEventListener('DOMContentLoaded', () => {
+    const cancelarReservaBtn = document.getElementById('cancelarReservaBtn');
+    const codigoReservaInput = document.getElementById('codigoReserva');
+    const resultadoReservasDiv = document.getElementById('resultadoReservas');
 
-    try {
-        const response = await fetch('http://localhost:8080/mis-reservas');  // URL del backend
-        const reservas = await response.json();
-
-        if (reservas.length === 0) {
-            listaReservas.innerHTML = '<li>No tienes reservas activas.</li>';
-        } else {
-            reservas.forEach(reserva => {
-                const li = document.createElement('li');
-                li.textContent = `Reserva: ${reserva.nombreLaboratorio} - Fecha: ${reserva.fecha}`;
-                listaReservas.appendChild(li);
-            });
+    // Función para cancelar una reserva
+    cancelarReservaBtn.addEventListener('click', async () => {
+        const codigoReserva = codigoReservaInput.value.trim();
+        
+        if (!codigoReserva) {
+            resultadoReservasDiv.textContent = 'Por favor, ingresa el código de la reserva.';
+            return;
         }
-    } catch (error) {
-        listaReservas.innerHTML = '<li>Error al cargar las reservas.</li>';
-    }
+
+        try {
+            const response = await fetch(`http://localhost:8080/reservas/cancelar`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ codigo: codigoReserva })
+            });
+
+            if (response.ok) {
+                resultadoReservasDiv.textContent = 'Reserva cancelada exitosamente.';
+                codigoReservaInput.value = ''; // Limpiar el campo de entrada
+            } else {
+                resultadoReservasDiv.textContent = 'Error al cancelar la reserva. Verifica el código.';
+            }
+        } catch (error) {
+            console.error('Error de conexión:', error);
+            resultadoReservasDiv.textContent = 'Error de conexión al cancelar la reserva. Intenta de nuevo.';
+        }
+    });
 });

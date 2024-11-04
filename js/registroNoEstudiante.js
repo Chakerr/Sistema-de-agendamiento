@@ -13,21 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
         nombreField.value = nombreField.value.replace(/[^a-zA-Z\s]/g, '');
     });
 
-    // Función para iniciar el cronómetro de 5 minutos
-    function startTimer(duration) {
-        let timer = duration;
-        countdownInterval = setInterval(() => {
-            const minutes = Math.floor(timer / 60);
-            const seconds = timer % 60;
-            messageDiv.textContent = `Tiempo restante: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
-            if (--timer < 0) {
-                clearInterval(countdownInterval);
-                messageDiv.textContent = "El tiempo para registrar el token ha expirado.";
-                tokenFieldDiv.style.display = "none"; // Ocultar el campo de token
-            }
-        }, 1000);
-    }
+        // Función para iniciar el cronómetro de 5 minutos
+        function startTimer(duration) {
+            let timer = duration;
+            countdownInterval = setInterval(() => {
+                const minutes = Math.floor(timer / 60);
+                const seconds = timer % 60;
+                messageDiv.textContent = `Tiempo restante: ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    
+                if (--timer < 0) {
+                    clearInterval(countdownInterval);
+                    messageDiv.textContent = "El tiempo para registrar el token ha expirado.";
+                    tokenFieldDiv.style.display = "none"; // Ocultar el campo de token
+                }
+            }, 1000);
+        }
 
     // Manejar el envío del formulario de registro
     form.addEventListener('submit', async (e) => {
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData(form);
         storedData = { // Guardar datos para reutilizar en la verificación del token
-            id_codigo: formData.get('codigo_estudiante'),
+            id_codigo: formData.get('cedula'),
             correo: formData.get('correo'),
             contrasena: formData.get('contrasena')
         };
@@ -48,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
+                clearInterval(countdownInterval); // Detener el cronómetro
                 // Mostrar el campo para ingresar el token y el botón de verificación
                 tokenFieldDiv.style.display = 'block';
                 messageDiv.textContent = 'Registro exitoso. Ingresa el token enviado a tu correo electrónico.';
-                startTimer(5 * 60); // Iniciar cronómetro de 5 minutos
             } else {
                 messageDiv.textContent = 'Error en el registro. Intenta de nuevo.';
             }
@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
             messageDiv.textContent = 'Error de conexión. Intenta de nuevo.';
         }
     });
+
 
     // Manejar la verificación del token
     verifyTokenButton.addEventListener('click', async () => {
@@ -79,23 +80,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (tokenResponse.ok) {
-                clearInterval(countdownInterval); // Detener el cronómetro
-                messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 2000);
-
+                    messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 2000);
                 const selectCarrera = document.getElementById('carrera');
                 const registro = {
                     id_codigo: storedData.id_codigo,
-                    nombre: document.getElementById('nombre').value,
+                    nombre: document.getElementById('nombre').value, // Reutilizar el nombre
                     cedula: document.getElementById('cedula').value,
                     correo: storedData.correo,
                     contrasena: storedData.contrasena,
                     id_carrera: {
-                        id: selectCarrera.value,
-                        carrera: selectCarrera.options[selectCarrera.selectedIndex].text
+                        id: 5,
+                        carrera: "Estudiante no perteneciente a la Universidad"
                     }
+                    
                 };
 
                 // Guardar los datos finales de registro en la base de datos

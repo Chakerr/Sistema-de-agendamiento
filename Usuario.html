@@ -15,25 +15,25 @@
     </header>
     
     <main>
-        <section class="dashboard">
-            <h1>Bienvenido</h1>
-            <div class="reservas">
-                <h2>Mis Reservas Activas</h2>
-                <ul id="listaReservas">
-                    <!-- Las reservas se cargarán dinámicamente aquí -->
-                </ul>
-            </div>
-            <div class="acciones">
-                <button onclick="window.location.href='reservas.html'">Hacer Nueva Reserva</button>
-                <button onclick="window.location.href='perfil.html'">Ver Perfil</button>
-            </div>
+        <section id="dashboard">  
+            <h2>Gestión de Reservas</h2>
+            <button onclick="window.location.href='reservas.html'">Hacer Nueva Reserva</button>
         </section>
+            <section id="gestionReservas">
+                <h2>Gestión de Reservas Activas</h2>  
+                <input type="text" id="codigoReserva" placeholder="Codigo de la Reserva">
+                <button id="cancelarReservaBtn">Cancelar Reserva</button>
+                <div id="listaReservas">
+                    <!-- Aquí se cargará la lista de reservas -->
+                </div>
+                <div id="resultadoReservas"></div>
+            </section>
     </main>
 
     <footer>
         <p>© 2024 Jsons. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="js/dashboard.js"></script>
+    <script src="js/usuario.js"></script>
 </body>
 </html>
