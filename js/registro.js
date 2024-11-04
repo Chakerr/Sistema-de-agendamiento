@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (tokenResponse.ok) {
                     messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
                     setTimeout(() => {
-                        window.location.href = '/Sistema-de-agendamiento-frontend/login.html';
+                        window.location.href = 'login.html';
                     }, 2000);
                 const selectCarrera = document.getElementById('carrera');
                 const registro = {

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaz del gerente</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/jefe.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet" />
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .calendar-container { max-width: 500px; margin: auto; padding: 20px; text-align: center; }
+        .calendar-details { margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px; }
+        .event { margin-bottom: 10px; }
+      </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+    </header>
+
+    <main>
+        <h1>Panel del gerente</h1>
+
+        <!-- Sección de gestión de reservas -->
+        <section id="gestionReservas">
+            <h2>Gestión de Reservas Activas</h2>
+            <input type="text" id="codigoEstudianteReservas" placeholder="Código del Estudiante">
+            <button id="consultarReservasBtn">Consultar Reservas</button>
+            <div id="listaReservas">
+                <!-- Aquí se cargará la lista de reservas -->
+            </div>
+            <div id="resultadoReservas"></div>
+        </section>
+
+        <section id="gestionReservasPorFechas">
+            <h2>Gestión de Reservas Activas por Fecha</h2>
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+            <button id="consultarReservasFechasBtn">Consultar Reservas por Fecha</button>
+            <div id="listaReservasPorFecha">
+                <!-- Aquí se cargará la lista de reservas por fecha -->
+            </div>
+            <div id="resultadoReservasPorFecha"></div>
+        </section>
+
+        <!-- Sección de gestión de materiales -->
+        <section id="gestionMateriales">
+            <h2>Número de Visitas</h2>
+            <input type="text" id="codigoEstudianteVisitas" placeholder="Código del estudiante">
+            <button id="consultarVisitasBtn">Consultar Visitas</button>
+            <div id="resultadoVisitas"></div>
+            <div id="totalVisitas"></div>
+        </section>
+
+        <section id="gestionMateriales">
+            <h2>Insertar inventario</h2>
+            <input type="text" id="codigoInventario" placeholder="Codigo inventario">
+            <input type="number" id="codigoInventarioCantidad" placeholder="Cantidad">
+            <button id="consultarVisitasBtn">Consultar inventario</button>
+            <div id="resultadoVisitas"></div>
+            <div id="totalVisitas"></div>
+        </section>
+
+        <section id="gestionMateriales">
+            <h2>Inventario por reserva</h2>
+            <button id="loadChartBtn">Generar Gráfica</button>
+            <canvas id="pieChart" width="400" height="400"></canvas>
+        </section>
+
+        <section id="gestionMateriales1">
+            <h2>Reservas confirmadas por fecha</h2>
+            <button id="loadChartBtn1">Generar Gráfica</button>
+            <canvas id="pieChart1" width="400" height="400"></canvas>
+        </section>
+
+        <section class="cuadro visitas">
+            <h1>Total de Visitas</h1>
+            <p id="numero-visitas">0</p>
+            <p class="descripcion">Número total de visitas registradas en el sistema.</p>
+        </section>
+
+        <section class="cuadro reservas">
+            <h1>Total de Reservas</h1>
+            <p id="numero-reservas">0</p>
+            <button id="ver-detalles">Ver Detalles de Reservas</button>
+            <div id="detallesReserva" class="detalles" style="display: none;">
+                <!-- Aquí se mostrarán los detalles de las reservas -->
+            </div>
+            </div>
+        </section>
+        
+
+    </main>
+
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/gerente.js"></script>
+</body>
+
+</html>

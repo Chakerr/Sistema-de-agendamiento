@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             inventarioSeleccionado.push({
                 id_equipo: item.value, // ID del equipo
                 nombre: item.nextElementSibling.innerText, // Nombre del equipo
-                cantidad: cantidad // Cantidad seleccionada
+                cantidad: 1 // Cantidad seleccionada
             });
         });
 
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             fecha: formattedDate,
             hora_inicio: horaInicio + ":00:00",
             horas: horasSumar,
-            horas_fin: horasFin + ":00:00",
+            hora_fin: horasFin + ":00:00",
             numero_personas: parseInt(formData.get('numero_personas'), 10),
             estado: false,
             id_areaEstudio: {
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         alert(JSON.stringify(data, null, 2));
 
         try {
-            const response = await fetch('http://localhost:8080/reservas', {
+            const response = await fetch('http://localhost:8080/ResEst/SaveRes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),

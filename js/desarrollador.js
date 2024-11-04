@@ -56,7 +56,7 @@ function consultarEstudiantes() {
 
         data.forEach(estudiante => {
             const row = document.createElement('tr');
-            row.innerHTML = `<td>${estudiante.id}</td><td>${estudiante.codigoCarnet}</td>`;
+            row.innerHTML = `<td>${estudiante.id_codigo}</td><td>${estudiante.codigoCarnet}</td>`;
             table.appendChild(row);
         });
 
