@@ -3,48 +3,71 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageDiv = document.getElementById('message');
     const studentLoginBtn = document.getElementById('studentLoginBtn');
     const adminLoginBtn = document.getElementById('adminLoginBtn');
+    const managerLoginBtn = document.getElementById('managerLoginBtn');
+    const chiefLoginBtn = document.getElementById('chiefLoginBtn');
+    const developerLoginBtn = document.getElementById('developerLoginBtn');
     const loginForm = document.getElementById('loginForm');
     const usernameLabel = document.querySelector('label[for="username"]');
     const usernameInput = document.getElementById('username');
 
-    studentLoginBtn.addEventListener('click', () => {
+    const showLoginForm = (userType, label, inputType, inputName) => {
         loginForm.style.display = 'block';
-        loginForm.dataset.userType = 'student';
-        usernameLabel.textContent = 'Codigo:';
-        usernameInput.setAttribute('type', 'text');
-        usernameInput.setAttribute('name', 'id_codigo');
+        loginForm.dataset.userType = userType;
+        usernameLabel.textContent = label;
+        usernameInput.setAttribute('type', inputType);
+        usernameInput.setAttribute('name', inputName);
+    };
+
+    studentLoginBtn.addEventListener('click', () => {
+        showLoginForm('student', 'Código:', 'text', 'id_codigo');
     });
 
     adminLoginBtn.addEventListener('click', () => {
-        loginForm.style.display = 'block';
-        loginForm.dataset.userType = 'admin';
-        usernameLabel.textContent = 'Correo:';
-        usernameInput.setAttribute('type', 'email');
-        usernameInput.setAttribute('name', 'correo');
+        showLoginForm('admin', 'Correo:', 'email', 'correo');
     });
 
+    managerLoginBtn.addEventListener('click', () => {
+        showLoginForm('manager', 'Correo:', 'email', 'correo');
+    });
+
+    chiefLoginBtn.addEventListener('click', () => {
+        showLoginForm('chief', 'Correo:', 'email', 'correo');
+    });
+
+    developerLoginBtn.addEventListener('click', () => {
+        showLoginForm('developer', 'Correo:', 'email', 'correo');
+    });
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const formData = new FormData(form);
-        const isAdmin = loginForm.dataset.userType === 'admin';
-        const data = isAdmin
-            ? {
-                correo: formData.get('correo'),
-                contrasena: formData.get('contrasena')
-            }
-            : {
-                id_codigo: parseInt(formData.get('id_codigo'), 10),
-                contrasena: formData.get('contrasena')
-            };
+        const userType = loginForm.dataset.userType;
+
+        const data = {
+            contrasena: formData.get('contrasena')
+        };
+
+
+        if (userType !== 'student') {
+            data.correo = formData.get('correo');
+        } else {
+            data.id_codigo = parseInt(formData.get('id_codigo'), 10);
+        }
+
+
+        const url = userType === 'admin'
+            ? 'http://localhost:8080/administradores/loginLab'
+            : userType === 'manager'
+                ? 'http://localhost:8080/' // URL para Gerente
+                : userType === 'chief'
+                    ? 'http://localhost:8080/' // URL para Jefe
+                    : userType === 'developer'
+                        ? 'http://localhost:8080/' // URL para Desarrollador
+                        : 'http://localhost:8080/estudiantes/login'; // URL para Estudiante
 
         try {
-            const url = isAdmin 
-                ? 'http://localhost:8080/administradores/loginLab' 
-                : 'http://localhost:8080/estudiantes/login';
-
-            const response = await fetch(url, {  
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
-                const redirectPage = isAdmin ? 'laboratorista.html' : 'usuario.html';
+                const redirectPage = userType === 'admin'
+                    ? 'laboratorista.html'
+                    : userType === 'manager'
+                        ? 'gerente.html'
+                        : userType === 'chief'
+                            ? 'jefe.html'
+                            : userType === 'developer'
+                                ? 'desarrollador.html'
+                                : 'usuario.html';
                 window.location.href = redirectPage;
             } else {
                 messageDiv.textContent = 'Error en el inicio de sesión';
