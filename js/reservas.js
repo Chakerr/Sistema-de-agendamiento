@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const acompanantesContainer = document.getElementById('acompanantesContainer');
 
     function obtenerInventario() {
-        fetch('inventario.json')
+        fetch('prueba.json')
             .then(response => response.json())
             .then(data => {
                 const resultContainer = document.getElementById('inventarioContainer');

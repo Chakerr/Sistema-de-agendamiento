@@ -13,22 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    function cargarReservas() {
-        //http://localhost:8080/administradores/reservas
-        fetch('prueba.json')
-            .then(response => response.json())
-            .then(reservas => {
-                let listaReservas = document.getElementById('listaReservas');
-                listaReservas.innerHTML = '';
-                reservas.forEach(reserva => {
-                    let reservaDiv = document.createElement('div');
-                    reservaDiv.textContent = `ID: ${reserva.id} - Fecha: ${reserva.fecha} - Hora Inicio: ${reserva.hora_inicio} - Hora Fin: ${reserva.hora_fin} - Número de Personas: ${reserva.numero_personas}`;
-                    listaReservas.appendChild(reservaDiv);
-                });
-            })
-            .catch(error => console.error('Error al cargar reservas:', error));
-    }
-
     function consultarTotalVisitas() {
         fetch('http://localhost:8080/administradores/total-visitas')
             .then(response => response.json())
@@ -208,25 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .catch(error => console.error('Error al consultar detalles de la reserva:', error));
     }
 
-    function cargarCalendario(reservas) {
-        const eventos = reservas.map(reserva => ({
-            title: `Reserva: ${reserva.id}`,
-            start: `${reserva.fecha}T${reserva.hora_inicio}`, // Formato ISO
-            end: `${reserva.fecha}T${reserva.hora_fin}` // Formato ISO
-        }));
-
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            defaultDate: moment().format('YYYY-MM-DD'),
-            editable: false,
-            events: eventos,
-            eventLimit: true // permite ver más eventos si hay muchos
-        });
-    }
 
     document.getElementById('consultarReservasBtn').addEventListener('click', consultarReservas);
     document.getElementById('ver-detalles').addEventListener('click', verDetallesReserva);
