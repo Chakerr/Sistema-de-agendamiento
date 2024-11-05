@@ -2,43 +2,72 @@ document.addEventListener('DOMContentLoaded', async () => {
     const reservaForm = document.getElementById('reservaForm');
     const cantidadAcompanantesInput = document.getElementById('numero_personas');
     const acompanantesContainer = document.getElementById('acompanantesContainer');
-    const inventarioContainer = document.getElementById('inventarioContainer');
 
-    const obtenerInventario = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/inventarios/obtener');
-            const inventario = await response.json();
+    function obtenerInventario() {
+        fetch('inventario.json')
+            .then(response => response.json())
+            .then(data => {
+                const resultContainer = document.getElementById('inventarioContainer');
+                resultContainer.innerHTML = '';
 
-            inventarioContainer.innerHTML = '';
-            inventario.forEach(item => {
-                const inventarioItem = document.createElement('div');
-                inventarioItem.classList.add('inventario-item');
-                inventarioItem.innerHTML = `
-                <input type="checkbox" id="${item.equipo}" name="inventario" value="${item.idInventario}" onchange="toggleCantidadInput(this)">
-                <label for="${item.equipo}">
-                    ${item.equipo}
-                </label>
-                <div class="cantidad-container" style="display: none;">
-                    <label for="cantidad_${item.idInventario}">Cantidad:</label>
-                    <input type="number" id="cantidad_${item.idInventario}" name="cantidad_${item.idInventario}" min="1" style="width: 50px;">
-                </div>
-            `;
-                inventarioContainer.appendChild(inventarioItem);
-            });
-        } catch (error) {
-            console.error('Error al obtener el inventario:', error);
-        }
-    };
+                if (data.length === 0) {
+                    resultContainer.innerHTML = '<p>No hay inventario registrado.</p>';
+                    return;
+                }
 
-    function toggleCantidadInput(checkbox) {
-        const cantidadContainer = checkbox.nextElementSibling.nextElementSibling;
-        if (checkbox.checked) {
-            cantidadContainer.style.display = 'block';
-        } else {
-            cantidadContainer.style.display = 'none';
-            cantidadContainer.querySelector('input[type="number"]').value = '';
+                const table = document.createElement('table');
+                const headerRow = document.createElement('tr');
+                headerRow.innerHTML = '<th>ID</th><th>Equipo</th><th>Disponible</th><th>Seleccionar cantidad</th>';
+                table.appendChild(headerRow);
+
+                data.forEach((inventario) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="id-cuadro">${inventario.idInventario}</td>
+                        <td class="nombre-equipo">${inventario.equipo}</td>
+                        <td>${inventario.cantidad}</td>
+                        <td>
+                                <input type="number" min="0" max="${inventario.cantidad}" id="cantidad_${inventario.idInventario}"
+                                data-id="${inventario.idInventario}" data-nombre="${inventario.equipo}" data-inventario="true"
+                                onchange="verificarCantidad(this, ${inventario.cantidad})" />
+                        </td>
+                    `;
+                    table.appendChild(row);
+                });
+
+                resultContainer.appendChild(table);
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+    // Función para verificar si la cantidad seleccionada es válida
+    function verificarCantidad(input, cantidadMaxima) {
+        if (parseInt(input.value) > cantidadMaxima) {
+            alert(`La cantidad seleccionada no puede exceder ${cantidadMaxima}`);
+            input.value = cantidadMaxima;
         }
     }
+
+    // Función para obtener el inventario seleccionado con cantidad mayor a 0
+    function obtenerInventarioSeleccionado() {
+        const inventarioSeleccionado = [];
+        const cantidadInputs = document.querySelectorAll('input[type="number"][data-inventario="true"]'); // Solo selecciona los inputs con data-inventario="true"
+
+        cantidadInputs.forEach(input => {
+            const cantidad_seleccionada = parseInt(input.value); // Renombramos aquí
+            if (cantidad_seleccionada > 0) {
+                inventarioSeleccionado.push({
+                    id_equipo: input.getAttribute('data-id'), // ID del equipo
+                    nombre: input.getAttribute('data-nombre'), // Nombre del equipo
+                    cantidad_seleccionada: cantidad_seleccionada // Renombramos aquí en el objeto
+                });
+            }
+        });
+
+        console.log('Inventario seleccionado:', inventarioSeleccionado);
+        return inventarioSeleccionado;
+    }
+
 
     // Establecer la fecha mínima a hoy
     const fechaInput = document.getElementById('fecha');
@@ -58,17 +87,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    await obtenerInventario();
+    obtenerInventario();
 
     cantidadAcompanantesInput.addEventListener('input', () => {
         acompanantesContainer.innerHTML = '';
 
-        const cantidad = parseInt(cantidadAcompanantesInput.value);
-        if (isNaN(cantidad) || cantidad < 0) {
+        const cantidadacom = parseInt(cantidadAcompanantesInput.value);
+        if (isNaN(cantidadacom) || cantidadacom < 0) {
             return;
         }
 
-        for (let i = 1; i <= cantidad; i++) {
+        for (let i = 1; i <= cantidadacom; i++) {
             const div = document.createElement('div');
             div.classList.add('acompanante');
 
@@ -82,10 +111,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 <label for="carrera_acompanante_${i}">Seleccione una Carrera:</label>
                 <select id="carrera_acompanante_${i}" name="carrera_acompanante_${i}" required>
-                <option value="" disable selected> Seleccione una carrera</option>
+                <option value="" disabled selected> Seleccione una carrera</option>
                 <option value="1">Ingeniería de Sistemas</option>
                 <option value="2">Ingeniería de Telecomunicaciones</option>
-                <option value="3">Ingeniería Mecatronica</option>
+                <option value="3">Ingeniería Mecatrónica</option>
                 <option value="4">Ingeniería Financiera</option>
             `;
             acompanantesContainer.appendChild(div);
@@ -104,9 +133,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const formData = new FormData(reservaForm);
         const acompanantes = [];
-        const cantidad = parseInt(formData.get('numero_personas'));
+        const cantidadacom = parseInt(formData.get('numero_personas'));
 
-        for (let i = 1; i <= cantidad; i++) {
+        for (let i = 1; i <= cantidadacom; i++) {
             const acompanante = {
                 id_codigo: formData.get(`id_codigo_${i}`),
                 nombre: formData.get(`nombre_acompanante_${i}`),
@@ -116,15 +145,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         const inventarioSeleccionado = [];
-        const inventarioItems = document.querySelectorAll('input[name="inventario"]:checked');
-        inventarioItems.forEach(item => {
-            const cantidadInput = document.getElementById(`cantidad_${item.value}`);
-            const cantidad = cantidadInput ? parseInt(cantidadInput.value) : 0;
-            inventarioSeleccionado.push({
-                id_equipo: item.value, // ID del equipo
-                nombre: item.nextElementSibling.innerText, // Nombre del equipo
-                cantidad: 1 // Cantidad seleccionada
-            });
+        document.querySelectorAll('input[type="number"][data-inventario="true"]').forEach(input => {
+            const cantidadsele = parseInt(input.value);
+            if (cantidadsele > 0) {
+                inventarioSeleccionado.push({
+                    id_equipo: input.getAttribute('data-id'),
+                    nombre: input.getAttribute('data-nombre'),
+                    cantidadsele: cantidadsele
+                });
+            }
         });
 
         const fecha = formData.get('fecha');
@@ -148,7 +177,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             estudiantesList: acompanantes
         };
 
-        alert(JSON.stringify(data, null, 2));
+        alert(JSON.stringify(data, null, 0));
 
         try {
             const response = await fetch('http://localhost:8080/ResEst/SaveRes', {
@@ -168,4 +197,5 @@ document.addEventListener('DOMContentLoaded', async () => {
             console.error('Error al crear la reserva:', error);
         }
     });
+
 });
