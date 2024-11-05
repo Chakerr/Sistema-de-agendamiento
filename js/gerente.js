@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(reservas => {
                 const resultadoReservas = document.getElementById('resultadoReservas');
                 resultadoReservas.innerHTML = '';
-    
+
                 if (Array.isArray(reservas) && reservas.length > 0) {
                     reservas.forEach(reserva => {
                         const reservaDiv = document.createElement('div');
@@ -76,24 +76,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(error => console.error('Error al consultar reservas:', error));
-    
+
         consultarTotalReservas();
     }
 
     function consultarReservasPorFecha() {
         const fechaSeleccionada = document.getElementById('fecha').value;
-    
+
         if (!fechaSeleccionada) {
             alert('Por favor, selecciona una fecha.');
             return;
         }
-    
+
         fetch(``)
             .then(response => response.json())
             .then(reservas => {
                 const resultadoReservasPorFecha = document.getElementById('resultadoReservasPorFecha');
                 resultadoReservasPorFecha.innerHTML = '';
-    
+
                 if (Array.isArray(reservas) && reservas.length > 0) {
                     reservas.forEach(reserva => {
                         const reservaDiv = document.createElement('div');
@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function verDetallesReserva() {
         console.log("Botón 'Ver Detalles de Reservas' presionado."); // Comprobación inicial
-        
+
         fetch('http://localhost:8080/administradores/reservas')
             .then(response => {
                 console.log("Respuesta recibida del servidor:", response);
@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const detallesReserva = document.getElementById('detallesReserva');
                 detallesReserva.style.display = 'block'; // Mostrar detalles
                 detallesReserva.innerHTML = '';
-    
+
                 reservas.forEach(reserva => {
                     const reservaDetalle = document.createElement('div');
                     reservaDetalle.classList.add('reserva-detalle');
@@ -171,8 +171,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('consultarReservasBtn').addEventListener('click', consultarReservas);
     document.getElementById('ver-detalles').addEventListener('click', verDetallesReserva);
     document.getElementById('consultarReservasFechasBtn').addEventListener('click', consultarReservasPorFecha);
-    
-    document.getElementById('consultarVisitasBtn').addEventListener('click', function() {
+
+    document.getElementById('consultarVisitasBtn').addEventListener('click', function () {
         const codigoEstudiante = document.getElementById('codigoEstudianteVisitas').value;
         fetch(`http://localhost:8080/administradores/visitas/${codigoEstudiante}`)
             .then(response => response.json())
@@ -187,23 +187,38 @@ document.addEventListener('DOMContentLoaded', () => {
     consultarTotalVisitas();
     consultarTotalReservas();
 
-    const jsonData = {
-        "categorias": ["Categoría A", "Categoría B", "Categoría C", "Categoría D"],
-        "valores": [10, 20, 30, 40]
-    };
-    
+    /**
+     * 
+     * Renderizar Gráfica de Inventario usado por Fecha
+     */
+    function generateColors(count) {
+        const colors = [];
+        for (let i = 0; i < count; i++) {
+            const color = `hsl(${(i * 360 / count)}, 70%, 60%)`; // Genera un color HSL único para cada valor
+            colors.push(color);
+        }
+        return colors;
+    }
+
+    // Función para procesar el JSON dinámico
+    function processJsonData(json) {
+        const categorias = Object.keys(json); // Extrae las claves como categorías
+        const valores = Object.values(json);  // Extrae los valores numéricos
+        return { categorias, valores };
+    }
+
     // Función para crear la gráfica de pastel
     function renderPieChart(data) {
         const ctx = document.getElementById('pieChart').getContext('2d');
-    
+
         new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: data.categorias,
                 datasets: [{
                     data: data.valores,
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-                    hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                    backgroundColor: generateColors(data.categorias.length), // Genera colores dinámicamente
+                    hoverBackgroundColor: generateColors(data.categorias.length)
                 }]
             },
             options: {
@@ -222,15 +237,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderPieChart1(data) {
         const ctx = document.getElementById('pieChart1').getContext('2d');
-    
+
         new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: data.categorias,
                 datasets: [{
                     data: data.valores,
-                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-                    hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0']
+                    backgroundColor: generateColors(data.categorias.length), // Genera colores dinámicamente
+                    hoverBackgroundColor: generateColors(data.categorias.length)
                 }]
             },
             options: {
@@ -246,62 +261,111 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    
-    // Llamar a la función para renderizar la gráfica usando los datos del JSON
-    renderPieChart(jsonData);
-    renderPieChart1(jsonData);
+    //Fetch solamente para inventario
+    async function fetchDataAndRenderChart(fecha) {
+        try {
+            const response = await fetch(`prueba.json?fecha=${encodeURIComponent(fecha)}`, {
+                method: 'GET'
+            });
+
+
+            const jsonData = await response.json();
+
+            const processedData = processJsonData(jsonData);
+            renderPieChart(processedData);
+        } catch (error) {
+            console.error("Error al obtener los datos:", error);
+        }
+    }
+
+    //fetch solamente para asistencia del estudiante
+    async function fetchDataAndRenderChart(fecha) {
+        try {
+            const response = await fetch(`prueba.json?fecha=${encodeURIComponent(fecha)}`, {
+                method: 'GET'
+            });
+
+
+            const jsonData = await response.json();
+
+            const processedData = processJsonData(jsonData);
+            renderPieChart(processedData);
+        } catch (error) {
+            console.error("Error al obtener los datos:", error);
+        }
+    }
+
+    // Agregar el evento de clic al botón
+    document.getElementById('loadChartBtn').addEventListener('click', () => {
+        const fecha = document.getElementById('fechachart').value;
+        if (fecha) {
+            fetchDataAndRenderChart(fecha); // Llama a la función con la fecha seleccionada
+        } else {
+            alert("Por favor, selecciona una fecha.");
+        }
+    });
+
+    // Agregar el evento de clic al botón
+    document.getElementById('loadChartBtn1').addEventListener('click', () => {
+        const fecha = document.getElementById('asistchart').value;
+        if (fecha) {
+            fetchDataAndRenderChart1(fecha); // Llama a la función con la fecha seleccionada
+        } else {
+            alert("Por favor, selecciona una fecha.");
+        }
+    });
 
     function fetchEvents() {
         const dateInput = document.getElementById("date-input").value;
-      
+
         if (!dateInput) {
-          alert("Por favor selecciona una fecha.");
-          return;
+            alert("Por favor selecciona una fecha.");
+            return;
         }
-      
+
         const eventContainer = document.getElementById("event-container");
         eventContainer.innerHTML = "Cargando eventos...";
-      
+
         // Datos simulados de eventos
         const eventsData = {
-          "2024-11-04": [
-            {
-              "title": "Reunión de equipo",
-              "time": "10:00 AM",
-              "description": "Discusión sobre el proyecto."
-            },
-            {
-              "title": "Llamada con cliente",
-              "time": "2:00 PM",
-              "description": "Presentación de avances."
-            }
-          ],
-          "2024-11-05": [
-            {
-              "title": "Entrenamiento",
-              "time": "9:00 AM",
-              "description": "Capacitación en nuevas tecnologías."
-            }
-          ]
+            "2024-11-04": [
+                {
+                    "title": "Reunión de equipo",
+                    "time": "10:00 AM",
+                    "description": "Discusión sobre el proyecto."
+                },
+                {
+                    "title": "Llamada con cliente",
+                    "time": "2:00 PM",
+                    "description": "Presentación de avances."
+                }
+            ],
+            "2024-11-05": [
+                {
+                    "title": "Entrenamiento",
+                    "time": "9:00 AM",
+                    "description": "Capacitación en nuevas tecnologías."
+                }
+            ]
         };
-      
+
         // Obtener los eventos para la fecha seleccionada
         const events = eventsData[dateInput];
-      
+
         // Limpiar el contenedor de eventos
         eventContainer.innerHTML = "";
-      
+
         if (events && events.length > 0) {
-          // Mostrar los eventos
-          events.forEach(event => {
-            const eventDiv = document.createElement("div");
-            eventDiv.className = "event";
-            eventDiv.innerHTML = '<strong>${event.title}</strong><br>${event.time}<br>${event.description}';
-            eventContainer.appendChild(eventDiv);
-          });
+            // Mostrar los eventos
+            events.forEach(event => {
+                const eventDiv = document.createElement("div");
+                eventDiv.className = "event";
+                eventDiv.innerHTML = '<strong>${event.title}</strong><br>${event.time}<br>${event.description}';
+                eventContainer.appendChild(eventDiv);
+            });
         } else {
-          eventContainer.innerHTML = "No hay eventos para esta fecha.";
+            eventContainer.innerHTML = "No hay eventos para esta fecha.";
         }
-      }
-    
+    }
+
 });

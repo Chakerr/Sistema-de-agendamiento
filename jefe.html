@@ -9,11 +9,27 @@
     <link rel="stylesheet" href="css/jefe.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" rel="stylesheet" />
     <style>
-        body { font-family: Arial, sans-serif; }
-        .calendar-container { max-width: 500px; margin: auto; padding: 20px; text-align: center; }
-        .calendar-details { margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px; }
-        .event { margin-bottom: 10px; }
-      </style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .calendar-container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .calendar-details {
+            margin-top: 20px;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+        }
+
+        .event {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -68,6 +84,7 @@
 
         <section id="gestionMateriales">
             <h2>Gráfica de Pastel</h2>
+            <input type="date" id="fechachart" name="Fecha" required>
             <button id="loadChartBtn">Generar Gráfica</button>
             <canvas id="pieChart" width="400" height="400"></canvas>
         </section>

@@ -19,7 +19,7 @@
 
     <main>
         <h1>Panel del Laboratorista</h1>
-        
+
         <section id="asistencia">
             <h2>Confirmar Asistencia de la reserva</h2>
             <a href="confirmacion.html" class="btn">Confirmar asistencia</a>
@@ -27,7 +27,7 @@
 
         <!-- Sección de gestión de reservas -->
         <section id="gestionReservas">
-            <h2>Gestión de Reservas Activas</h2>  
+            <h2>Gestión de Reservas Activas</h2>
             <input type="text" id="codigoEstudianteReservas" placeholder="Código del Estudiante">
             <button id="consultarReservasBtn">Consultar Reservas</button>
             <div id="listaReservas">
@@ -37,15 +37,16 @@
         </section>
 
         <section id="gestionReservasPorFechas">
-            <h2>Gestión de Reservas Activas por Fecha</h2>  
+            <h2>Gestión de Reservas Activas por Fecha</h2>
             <label for="fecha">Fecha:</label>
             <input type="date" id="fecha" name="fecha" required>
             <button id="consultarReservasFechasBtn">Consultar Reservas por Fecha</button>
-            <div id="listaReservasPorFecha">
+            <div id="listaReservasPorFecha"></div>
+            <div id="resultadoReservasPorFecha" class="reservas-grid">
                 <!-- Aquí se cargará la lista de reservas por fecha -->
             </div>
-            <div id="resultadoReservasPorFecha"></div>
         </section>
+
 
         <!-- Sección de gestión de materiales -->
         <section id="gestionMateriales">
@@ -61,7 +62,7 @@
             <p id="numero-visitas">0</p>
             <p class="descripcion">Número total de visitas registradas en el sistema.</p>
         </section>
-    
+
         <section class="cuadro reservas">
             <h1>Total de Reservas</h1>
             <p id="numero-reservas">0</p>
@@ -81,4 +82,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
     <script src="js/laboratorista.js"></script>
 </body>
+
 </html>

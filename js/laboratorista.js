@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function cargarReservas() {
-        fetch('http://localhost:8080/administradores/reservas')
+        //http://localhost:8080/administradores/reservas
+        fetch('prueba.json')
             .then(response => response.json())
             .then(reservas => {
                 let listaReservas = document.getElementById('listaReservas');
@@ -53,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(reservas => {
                 const resultadoReservas = document.getElementById('resultadoReservas');
                 resultadoReservas.innerHTML = '';
-    
+
                 if (Array.isArray(reservas) && reservas.length > 0) {
                     reservas.forEach(reserva => {
                         const reservaDiv = document.createElement('div');
@@ -76,47 +77,106 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(error => console.error('Error al consultar reservas:', error));
-    
+
         consultarTotalReservas();
     }
 
+
+    function mostrarHorarioReservas(reservas) {
+        const resultadoReservasPorFecha = document.getElementById('resultadoReservasPorFecha');
+        resultadoReservasPorFecha.innerHTML = ''; // Limpiar el contenido previo
+
+        // Crear un objeto para las horas del día de 6 AM a 8 PM
+        const horario = {};
+        for (let i = 6; i <= 20; i++) { // Solo de 6 AM (6) a 8 PM (20)
+            horario[i] = []; // Cambiar a un array para múltiples reservas
+        }
+
+        // Procesar reservas y llenar el horario
+        reservas.forEach(reserva => {
+            const horaInicio = new Date(`${reserva.fecha}T${reserva.hora_inicio}`);
+            const horaFin = new Date(`${reserva.fecha}T${reserva.hora_fin}`);
+
+            // Asegurarse de que se procesen solo las horas dentro del rango
+            const inicioHora = Math.max(horaInicio.getHours(), 6);
+            const finHora = Math.min(horaFin.getHours(), 20);
+
+            // Asignar la reserva al array de la hora de inicio
+            horario[inicioHora].push({
+                id: reserva.id,
+                fecha: reserva.fecha,
+                horas: reserva.horas,
+                numero_personas: reserva.numero_personas,
+                estado: reserva.estado,
+                area: reserva.id_areaEstudio.area // Nombre del área de estudio
+            });
+        });
+
+        // Mostrar las reservas en el horario
+        for (let i = 6; i <= 20; i++) { // Solo de 6 AM (6) a 8 PM (20)
+            const reservasPorHora = horario[i];
+            const reservaDiv = document.createElement('div');
+            reservaDiv.classList.add('reserva-item');
+
+            // Formatear la hora a dos dígitos
+            const formattedHour = String(i).padStart(2, '0');
+
+            if (reservasPorHora.length > 0) {
+                reservaDiv.innerHTML = `<p>${formattedHour}:00 - Reservas:</p>`;
+                reservasPorHora.forEach(reserva => {
+                    const estadoReserva = reserva.estado ? 'Asistido' : 'No asistido'; // Cambio aquí
+                    reservaDiv.innerHTML += `
+                        <p>
+                            ID: ${reserva.id}, 
+                            Horas: ${reserva.horas}, 
+                            Número de Personas: ${reserva.numero_personas}, 
+                            Estado: ${estadoReserva}, 
+                            Área de Estudio: ${reserva.area}
+                        </p>
+                    `;
+                });
+            } else {
+                reservaDiv.innerHTML = `<p>${formattedHour}:00 - No hay reservas</p>`;
+            }
+
+            resultadoReservasPorFecha.appendChild(reservaDiv);
+        }
+    }
+
+    // Función para consultar reservas por fecha
     function consultarReservasPorFecha() {
         const fechaSeleccionada = document.getElementById('fecha').value;
-    
+
         if (!fechaSeleccionada) {
             alert('Por favor, selecciona una fecha.');
             return;
         }
-    
-        fetch(``)
+
+        fetch('prueba.json')
             .then(response => response.json())
             .then(reservas => {
-                const resultadoReservasPorFecha = document.getElementById('resultadoReservasPorFecha');
-                resultadoReservasPorFecha.innerHTML = '';
-    
-                if (Array.isArray(reservas) && reservas.length > 0) {
-                    reservas.forEach(reserva => {
-                        const reservaDiv = document.createElement('div');
-                        reservaDiv.classList.add('reserva-item');
-                        reservaDiv.innerHTML = `
-                            <p><strong>ID:</strong> ${reserva.id}</p>
-                            <p><strong>Fecha:</strong> ${reserva.fecha}</p>
-                            <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
-                            <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
-                            <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
-                        `;
-                        resultadoReservasPorFecha.appendChild(reservaDiv);
-                    });
-                } else {
-                    resultadoReservasPorFecha.textContent = `No hay reservas para la fecha seleccionada: ${fechaSeleccionada}.`;
-                }
+                // Convertir horas al formato de dos dígitos
+                reservas.forEach(reserva => {
+                    reserva.hora_inicio = reserva.hora_inicio.padStart(8, '0');
+                    reserva.hora_fin = reserva.hora_fin.padStart(8, '0');
+                });
+
+                const reservasFiltradas = reservas.filter(reserva => reserva.fecha === fechaSeleccionada);
+                console.log('Reservas filtradas:', reservasFiltradas); // Verifica el resultado del filtrado
+                mostrarHorarioReservas(reservasFiltradas);
             })
             .catch(error => console.error('Error al consultar reservas por fecha:', error));
     }
 
+    // Asociar la función al botón
+    document.getElementById('consultarReservasFechasBtn').addEventListener('click', consultarReservasPorFecha);
+
+
+
+
     function verDetallesReserva() {
         console.log("Botón 'Ver Detalles de Reservas' presionado."); // Comprobación inicial
-        
+
         fetch('http://localhost:8080/administradores/reservas')
             .then(response => {
                 console.log("Respuesta recibida del servidor:", response);
@@ -127,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const detallesReserva = document.getElementById('detallesReserva');
                 detallesReserva.style.display = 'block'; // Mostrar detalles
                 detallesReserva.innerHTML = '';
-    
+
                 reservas.forEach(reserva => {
                     const reservaDetalle = document.createElement('div');
                     reservaDetalle.classList.add('reserva-detalle');
@@ -170,9 +230,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('consultarReservasBtn').addEventListener('click', consultarReservas);
     document.getElementById('ver-detalles').addEventListener('click', verDetallesReserva);
-    document.getElementById('consultarReservasFechasBtn').addEventListener('click', consultarReservasPorFecha);
-    
-    document.getElementById('consultarVisitasBtn').addEventListener('click', function() {
+
+    document.getElementById('consultarVisitasBtn').addEventListener('click', function () {
         const codigoEstudiante = document.getElementById('codigoEstudianteVisitas').value;
         fetch(`http://localhost:8080/administradores/visitas/${codigoEstudiante}`)
             .then(response => response.json())
