@@ -13,8 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/reservas/cancelar`, {
-                method: 'POST',
+            const response = await fetch(`http://localhost:8080/ResEst/borrarRes/${codigoReserva}`, {
+                method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ codigo: codigoReserva })
             });

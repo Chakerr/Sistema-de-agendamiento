@@ -2,24 +2,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     const reservaForm = document.getElementById('reservaForm');
     const cantidadAcompanantesInput = document.getElementById('numero_personas');
     const acompanantesContainer = document.getElementById('acompanantesContainer');
-
+ 
     function obtenerInventario() {
-        fetch('prueba.json')
+        fetch('http://localhost:8080/inventarios/obtener')
             .then(response => response.json())
             .then(data => {
                 const resultContainer = document.getElementById('inventarioContainer');
                 resultContainer.innerHTML = '';
-
+ 
                 if (data.length === 0) {
                     resultContainer.innerHTML = '<p>No hay inventario registrado.</p>';
                     return;
                 }
-
+ 
                 const table = document.createElement('table');
                 const headerRow = document.createElement('tr');
                 headerRow.innerHTML = '<th>ID</th><th>Equipo</th><th>Disponible</th><th>Seleccionar cantidad</th>';
                 table.appendChild(headerRow);
-
+ 
                 data.forEach((inventario) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -34,12 +34,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                     `;
                     table.appendChild(row);
                 });
-
+ 
                 resultContainer.appendChild(table);
             })
             .catch(error => console.error('Error:', error));
     }
-
+ 
     // Función para verificar si la cantidad seleccionada es válida
     function verificarCantidad(input, cantidadMaxima) {
         if (parseInt(input.value) > cantidadMaxima) {
@@ -47,12 +47,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             input.value = cantidadMaxima;
         }
     }
-
+ 
     // Función para obtener el inventario seleccionado con cantidad mayor a 0
     function obtenerInventarioSeleccionado() {
         const inventarioSeleccionado = [];
         const cantidadInputs = document.querySelectorAll('input[type="number"][data-inventario="true"]'); // Solo selecciona los inputs con data-inventario="true"
-
+ 
         cantidadInputs.forEach(input => {
             const cantidad_seleccionada = parseInt(input.value); // Renombramos aquí
             if (cantidad_seleccionada > 0) {
@@ -63,52 +63,59 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
             }
         });
-
+ 
         console.log('Inventario seleccionado:', inventarioSeleccionado);
         return inventarioSeleccionado;
     }
-
-
-    // Establecer la fecha mínima a hoy
+ 
+ 
+    // Establecer la fecha mínima a mañana en hora local
     const fechaInput = document.getElementById('fecha');
     const hoy = new Date();
-    const formatoFecha = hoy.toISOString().split('T')[0]; // Formato YYYY-MM-DD
-    fechaInput.setAttribute('min', formatoFecha);
-
+    hoy.setDate(hoy.getDate() + 1); // Sumar 1 día a la fecha actual
+ 
+    // Obtener la fecha en el formato YYYY-MM-DD en la zona horaria local
+    const año = hoy.getFullYear();
+    const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
+    const dia = String(hoy.getDate()).padStart(2, '0');
+ 
+    const formatoFecha = `${año}-${mes}-${dia}`;
+    fechaInput.min = formatoFecha;
+ 
     // Deshabilitar domingos
     fechaInput.addEventListener('change', (event) => {
         const fechaSeleccionada = new Date(event.target.value);
         const diaSemana = fechaSeleccionada.getDay();
-
+ 
         if (diaSemana === 6) { // 0 es domingo
             alert('No se pueden seleccionar domingos. Por favor, elija otro día.');
             fechaInput.value = '';
             fechaInput.focus();
         }
     });
-
+ 
     obtenerInventario();
-
+ 
     cantidadAcompanantesInput.addEventListener('input', () => {
         acompanantesContainer.innerHTML = '';
-
+ 
         const cantidadacom = parseInt(cantidadAcompanantesInput.value);
         if (isNaN(cantidadacom) || cantidadacom < 0) {
             return;
         }
-
+ 
         for (let i = 1; i <= cantidadacom; i++) {
             const div = document.createElement('div');
             div.classList.add('acompanante');
-
+ 
             div.innerHTML = `
                 <h3>Estudiante ${i}</h3>
                 <label for="nombre_acompanante_${i}">Nombre:</label>
                 <input type="text" id="nombre_acompanante_${i}" name="nombre_acompanante_${i}" required>
-
+ 
                 <label for="id_codigo_${i}">Código o Cédula (para no estudiante):</label>
                 <input type="text" id="id_codigo_${i}" name="id_codigo_${i}" required>
-
+ 
                 <label for="carrera_acompanante_${i}">Seleccione una Carrera:</label>
                 <select id="carrera_acompanante_${i}" name="carrera_acompanante_${i}" required>
                 <option value="" disabled selected> Seleccione una carrera</option>
@@ -118,23 +125,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <option value="4">Ingeniería Financiera</option>
             `;
             acompanantesContainer.appendChild(div);
-
+ 
             const nombreField = div.querySelector(`#nombre_acompanante_${i}`);
             nombreField.addEventListener('input', (e) => {
                 // Reemplaza cualquier carácter que no sea letra, espacio
                 nombreField.value = nombreField.value.replace(/[^a-zA-Z\s]/g, '');
             });
-
+ 
         }
     });
-
+ 
     reservaForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-
+ 
         const formData = new FormData(reservaForm);
         const acompanantes = [];
         const cantidadacom = parseInt(formData.get('numero_personas'));
-
+ 
         for (let i = 1; i <= cantidadacom; i++) {
             const acompanante = {
                 id_codigo: formData.get(`id_codigo_${i}`),
@@ -143,7 +150,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             };
             acompanantes.push(acompanante);
         }
-
+ 
         const inventarioSeleccionado = [];
         document.querySelectorAll('input[type="number"][data-inventario="true"]').forEach(input => {
             const cantidadsele = parseInt(input.value);
@@ -151,18 +158,18 @@ document.addEventListener('DOMContentLoaded', async () => {
                 inventarioSeleccionado.push({
                     id_equipo: input.getAttribute('data-id'),
                     nombre: input.getAttribute('data-nombre'),
-                    cantidadsele: cantidadsele
+                    cantidad: cantidadsele
                 });
             }
         });
-
+ 
         const fecha = formData.get('fecha');
         const formattedDate = fecha ? fecha.split('/').reverse().join('-') : new Date().toISOString().split('T')[0];
-
+ 
         const horaInicio = formData.get('hora_inicio');
         const horasSumar = parseInt(formData.get('Horas'), 10);
         const horasFin = parseInt(formData.get('hora_inicio'), 10) + parseInt(formData.get('Horas'), 10);
-
+ 
         const data = {
             fecha: formattedDate,
             hora_inicio: horaInicio + ":00:00",
@@ -176,26 +183,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             equiposList: inventarioSeleccionado,
             estudiantesList: acompanantes
         };
-
+ 
         alert(JSON.stringify(data, null, 0));
-
+ 
         try {
             const response = await fetch('http://localhost:8080/ResEst/SaveRes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
-
+ 
             if (response.ok) {
                 alert('Reserva creada con éxito');
                 reservaForm.reset();
                 acompanantesContainer.innerHTML = '';
             } else {
-                alert('Error al crear la reserva');
+                alert(`${response}`);
             }
         } catch (error) {
             console.error('Error al crear la reserva:', error);
         }
     });
-
+ 
 });
+ 

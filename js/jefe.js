@@ -38,21 +38,29 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(reservas => {
                 const resultadoReservas = document.getElementById('resultadoReservas');
                 resultadoReservas.innerHTML = '';
-
+     
                 if (Array.isArray(reservas) && reservas.length > 0) {
                     reservas.forEach(reserva => {
                         const reservaDiv = document.createElement('div');
                         reservaDiv.classList.add('reserva-item');
+     
+                        // Procesar equiposList para mostrar id_equipo, nombre y cantidad
+                        const equiposInfo = reserva.equiposList.length > 0 
+                            ? reserva.equiposList.map(equipo => 
+                                `ID: ${equipo.id_equipo}, Nombre: ${equipo.nombre}, Cantidad: ${equipo.cantidad}`
+                              ).join('<br>')
+                            : 'Ninguno';
+     
                         reservaDiv.innerHTML = `
-                            <p><strong>ID:</strong> ${reserva.id}</p>
-                            <p><strong>Fecha:</strong> ${reserva.fecha}</p>
-                            <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
-                            <p><strong>Horas:</strong> ${reserva.horas}</p>
-                            <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
-                            <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
-                            <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
-                            <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
-                            <p><strong>Equipos:</strong> ${reserva.equiposList.length > 0 ? reserva.equiposList.join(', ') : 'Ninguno'}</p>
+                        <p><strong>ID:</strong> ${reserva.id}</p>
+                        <p><strong>Fecha:</strong> ${reserva.fecha}</p>
+                        <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
+                        <p><strong>Horas:</strong> ${reserva.horas}</p>
+                        <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
+                        <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
+                        <p><strong>Estado:</strong> ${reserva.estado ? 'Inactiva' : 'Activa'}</p>
+                        <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
+                        <p><strong>Equipos:</strong><br> ${equiposInfo}</p>
                         `;
                         resultadoReservas.appendChild(reservaDiv);
                     });
@@ -61,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(error => console.error('Error al consultar reservas:', error));
-
+     
         consultarTotalReservas();
     }
 
@@ -204,6 +212,50 @@ document.addEventListener('DOMContentLoaded', () => {
         consultarTotalVisitas();
     });
 
+    document.getElementById('consultarInventarioBtn').addEventListener('click', function () {
+        // Obtener los valores de los inputs
+        const codigoInventario = document.getElementById('codigoInventario').value;
+        const codigoInventarioCantidad = document.getElementById('codigoInventarioCantidad').value;
+    
+        // Validar que ambos campos tengan datos
+        if (!codigoInventario || !codigoInventarioCantidad) {
+            alert('Por favor, ingresa ambos valores (Código inventario y cantidad).');
+            return;
+        }
+    
+        // Crear el objeto con los datos a enviar
+        const datosInventario = {
+            equipo: codigoInventario,
+            cantidad: parseInt(codigoInventarioCantidad)
+        };
+        //alert(JSON.stringify(datosInventario));
+        // Hacer la petición POST
+        fetch('http://localhost:8080/JefeL/abastecer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Especificamos que estamos enviando JSON
+            },
+            body: JSON.stringify(datosInventario) // Convertimos el objeto a JSON
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('resultado').textContent = `Inventario agregado con éxito.`;
+                return response.json(); // Si la respuesta es OK, parseamos el JSON
+            } else {
+                document.getElementById('resultado').textContent = `Error al agregar inventario.`;
+                throw new Error('Error en la respuesta del servidor');
+            }
+        })
+        /*
+        .then(response => {
+            document.getElementById('resultado').textContent = `Inventario agregado con éxito. ${response.message}`;
+        })
+        .catch(error => {
+            document.getElementById('resultado').textContent = `Error al agregar inventario: ${error.message}`;
+        });
+        */
+    });
+
     consultarTotalVisitas();
     consultarTotalReservas();
 
@@ -259,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchDataAndRenderChart(fecha) {
         try {
-            const response = await fetch(`prueba.json?fecha=${encodeURIComponent(fecha)}`, {
+            const response = await fetch(`http://localhost:8080/JefeL/stats/${fecha}`, {
                 method: 'GET'
             });
 

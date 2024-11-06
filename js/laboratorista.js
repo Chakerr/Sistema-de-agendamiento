@@ -38,21 +38,29 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(reservas => {
                 const resultadoReservas = document.getElementById('resultadoReservas');
                 resultadoReservas.innerHTML = '';
-
+     
                 if (Array.isArray(reservas) && reservas.length > 0) {
                     reservas.forEach(reserva => {
                         const reservaDiv = document.createElement('div');
                         reservaDiv.classList.add('reserva-item');
+     
+                        // Procesar equiposList para mostrar id_equipo, nombre y cantidad
+                        const equiposInfo = reserva.equiposList.length > 0 
+                            ? reserva.equiposList.map(equipo => 
+                                `ID: ${equipo.id_equipo}, Nombre: ${equipo.nombre}, Cantidad: ${equipo.cantidad}`
+                              ).join('<br>')
+                            : 'Ninguno';
+     
                         reservaDiv.innerHTML = `
-                            <p><strong>ID:</strong> ${reserva.id}</p>
-                            <p><strong>Fecha:</strong> ${reserva.fecha}</p>
-                            <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
-                            <p><strong>Horas:</strong> ${reserva.horas}</p>
-                            <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
-                            <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
-                            <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
-                            <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
-                            <p><strong>Equipos:</strong> ${reserva.equiposList.length > 0 ? reserva.equiposList.join(', ') : 'Ninguno'}</p>
+                        <p><strong>ID:</strong> ${reserva.id}</p>
+                        <p><strong>Fecha:</strong> ${reserva.fecha}</p>
+                        <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
+                        <p><strong>Horas:</strong> ${reserva.horas}</p>
+                        <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
+                        <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
+                        <p><strong>Estado:</strong> ${reserva.estado ? 'Inactiva' : 'Activa'}</p>
+                        <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
+                        <p><strong>Equipos:</strong><br> ${equiposInfo}</p>
                         `;
                         resultadoReservas.appendChild(reservaDiv);
                     });
@@ -61,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(error => console.error('Error al consultar reservas:', error));
-
+     
         consultarTotalReservas();
     }
 
@@ -126,17 +134,18 @@ document.addEventListener('DOMContentLoaded', () => {
             resultadoReservasPorFecha.appendChild(reservaDiv);
         }
     }
+    //`http://localhost:8080/administradores/reservas-fecha/${fecha}`
 
     // Función para consultar reservas por fecha
     function consultarReservasPorFecha() {
         const fechaSeleccionada = document.getElementById('fecha').value;
-
+ 
         if (!fechaSeleccionada) {
             alert('Por favor, selecciona una fecha.');
             return;
         }
-
-        fetch('prueba.json')
+ 
+        fetch(`http://localhost:8080/administradores/reservas-fecha/${fechaSeleccionada}`)
             .then(response => response.json())
             .then(reservas => {
                 // Convertir horas al formato de dos dígitos
@@ -144,13 +153,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     reserva.hora_inicio = reserva.hora_inicio.padStart(8, '0');
                     reserva.hora_fin = reserva.hora_fin.padStart(8, '0');
                 });
-
+ 
                 const reservasFiltradas = reservas.filter(reserva => reserva.fecha === fechaSeleccionada);
                 console.log('Reservas filtradas:', reservasFiltradas); // Verifica el resultado del filtrado
                 mostrarHorarioReservas(reservasFiltradas);
             })
             .catch(error => console.error('Error al consultar reservas por fecha:', error));
     }
+    
 
     // Asociar la función al botón
     document.getElementById('consultarReservasFechasBtn').addEventListener('click', consultarReservasPorFecha);
@@ -182,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p><strong>Horas:</strong> ${reserva.horas}</p>
                         <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
                         <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
-                        <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
+                        <p><strong>Estado:</strong> ${reserva.estado ? 'Inactiva' : 'Activa'}</p>
                         <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
                         <p><strong>Equipos:</strong> ${reserva.equiposList.length > 0 ? reserva.equiposList.join(', ') : 'Ninguno'}</p>
                     `;

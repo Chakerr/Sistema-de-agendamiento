@@ -59,9 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const url = userType === 'admin'
             ? 'http://localhost:8080/administradores/loginLab'
             : userType === 'manager'
-                ? 'http://localhost:8080/' // URL para Gerente
+                ? 'http://localhost:8080/administradores/loginLab' // URL para Gerente
                 : userType === 'chief'
-                    ? 'http://localhost:8080/' // URL para Jefe
+                    ? 'http://localhost:8080/administradores/loginLab' // URL para Jefe
                     : userType === 'developer'
                         ? 'http://localhost:8080/jsons/loginAdm' // URL para Desarrollador
                         : 'http://localhost:8080/estudiantes/login'; // URL para Estudiante

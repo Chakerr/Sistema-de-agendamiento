@@ -67,18 +67,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const token = tokenField.value; // Obtener el valor del token
         const tokenData = {
             token: token,
-            id_codigo: storedData.id_codigo, // Usar datos guardados
+            id_codigo: storedData.cedula, // Usar datos guardados
             correo: storedData.correo,
             contrasena: storedData.contrasena
         };
-
         try {
             const tokenResponse = await fetch('http://localhost:8080/verify-token', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(tokenData),
             });
-
             if (tokenResponse.ok) {
                     messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
                     setTimeout(() => {
@@ -86,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 2000);
                 const selectCarrera = document.getElementById('carrera');
                 const registro = {
-                    id_codigo: storedData.id_codigo,
+                    id_codigo: document.getElementById('cedula').value,
                     nombre: document.getElementById('nombre').value, // Reutilizar el nombre
                     cedula: document.getElementById('cedula').value,
                     correo: storedData.correo,
@@ -97,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     
                 };
-
                 // Guardar los datos finales de registro en la base de datos
                 await fetch('http://localhost:8080/estudiantes/save', {
                     method: 'POST',
@@ -112,4 +109,5 @@ document.addEventListener('DOMContentLoaded', () => {
             messageDiv.textContent = 'Error de conexión al verificar el token. Intenta de nuevo.';
         }
     });
+    
 });

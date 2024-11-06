@@ -1,0 +1,302 @@
+[
+    {
+        "idInventario": 1,
+        "equipo": "Kit tester Link Master Pro (Probador de cable UTP)",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 2,
+        "equipo": "Tester MicroScanner \"Pro\"",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 3,
+        "equipo": "Kit tester Link Master (comprobador de cable VDV)",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 4,
+        "equipo": "Tester Link Master (Comprobador de cable UTP)",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 5,
+        "equipo": "Herramienta de prensado",
+        "cantidad": 5
+    },
+    {
+        "idInventario": 6,
+        "equipo": "Ponchadora cable UTP (WEL.spec)",
+        "cantidad": 5
+    },
+    {
+        "idInventario": 7,
+        "equipo": "Ponchadora cable UTP (SNELL)",
+        "cantidad": 5
+    },
+    {
+        "idInventario": 8,
+        "equipo": "Ponchadora cable UTP (QUEST)",
+        "cantidad": 5
+    },
+    {
+        "idInventario": 9,
+        "equipo": "Ponchadora de Impacto",
+        "cantidad": 6
+    },
+    {
+        "idInventario": 10,
+        "equipo": "Ponchadora cable UTP (PROSKIT)",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 11,
+        "equipo": "Prensa Terminal de cable coaxial",
+        "cantidad": 5
+    },
+    {
+        "idInventario": 12,
+        "equipo": "Cortadora Cable Coaxial",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 13,
+        "equipo": "Kit Conectorización Fibra óptica VF-45",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 14,
+        "equipo": "Kit de conectorización de fibra óptica",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 15,
+        "equipo": "Kit de fibra óptica KAFO-01",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 16,
+        "equipo": "Kit de fibra óptica",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 17,
+        "equipo": "Optical Microscope",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 18,
+        "equipo": "Kit Fibra óptica + Power Meter + Cortadora Fibra Ftth + Vfl Fibra óptica monomodo KFIBRA",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 19,
+        "equipo": "Switch CATALYST 2960 Series 8-Puertos",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 20,
+        "equipo": "Switch 4200G-24 puertos",
+        "cantidad": 6
+    },
+    {
+        "idInventario": 21,
+        "equipo": "Switch capa 3 CATALYST WS-C3650 24-Puertos",
+        "cantidad": 6
+    },
+    {
+        "idInventario": 22,
+        "equipo": "Switch TRENDnet TEG-424WS",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 23,
+        "equipo": "Switch TRENDnet TEG-S24R",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 24,
+        "equipo": "Switch HUAWEI S1728GWR-4P 24 Puertos",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 25,
+        "equipo": "Router 1800 Series",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 26,
+        "equipo": "Router ISR4321",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 27,
+        "equipo": "Tarjeta de interface WIC NIM-2T (instaladas en los Router ISR4321)",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 28,
+        "equipo": "FIREWALL ASA 5508-X",
+        "cantidad": 6
+    },
+    {
+        "idInventario": 29,
+        "equipo": "FIREWALL FORTIGATE 1240 B",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 30,
+        "equipo": "FORTIANALYZER 400 B",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 31,
+        "equipo": "Access Point DWL-2100AP",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 32,
+        "equipo": "Wireless AP Router TEW-411BRPplus",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 33,
+        "equipo": "Access Point DWL-2100AP WAP-1965",
+        "cantidad": 3
+    },
+    {
+        "idInventario": 34,
+        "equipo": "Access Point SB WIRELESS N WAP-4410N",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 35,
+        "equipo": "Access Point N150 BRIDGE",
+        "cantidad": 6
+    },
+    {
+        "idInventario": 36,
+        "equipo": "Tarjeta de red inalámbrica DWA-160 XtremeN",
+        "cantidad": 6
+    },
+    {
+        "idInventario": 37,
+        "equipo": "Adaptador USB- Wifi b/g/N 150Mbps. De alta potencia TL-WN7200ND",
+        "cantidad": 11
+    },
+    {
+        "idInventario": 38,
+        "equipo": "Tarjeta BeagleBone Black",
+        "cantidad": 6
+    },
+    {
+        "idInventario": 39,
+        "equipo": "Osciloscopio Digital Rigol DS1102E-2Channel-100MHz-1GSa/s",
+        "cantidad": 6
+    },
+    {
+        "idInventario": 40,
+        "equipo": "Generador Digital DG1022",
+        "cantidad": 5
+    },
+    {
+        "idInventario": 41,
+        "equipo": "Fuente DC DUAL HY3005F-3",
+        "cantidad": 6
+    },
+    {
+        "idInventario": 42,
+        "equipo": "Cámara IP DCS-5220",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 43,
+        "equipo": "Reflector con base para radio Canopy",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 44,
+        "equipo": "Plataforma de banda ancha inalámbrica Motorola 5400BHG",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 45,
+        "equipo": "Adaptador de corriente Radio Canopy",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 46,
+        "equipo": "Universal ethernet Surge Suppressor 600SSD",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 47,
+        "equipo": "Sensor Modelo HA2401GX-1000",
+        "cantidad": 3
+    },
+    {
+        "idInventario": 48,
+        "equipo": "Elevador para antenas de 5mt",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 49,
+        "equipo": "Multímetro digital UT70A",
+        "cantidad": 10
+    },
+    {
+        "idInventario": 50,
+        "equipo": "Punta Lógica DP-52 50MHz",
+        "cantidad": 7
+    },
+    {
+        "idInventario": 52,
+        "equipo": "Antena Indoor Omnidirectional TEW-IA04O",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 53,
+        "equipo": "Antena Indoor Directional 20db TEW-IA06D",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 54,
+        "equipo": "Antena Wireless con accesorios ANT-0M8",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 55,
+        "equipo": "Antena Directional Outdoor 14 dBi TEW-OA14DK",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 56,
+        "equipo": "Antena Feed Power Beam AC PBE-5AC-500",
+        "cantidad": 4
+    },
+    {
+        "idInventario": 57,
+        "equipo": "Antena de Grilla",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 58,
+        "equipo": "Antena Semiparabólica HG2424G",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 59,
+        "equipo": "Sistema radio frecuencia MGAR3-23N",
+        "cantidad": 1
+    },
+    {
+        "idInventario": 60,
+        "equipo": "Antena Yagi Direccional",
+        "cantidad": 2
+    },
+    {
+        "idInventario": 61,
+        "equipo": "Protector de grilla 3GHz (Lightning Arrester)",
+        "cantidad": 2
+    }
+]

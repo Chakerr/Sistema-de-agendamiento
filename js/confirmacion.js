@@ -1,29 +1,57 @@
 document.addEventListener('DOMContentLoaded', () => {
-    function leerRFID() {
-        return 'RFID_' + Math.random().toString(36).substr(2, 9);
-    }
-
-    function enviarAlBackend(codigo) {
-        fetch('https://tu-backend-api.com/api/confirmarAsistencia', {
+    function enviarAlBackend(codigo, tipo) {
+        fetch('http://localhost:8080/estudiantes/carnet', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ codigoRFID: codigo })
+            body: JSON.stringify({ codigoCarnet: codigo })
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Confirmación enviada:', data);
-            alert('Asistencia confirmada correctamente.');
+        .then(response => {
+            if (response.ok) {
+                alert("ASISTENCIA REGISTRADA");
+                return response.json(); // Si la respuesta es OK, parseamos el JSON
+            } else {
+                alert("NO SE PUDO REGISTRAR LA ASISTENCIA");
+                throw new Error('Error en la respuesta del servidor');
+            }
         })
-        .catch(error => {
-            console.error('Error al enviar los datos:', error);
-            alert('Hubo un error al confirmar la asistencia.');
-        });
     }
 
+    function enviarAlBackend1(codigo, tipo) {
+        fetch('http://localhost:8080/estudiantes/validarCedula', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ cedula: codigo })
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("ASISTENCIA REGISTRADA");
+                return response.json(); // Si la respuesta es OK, parseamos el JSON
+            } else {
+                alert("NO SE PUDO REGISTRAR LA ASISTENCIA");
+                throw new Error('Error en la respuesta del servidor');
+            }
+        })
+    }
+
+    document.getElementById('confirmarRFIDBtn').addEventListener('click', function() {
+        let codigoRFID = document.getElementById('RFID').value;
+        if (codigoRFID) {
+            enviarAlBackend(codigoRFID, 'codigoRFID');
+        } else {
+            alert('Por favor ingresa un código RFID.');
+        }
+    });
+
     document.getElementById('confirmarAsistenciaBtn').addEventListener('click', function() {
-        let codigo = leerRFID();
-        enviarAlBackend(codigo);
+        let cedula = document.getElementById('cedula').value;
+        if (cedula) {
+            enviarAlBackend1(cedula, 'cedula');
+        } else {
+            alert('Por favor ingresa una cédula.');
+        }
     });
 });
