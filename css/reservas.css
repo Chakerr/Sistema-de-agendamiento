@@ -37,8 +37,16 @@ label {
     color: var(--color-texto);
 }
 
-input, select, button {
+input, button {
     width: 320px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+}
+
+select{
+    width: 343px;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid var(--color-secundario);
