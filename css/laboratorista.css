@@ -1,6 +1,5 @@
 /* General adjustments */
-html,
-body {
+html, body {
     height: 100%;
     margin: 0;
     font-family: Arial, sans-serif;
@@ -17,8 +16,7 @@ main {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    flex-grow: 1;
-    /* Takes up remaining space */
+    flex-grow: 1; /* Takes up remaining space */
 }
 
 section {
@@ -26,21 +24,15 @@ section {
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    /* Ocupa el 90% del ancho disponible */
-    max-width: 500px;
-    /* Limita el ancho máximo a 500px */
-    margin-bottom: 20px;
-    /* Espacio entre secciones */
+    width: 90%; /* Ocupa el 90% del ancho disponible */
+    max-width: 500px; /* Limita el ancho máximo a 500px */
+    margin-bottom: 20px; /* Espacio entre secciones */
 }
 
-h1,
-h2 {
+h1, h2 {
     color: var(--color-principal);
-    text-align: center;
-    /* Centrar texto */
-    margin-bottom: 15px;
-    /* Espacio debajo del encabezado */
+    text-align: center; /* Centrar texto */
+    margin-bottom: 15px; /* Espacio debajo del encabezado */
 }
 
 /* Form field adjustments */
@@ -48,13 +40,17 @@ label {
     display: block;
     margin: 10px 0 5px;
 }
-
-input,
-select,
-button {
+select{
+    width: 100%;
+    max-width: 472px; /* Limita el ancho máximo */
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+input {
     width: 93%;
-    max-width: 450px;
-    /* Limita el ancho máximo */
+    max-width: 450px; /* Limita el ancho máximo */
     padding: 10px;
     border: 1px solid var(--color-secundario);
     border-radius: 5px;
@@ -62,6 +58,12 @@ button {
 }
 
 button {
+    width: 100%;
+    max-width: 472px; /* Limita el ancho máximo */
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px;
     background-color: var(--color-principal);
     color: var(--color-fondo);
     border: none;
@@ -86,58 +88,17 @@ footer {
 /* Responsive Design */
 @media (max-width: 600px) {
     section {
-        max-width: 90%;
-        /* Ajusta el ancho en pantallas pequeñas */
+        max-width: 90%; /* Ajusta el ancho en pantallas pequeñas */
     }
 }
 
-
-/* Styles for the cuadros */
-.cuadro {
-    background-color: var(--color-acento);
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 400px;
-    /* Limita el ancho máximo de los cuadros */
+#numero-visitas,
+#numero-reservas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    /* Centra el texto dentro del cuadro */
-    margin-bottom: 20px;
-    /* Espacio entre los cuadros */
-}
-
-.cuadro h1 {
-    color: var(--color-principal);
-    margin-bottom: 10px;
-}
-
-.cuadro p {
-    color: var(--color-secundario);
-    font-size: 1.5em;
-    /* Aumenta el tamaño de la cifra */
-    margin: 5px 0;
-    /* Espacio entre párrafos */
-}
-
-.descripcion {
-    font-size: 0.9em;
-    /* Tamaño de fuente más pequeño para la descripción */
-    color: var(--color-secundario);
-    /* Usa el color secundario */
-}
-
-.detalles {
-    background-color: var(--color-fondo);
-    border-radius: 8px;
-    padding: 20px;
-    margin-top: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.detalles p {
-    color: var(--color-secundario);
-    margin: 5px 0;
+    margin: 0 auto;
 }
 
 .btn {
@@ -152,7 +113,7 @@ footer {
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: 100%;
-    max-width: 270px;
+    max-width: 432px;
 }
 
 .btn:hover {

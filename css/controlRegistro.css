@@ -1,17 +1,20 @@
 body {
     font-family: Arial, sans-serif;
+    flex-direction: column;
     background-color: var(--color-fondo);
     color: var(--color-secundario);
     margin: 0;
+    display: flex;
+    height: 100%;
 }
 
 main {
     padding: 20px;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     align-items: center;
     justify-content: center;
-    min-height: 80vh; /* Ocupa toda la altura de la pantalla */
     max-width: 90%; /* Limita el ancho total */
     margin: 0 auto; /* Centra el main */
 }
@@ -43,19 +46,20 @@ input {
     color: var(--color-texto);
 }
 
-button {
+.btn {
     background-color: var(--color-principal);
     color: var(--color-fondo);
     border: none;
-    padding: 10px;
+    padding: 15px 25px;
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: 100%; /* Hacer el botón del mismo ancho que el formulario */
     margin-top: 30px; /* Espacio entre elementos */
-    border-radius: 5px; /* Redondeo consistente */
+    border-radius: 5px; 
+    margin-bottom: 30px;
 }
 
-button:hover {
+.btn:hover {
     background-color: var(--color-acento);
 }
 

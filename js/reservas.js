@@ -2,6 +2,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     const reservaForm = document.getElementById('reservaForm');
     const cantidadAcompanantesInput = document.getElementById('numero_personas');
     const acompanantesContainer = document.getElementById('acompanantesContainer');
+    
+    const numeroPersonasInput = document.getElementById('numero_personas');
+
+    numeroPersonasInput.addEventListener('input', function () {
+        const value = parseInt(numeroPersonasInput.value, 10);
+
+        if (value < 1 || value > 24) {
+            alert("La cantidad de asistentes debe ser entre 1 y 24.");
+            numeroPersonasInput.value = 0; // Restaura el valor a 1 si está fuera de rango
+        }
+    });
+
  
     function obtenerInventario() {
         fetch('http://localhost:8080/inventarios/obtener')
@@ -9,65 +21,42 @@ document.addEventListener('DOMContentLoaded', async () => {
             .then(data => {
                 const resultContainer = document.getElementById('inventarioContainer');
                 resultContainer.innerHTML = '';
- 
+    
                 if (data.length === 0) {
                     resultContainer.innerHTML = '<p>No hay inventario registrado.</p>';
                     return;
                 }
- 
+    
+                data.sort((a, b) => a.idInventario - b.idInventario);
+    
                 const table = document.createElement('table');
                 const headerRow = document.createElement('tr');
                 headerRow.innerHTML = '<th>ID</th><th>Equipo</th><th>Disponible</th><th>Seleccionar cantidad</th>';
                 table.appendChild(headerRow);
- 
+    
                 data.forEach((inventario) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td class="id-cuadro">${inventario.idInventario}</td>
                         <td class="nombre-equipo">${inventario.equipo}</td>
-                        <td>${inventario.cantidad}</td>
+                        <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${inventario.cantidad}</td>
                         <td>
-                                <input type="number" min="0" max="${inventario.cantidad}" id="cantidad_${inventario.idInventario}"
-                                data-id="${inventario.idInventario}" data-nombre="${inventario.equipo}" data-inventario="true"
-                                onchange="verificarCantidad(this, ${inventario.cantidad})" />
+                            <input type="number" 
+                                   min="1" 
+                                   max="${inventario.cantidad}" 
+                                   id="cantidad_${inventario.idInventario}"
+                                   data-id="${inventario.idInventario}" 
+                                   data-nombre="${inventario.equipo}" 
+                                   data-inventario="true"
+                                   oninput="verificarCantidad(this,${inventario.cantidad})" />
                         </td>
                     `;
                     table.appendChild(row);
                 });
- 
                 resultContainer.appendChild(table);
             })
             .catch(error => console.error('Error:', error));
     }
- 
-    // Función para verificar si la cantidad seleccionada es válida
-    function verificarCantidad(input, cantidadMaxima) {
-        if (parseInt(input.value) > cantidadMaxima) {
-            alert(`La cantidad seleccionada no puede exceder ${cantidadMaxima}`);
-            input.value = cantidadMaxima;
-        }
-    }
- 
-    // Función para obtener el inventario seleccionado con cantidad mayor a 0
-    function obtenerInventarioSeleccionado() {
-        const inventarioSeleccionado = [];
-        const cantidadInputs = document.querySelectorAll('input[type="number"][data-inventario="true"]'); // Solo selecciona los inputs con data-inventario="true"
- 
-        cantidadInputs.forEach(input => {
-            const cantidad_seleccionada = parseInt(input.value); // Renombramos aquí
-            if (cantidad_seleccionada > 0) {
-                inventarioSeleccionado.push({
-                    id_equipo: input.getAttribute('data-id'), // ID del equipo
-                    nombre: input.getAttribute('data-nombre'), // Nombre del equipo
-                    cantidad_seleccionada: cantidad_seleccionada // Renombramos aquí en el objeto
-                });
-            }
-        });
- 
-        console.log('Inventario seleccionado:', inventarioSeleccionado);
-        return inventarioSeleccionado;
-    }
- 
  
     // Establecer la fecha mínima a mañana en hora local
     const fechaInput = document.getElementById('fecha');
@@ -109,7 +98,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             div.classList.add('acompanante');
  
             div.innerHTML = `
-                <h3>Estudiante ${i}</h3>
+                <h3>Asistente ${i}</h3>
                 <label for="nombre_acompanante_${i}">Nombre:</label>
                 <input type="text" id="nombre_acompanante_${i}" name="nombre_acompanante_${i}" required>
  
@@ -134,6 +123,8 @@ document.addEventListener('DOMContentLoaded', async () => {
  
         }
     });
+
+
  
     reservaForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -184,7 +175,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             estudiantesList: acompanantes
         };
  
-        alert(JSON.stringify(data, null, 0));
+        //alert(JSON.stringify(data, null, 0));
  
         try {
             const response = await fetch('http://localhost:8080/ResEst/SaveRes', {
@@ -192,17 +183,20 @@ document.addEventListener('DOMContentLoaded', async () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
- 
+        
             if (response.ok) {
-                alert('Reserva creada con éxito');
+                const responseBody = await response.json(); // Obtén el cuerpo de la respuesta en formato JSON
+                alert(`Reserva creada con éxito: ${JSON.stringify(responseBody)}`);
                 reservaForm.reset();
                 acompanantesContainer.innerHTML = '';
             } else {
-                alert(`${response}`);
+                const errorBody = await response.text(); // Obtén el cuerpo de la respuesta en caso de error
+                alert(`Error al crear la reserva: ${errorBody}`);
             }
         } catch (error) {
             console.error('Error al crear la reserva:', error);
         }
+        
     });
  
 });

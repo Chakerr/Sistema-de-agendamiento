@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        fetch('prueba.json')
+        fetch(`http://localhost:8080/administradores/reservas-fecha/${fechaSeleccionada}`)
             .then(response => response.json())
             .then(reservas => {
                 // Convertir horas al formato de dos dígitos
@@ -166,34 +166,40 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Botón 'Ver Detalles de Reservas' presionado."); // Comprobación inicial
 
         fetch('http://localhost:8080/administradores/reservas')
-            .then(response => {
-                console.log("Respuesta recibida del servidor:", response);
-                return response.json();
-            })
-            .then(reservas => {
-                console.log("Datos de reservas:", reservas); // Verifica los datos obtenidos
-                const detallesReserva = document.getElementById('detallesReserva');
-                detallesReserva.style.display = 'block'; // Mostrar detalles
-                detallesReserva.innerHTML = '';
-
-                reservas.forEach(reserva => {
-                    const reservaDetalle = document.createElement('div');
-                    reservaDetalle.classList.add('reserva-detalle');
-                    reservaDetalle.innerHTML = `
-                        <p><strong>ID:</strong> ${reserva.id}</p>
-                        <p><strong>Fecha:</strong> ${reserva.fecha}</p>
-                        <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
-                        <p><strong>Horas:</strong> ${reserva.horas}</p>
-                        <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
-                        <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
-                        <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
-                        <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
-                        <p><strong>Equipos:</strong> ${reserva.equiposList.length > 0 ? reserva.equiposList.join(', ') : 'Ninguno'}</p>
-                    `;
-                    detallesReserva.appendChild(reservaDetalle);
-                });
-            })
-            .catch(error => console.error('Error al consultar detalles de la reserva:', error));
+        .then(response => {
+            console.log("Respuesta recibida del servidor:", response);
+            return response.json();
+        })
+        .then(reservas => {
+            console.log("Datos de reservas:", reservas); // Verifica los datos obtenidos
+            const detallesReserva = document.getElementById('detallesReserva');
+            detallesReserva.style.display = 'block'; // Mostrar detalles
+            detallesReserva.innerHTML = '';
+            reservas.forEach(reserva => {
+                const reservaDetalle = document.createElement('div');
+                reservaDetalle.classList.add('reserva-detalle');
+            
+                // Crear lista de equipos
+                const equipos = reserva.equiposList.map(equipo => {
+                    return `${equipo.nombre} (ID:    ${equipo.id_equipo}, Cantidad: ${equipo.cantidad})`;
+                }).join(', ');
+            
+                reservaDetalle.innerHTML = 
+                `<p><strong>ID:</strong> ${reserva.id}</p>
+                    <p><strong>Fecha:</strong> ${reserva.fecha}</p>
+                    <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
+                   <p><strong>Horas:</strong> ${reserva.horas}</p>
+                    <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
+                   <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
+                <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
+                    <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
+                    <p><strong>Equipos:</strong> ${equipos || 'Ninguno'}</p>`
+                ;
+            
+                detallesReserva.appendChild(reservaDetalle);
+            });
+        })
+        .catch(error => console.error('Error al consultar detalles de la reserva:', error));
     }
 
     document.getElementById('consultarReservasBtn').addEventListener('click', consultarReservas);
@@ -275,39 +281,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Función para procesar el JSON dinámico
-    function processJsonData(json) {
-        const categorias = Object.keys(json); // Extrae las claves como categorías
-        const valores = Object.values(json);  // Extrae los valores numéricos
-        return { categorias, valores };
-    }
+function processJsonData(json) {
+    const categorias = Object.keys(json);
+    const valores = Object.values(json);
 
-    // Función para crear la gráfica de pastel
-    function renderPieChart(data) {
-        const ctx = document.getElementById('pieChart').getContext('2d');
+    // Filtrar categorías y valores donde el valor es mayor a 0
+    const categoriasConValores = categorias
+        .map((categoria, index) => ({ categoria, valor: valores[index] }))
+        .filter(item => item.valor > 0) // Eliminar entradas con valor 0
+        .map(item => `${item.categoria}: ${item.valor}`); // Concatenar nombre y valor
 
-        new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: data.categorias,
-                datasets: [{
-                    data: data.valores,
-                    backgroundColor: generateColors(data.categorias.length), // Genera colores dinámicamente
-                    hoverBackgroundColor: generateColors(data.categorias.length)
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top'
-                    },
-                    tooltip: {
-                        enabled: true
-                    }
+    const valoresFiltrados = valores.filter(valor => valor > 0);
+
+    return { categorias: categoriasConValores, valores: valoresFiltrados };
+}
+
+// Función para crear la gráfica de pastel
+function renderPieChart(data) {
+    const ctx = document.getElementById('pieChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: data.categorias, // Usar categorías sin valores de 0
+            datasets: [{
+                data: data.valores,
+                backgroundColor: generateColors(data.categorias.length),
+                hoverBackgroundColor: generateColors(data.categorias.length)
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top'
+                },
+                tooltip: {
+                    enabled: true
                 }
             }
-        });
-    }
+        }
+    });
+}
+
 
     async function fetchDataAndRenderChart(fecha) {
         try {

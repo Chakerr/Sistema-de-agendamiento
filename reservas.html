@@ -32,7 +32,7 @@
 
             <label for="hora_inicio">Hora de inicio:</label>
             <select id="hora_inicio" name="hora_inicio" required>
-                <option value="" disable selected>Seleccione una Hora</option>
+                <option value="" disabled selected>Seleccione una Hora</option>
                 <option value="6">6:00</option>
                 <option value="7">7:00</option>
                 <option value="8">8:00</option>
@@ -58,43 +58,41 @@
                 <option value="3">3</option>
             </select>
 
-            <label for="areaEstudio">Area de estudio:</label>
+            <label for="areaEstudio">Área de estudio:</label>
             <select id="areaEstudio" name="areaEstudio" required>
                 <option value="" disabled selected>Seleccione una área</option>
                 <option value="1">Fundamentos de ingeniería</option>
                 <option value="2">Electrónica Básica</option>
                 <option value="3">Desarrollo de aplicaciones WEB</option>
                 <option value="4">IoT</option>
-                <option value="5">Electiva Diciplinar: Domótica</option>
+                <option value="5">Electiva Disciplinar: Domótica</option>
                 <option value="6">Sistemas Operativos</option>
                 <option value="7">Teoría General de Sistemas</option>
                 <option value="8">Redes de Datos</option>
                 <option value="9">Tesis de Grado</option>
                 <option value="10">Transmisión de datos</option>
                 <option value="11">Redes y Comunicaciones</option>
-
             </select>
 
-            <label for="numero_personas">Cantidad de acompañantes:</label>
-            <input type="number" id="numero_personas" name="numero_personas" min="0" required>
+            <label for="numero_personas">Cantidad de asistentes: (Incluyendo quién hace la reserva)</label>
+            <input type="number" id="numero_personas" name="numero_personas" min="1" max="24" value="0" required>
 
+            <!-- Contenedor para acompañantes que se generará dinámicamente -->
             <div id="acompanantesContainer"></div>
-
+            
 
             <button type="submit">Crear Reserva</button>
         </form>
+
         <h2>Seleccione el Inventario</h2>
-        <div id="inventarioContainer">
-
+        <div id="inventarioContainer">        </div>
     </main>
-
 
     <footer>
         <p>© 2024 Jsons. Todos los derechos reservados.</p>
     </footer>
 
     <script src="js/reservas.js"></script>
-</body>
 </body>
 
 </html>

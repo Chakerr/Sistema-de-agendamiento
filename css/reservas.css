@@ -144,3 +144,20 @@ input[type="number"] {
     border: 1px solid var(--color-secundario);
     border-radius: 4px;
 }
+
+.table-inventario {
+    width: 100%;
+    margin: auto; /* Centra la tabla en la página */
+    border-collapse: collapse;
+}
+
+.table-inventario th, .table-inventario td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center; /* Alinea el texto en el centro de cada celda */
+}
+
+.table-inventario input[type="number"] {
+    margin: auto;
+    display: block; /* Centra el input dentro de su celda */
+}

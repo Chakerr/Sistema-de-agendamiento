@@ -88,7 +88,16 @@ label {
     margin: 10px 0 5px;
 }
 
-input, select, button {
+input {
+    width: 93%;
+    max-width: 450px; /* Limita el ancho máximo */
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+select {
     width: 93%;
     max-width: 450px; /* Limita el ancho máximo */
     padding: 10px;
@@ -98,6 +107,12 @@ input, select, button {
 }
 
 button {
+    width: 100%;
+    max-width: 450px; /* Limita el ancho máximo */
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px;
     background-color: var(--color-principal);
     color: var(--color-fondo);
     border: none;

@@ -181,21 +181,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 const detallesReserva = document.getElementById('detallesReserva');
                 detallesReserva.style.display = 'block'; // Mostrar detalles
                 detallesReserva.innerHTML = '';
-
                 reservas.forEach(reserva => {
                     const reservaDetalle = document.createElement('div');
                     reservaDetalle.classList.add('reserva-detalle');
-                    reservaDetalle.innerHTML = `
-                        <p><strong>ID:</strong> ${reserva.id}</p>
+                
+                    // Crear lista de equipos
+                    const equipos = reserva.equiposList.map(equipo => {
+                        return `${equipo.nombre} (ID:    ${equipo.id_equipo}, Cantidad: ${equipo.cantidad})`;
+                    }).join(', ');
+                
+                    reservaDetalle.innerHTML = 
+                    `<p><strong>ID:</strong> ${reserva.id}</p>
                         <p><strong>Fecha:</strong> ${reserva.fecha}</p>
                         <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
-                        <p><strong>Horas:</strong> ${reserva.horas}</p>
+                       <p><strong>Horas:</strong> ${reserva.horas}</p>
                         <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
-                        <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
-                        <p><strong>Estado:</strong> ${reserva.estado ? 'Inactiva' : 'Activa'}</p>
+                       <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
+                    <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
                         <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
-                        <p><strong>Equipos:</strong> ${reserva.equiposList.length > 0 ? reserva.equiposList.join(', ') : 'Ninguno'}</p>
-                    `;
+                        <p><strong>Equipos:</strong> ${equipos || 'Ninguno'}</p>`
+                    ;
+                
                     detallesReserva.appendChild(reservaDetalle);
                 });
             })

@@ -178,21 +178,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 const detallesReserva = document.getElementById('detallesReserva');
                 detallesReserva.style.display = 'block'; // Mostrar detalles
                 detallesReserva.innerHTML = '';
-
                 reservas.forEach(reserva => {
                     const reservaDetalle = document.createElement('div');
                     reservaDetalle.classList.add('reserva-detalle');
-                    reservaDetalle.innerHTML = `
-                        <p><strong>ID:</strong> ${reserva.id}</p>
+                
+                    // Crear lista de equipos
+                    const equipos = reserva.equiposList.map(equipo => {
+                        return `${equipo.nombre} (ID:    ${equipo.id_equipo}, Cantidad: ${equipo.cantidad})`;
+                    }).join(', ');
+                
+                    reservaDetalle.innerHTML = 
+                    `<p><strong>ID:</strong> ${reserva.id}</p>
                         <p><strong>Fecha:</strong> ${reserva.fecha}</p>
                         <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
-                        <p><strong>Horas:</strong> ${reserva.horas}</p>
+                       <p><strong>Horas:</strong> ${reserva.horas}</p>
                         <p><strong>Hora de Fin:</strong> ${reserva.hora_fin}</p>
-                        <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
-                        <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
+                       <p><strong>Número de Personas:</strong> ${reserva.numero_personas}</p>
+                    <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
                         <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
-                        <p><strong>Equipos:</strong> ${reserva.equiposList.length > 0 ? reserva.equiposList.join(', ') : 'Ninguno'}</p>
-                    `;
+                        <p><strong>Equipos:</strong> ${equipos || 'Ninguno'}</p>`
+                    ;
+                
                     detallesReserva.appendChild(reservaDetalle);
                 });
             })
@@ -270,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //Fetch solamente para inventario
     async function fetchDataAndRenderChart(fecha) {
         try {
-            const response = await fetch(`prueba.json?fecha=${encodeURIComponent(fecha)}`, {
+            const response = await fetch(`http://localhost:8080/JefeL/stats/${fecha}`, {
                 method: 'GET'
             });
             const jsonData = await response.json();
@@ -309,8 +315,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para procesar los datos y calcular confirmadas y no confirmadas
     function calculateReservationStats(confirmedData, totalData) {
-        const confirmed = confirmedData[1] || 0; // Confirmadas
-        const total = totalData[1] || 0;         // Total creadas
+        const confirmed = confirmedData; // Confirmadas
+        const total = totalData         // Total creadas
 
         const notConfirmed = total - confirmed;
         return {
@@ -350,12 +356,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch para reservas creadas y confirmadas sin enviar fecha ni método GET
     async function fetchDataAndRenderChart1() {
         try {
-            const responseTotal = await fetch(`pruebax.json`);
-            const responseConfirmed = await fetch(`pruebay.json`);
+            const responseTotal = await fetch('http://localhost:8080/Gerente/total-reservas');
+            const responseConfirmed = await fetch('http://localhost:8080/Gerente/reservas-Activas');
 
             const totalData = await responseTotal.json();      // Datos de reservas creadas
             const confirmedData = await responseConfirmed.json(); // Datos de reservas confirmadas
-
+            console.log(totalData);
+            console.log(confirmedData);
             const processedData = calculateReservationStats(confirmedData, totalData); // Calcular confirmadas vs no confirmadas
             renderPieChart1(processedData); // Renderizar gráfica
         } catch (error) {

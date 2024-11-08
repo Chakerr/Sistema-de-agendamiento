@@ -51,6 +51,12 @@ input, select, button {
     margin-bottom: 15px;
 }
 
+input[type="number"], .input-numero {
+    width: 93%;
+    max-width: 428px;
+    padding: 10px;
+}
+
 button {
     background-color: var(--color-principal);
     color: var(--color-fondo);
