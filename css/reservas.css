@@ -37,8 +37,16 @@ label {
     color: var(--color-texto);
 }
 
-input, select, button {
-    width: 320px;
+input, button {
+    width: 377px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+}
+
+select{
+    width: 400px;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid var(--color-secundario);
@@ -52,9 +60,9 @@ button {
     padding: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 100%; /* Hacer el botón del mismo ancho que el formulario */
-    margin-top: 30px; /* Espacio entre elementos */
-    border-radius: 5px; /* Redondeo consistente */
+    width: 100%; 
+    margin-top: 30px; 
+    border-radius: 5px; 
 }
 
 button:hover {

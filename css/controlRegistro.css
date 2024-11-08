@@ -1,22 +1,19 @@
 body {
     font-family: Arial, sans-serif;
-    flex-direction: column;
     background-color: var(--color-fondo);
     color: var(--color-secundario);
     margin: 0;
-    display: flex;
-    height: 100%;
 }
 
 main {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
     align-items: center;
     justify-content: center;
-    max-width: 90%; /* Limita el ancho total */
-    margin: 0 auto; /* Centra el main */
+    min-height: 80vh; 
+    max-width: 90%; 
+    margin: 0 auto; 
 }
 
 form {
@@ -25,16 +22,9 @@ form {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 400px; /* Limitar el ancho del formulario */
-    min-width: 300px; /* Ancho mínimo */
-    margin: 20px auto; /* Centra el formulario */
-}
-
-label {
-    display: block;
-    padding: 10px;
-    margin-bottom: 15px;
-    color: var(--color-texto);
+    max-width: 400px; 
+    min-width: 300px; 
+    margin: 20px auto; 
 }
 
 input {
@@ -49,31 +39,33 @@ input {
 .btn {
     background-color: var(--color-principal);
     color: var(--color-fondo);
+    padding: 12px 24px;
     border: none;
-    padding: 15px 25px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 100%; /* Hacer el botón del mismo ancho que el formulario */
-    margin-top: 30px; /* Espacio entre elementos */
-    border-radius: 5px; 
-    margin-bottom: 30px;
-}
-
-.btn:hover {
-    background-color: var(--color-acento);
-}
-
-.register-section {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.register-section a {
-    color: var(--color-principal);
+    border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s ease;
+    display: block; 
+    width: 85%; 
+    margin: 0 auto;
+    margin-bottom: 10px;
 }
 
-.register-section a:hover {
-    color: var(--color-secundario);
+/*
+.btn {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s ease; 
+}
+*/
+.btn:hover {
+    background-color: var(--color-acento);
+    transform: scale(1.05); /* Ligeramente agranda el botón */
 }

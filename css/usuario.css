@@ -124,16 +124,6 @@ button:hover {
     background-color: var(--color-secundario);
 }
 
-/* Footer adjustments */
-footer {
-    background-color: var(--color-principal);
-    color: var(--color-fondo);
-    text-align: center;
-    padding: 10px 20px;
-    width: 100%;
-    box-sizing: border-box;
-}
-
 /* Responsive Design */
 @media (max-width: 600px) {
     section {
