@@ -36,13 +36,6 @@ En este documento están los diagramas relacionados con la **Arquitectura de Sof
 - **Total por hora:** $208,796.65
 - **Total de mantenimiento:** $208,796.65
 
-### Costos de Azure
-
-| Periodo | USD     | COP           |
-|---------|---------|---------------|
-| Por mes | $185.27 | $765,720.91   |
-| Por hora| $0.257  | $1,062.18     |
-
 [Presupuesto detallado en Google Sheets](https://docs.google.com/spreadsheets/d/1iy-0-saQVEFqAielRdeRvCwI8DtNj4ieGSFYFCTH5F4/edit?gid=0#gid=0)
 
 ## Diagramas de Secuencia
