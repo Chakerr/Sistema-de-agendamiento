@@ -23,17 +23,17 @@ En este documento están los diagramas relacionados con la **Arquitectura de Sof
 
 ### Roles y Horas
 
-| Roles             | Arquitecto | Front     | Back       | Pruebas   | Requerimientos | Azure      | Lector RFID |
-|-------------------|------------|-----------|------------|-----------|----------------|------------|-------------|
-| Horas             | 20         | 30        | 30         | 21        | 15             | -          | $71,990.00  |
-| Personal          | 1          | 1         | 2          | 5         | 1              | -          |             
-| Valor por hora    | $66,800.00 | $27,473.00| $39,567.65 | $18,956.00| $56,000.00     | $1,062.18  |             
-| Valor por semestre| $1,336,000.00 | $824,190.00 | $2,374,059.00 | $1,990,380.00 | $840,000.00 | $3,062,883.64 |
+| Roles             | Arquitecto | Front     | Back       | Pruebas   | Requerimientos | Lector RFID |
+|-------------------|------------|-----------|------------|-----------|----------------|-------------|
+| Horas             | 20         | 30        | 30         | 21        | 15             |$71,990.00  |
+| Personal          | 1          | 1         | 2          | 5         | 1              |             
+| Valor por hora    | $66,800.00 | $27,473.00| $39,567.65 | $18,956.00| $56,000.00     |           
+| Valor por semestre| $1,336,000.00 | $824,190.00 | $2,374,059.00 | $1,990,380.00 |  $3,062,883.64 |
 
 ### Totales
 
-- **Total por semestre:** $10,427,512.64
-- **Total por hora:** $209,858.83
+- **Total por semestre:** $9,587,512.6
+- **Total por hora:** $208,796.65
 - **Total de mantenimiento:** $208,796.65
 
 ### Costos de Azure
