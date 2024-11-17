@@ -1,52 +1,75 @@
-**Pruebas de concurrencia con JMeter**  
-Para probar la eficiencia de la plataforma web se llevaron a cabo distintas pruebas para analizar el comportamiento de la misma mediante varias peticiones al mismo tiempo, específicamente 200, estos fueron los resultados dados por JMeter.  
+# Pruebas de concurrencia con JMeter
 
-**Registrar Estudiante** 
-![][image1]  
-![][image2]  
-Nota: Solo aparece bien un request porque solo se puede agregar un estudiante igual  
+Se llevaron a cabo diversas pruebas para analizar el comportamiento de la plataforma web mediante múltiples peticiones concurrentes, específicamente 200. Estos son los resultados obtenidos:
 
-**Correo Existente**  
-![][image3]  
-![][image4]  
+## Registrar Estudiante
+![Registrar Estudiante - Resultado 1][image1]  
+![Registrar Estudiante - Resultado 2][image2]  
+**Nota:** Solo aparece una request correcta porque solo se puede agregar un estudiante con el mismo identificador una vez.
 
-**RESERVAS EXISTENTES**  
-![][image5]  
-![][image6]  
+---
 
-**LOGIN ESTUDIANTE**  
-![][image7]  
-![][image8]  
+## Correo Existente
+![Correo Existente - Resultado 1][image3]  
+![Correo Existente - Resultado 2][image4]
 
-**OBTENER INVENTARIO**  
-![][image9]  
-![][image10]  
+---
 
-**TOTAL DE RESERVAS ACTIVAS**  
-![][image11]  
-![][image12]  
+## Reservas Existentes
+![Reservas Existentes - Resultado 1][image5]  
+![Reservas Existentes - Resultado 2][image6]
 
-**TOTAL DE RESERVAS HECHAS**  
-![][image13]  
-![][image14]  
+---
 
-**RESERVAS ACTIVAS POR ESTUDIANTE**  
-![][image15]  
-![][image16]  
+## Login Estudiante
+![Login Estudiante - Resultado 1][image7]  
+![Login Estudiante - Resultado 2][image8]
 
-**RESERVAS POR FECHA**  
-![][image17]  
-![][image18]  
+---
 
-**CREAR RESERVAS**  
-![][image19]  
-![][image20]  
-Nota: solo aparece una request correcta debido a que solo se puede crear una reserva con el mismo id para ese día.  
+## Obtener Inventario
+![Obtener Inventario - Resultado 1][image9]  
+![Obtener Inventario - Resultado 2][image10]
 
-**CANCELAR RESERVAS**  
-![][image21]  
-![][image22]  
-Nota: solo aparece una request correcta debido a que solo se puede eliminar una vez aquella reserva.
+---
+
+## Total de Reservas Activas
+![Total de Reservas Activas - Resultado 1][image11]  
+![Total de Reservas Activas - Resultado 2][image12]
+
+---
+
+## Total de Reservas Hechas
+![Total de Reservas Hechas - Resultado 1][image13]  
+![Total de Reservas Hechas - Resultado 2][image14]
+
+---
+
+## Reservas Activas por Estudiante
+![Reservas Activas por Estudiante - Resultado 1][image15]  
+![Reservas Activas por Estudiante - Resultado 2][image16]
+
+---
+
+## Reservas por Fecha
+![Reservas por Fecha - Resultado 1][image17]  
+![Reservas por Fecha - Resultado 2][image18]
+
+---
+
+## Crear Reservas
+![Crear Reservas - Resultado 1][image19]  
+![Crear Reservas - Resultado 2][image20]  
+**Nota:** Solo aparece una request correcta porque solo se puede crear una reserva con el mismo ID para ese día.
+
+---
+
+## Cancelar Reservas
+![Cancelar Reservas - Resultado 1][image21]  
+![Cancelar Reservas - Resultado 2][image22]  
+**Nota:** Solo aparece una request correcta porque solo se puede eliminar una vez la misma reserva.
+
+---
 
 [image1]: img/Imagen1.png
 [image2]: img/Imagen2.png
