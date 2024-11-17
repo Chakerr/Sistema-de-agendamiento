@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const formData = new FormData(form);
         try {
-            const response = await fetch('http://localhost:8080/reportar-incidencia', {
+            const response = await fetch('https://6d7c-191-107-128-227.ngrok-free.app/reportar-incidencia', {
                 method: 'POST',
                 body: formData
             });

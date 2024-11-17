@@ -5,6 +5,14 @@
     --color-fondo: #F8F8F8; /* Color de fondo */
     --color-texto: #333333; /* Color del texto */
 }
+main {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1; /* Takes up remaining space */
+}
 
 body {
     margin: 0;
@@ -61,4 +69,11 @@ footer {
     text-align: center;
     padding: 10px 20px;
     width: 95.6%;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    section {
+        max-width: 90%; /* Ajusta el ancho en pantallas pequeñas */
+    }
 }

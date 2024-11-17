@@ -1,8 +1,9 @@
+const link = "http://localhost:8080"
 document.addEventListener('DOMContentLoaded', async () => {
     const reservaForm = document.getElementById('reservaForm');
     const cantidadAcompanantesInput = document.getElementById('numero_personas');
     const acompanantesContainer = document.getElementById('acompanantesContainer');
-    
+
     const numeroPersonasInput = document.getElementById('numero_personas');
 
     numeroPersonasInput.addEventListener('input', function () {
@@ -14,26 +15,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
- 
+
     function obtenerInventario() {
-        fetch('http://localhost:8080/inventarios/obtener')
+        fetch(`${link}/inventarios/obtener`)
             .then(response => response.json())
             .then(data => {
                 const resultContainer = document.getElementById('inventarioContainer');
                 resultContainer.innerHTML = '';
-    
+
                 if (data.length === 0) {
                     resultContainer.innerHTML = '<p>No hay inventario registrado.</p>';
                     return;
                 }
+
+                data.sort((a, b) => {
+                    const equipoA = a.equipo.toLowerCase();
+                    const equipoB = b.equipo.toLowerCase();
     
-                data.sort((a, b) => a.idInventario - b.idInventario);
-    
+                    if (equipoA < equipoB) return -1;
+                    if (equipoA > equipoB) return 1;
+                    return 0; // Si son iguales
+                });
+
                 const table = document.createElement('table');
                 const headerRow = document.createElement('tr');
                 headerRow.innerHTML = '<th>ID</th><th>Equipo</th><th>Disponible</th><th>Seleccionar cantidad</th>';
                 table.appendChild(headerRow);
-    
+
                 data.forEach((inventario) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
@@ -57,46 +65,46 @@ document.addEventListener('DOMContentLoaded', async () => {
             })
             .catch(error => console.error('Error:', error));
     }
- 
+
     // Establecer la fecha mínima a mañana en hora local
     const fechaInput = document.getElementById('fecha');
     const hoy = new Date();
     hoy.setDate(hoy.getDate() + 1); // Sumar 1 día a la fecha actual
- 
+
     // Obtener la fecha en el formato YYYY-MM-DD en la zona horaria local
     const año = hoy.getFullYear();
     const mes = String(hoy.getMonth() + 1).padStart(2, '0'); // Los meses empiezan desde 0
     const dia = String(hoy.getDate()).padStart(2, '0');
- 
+
     const formatoFecha = `${año}-${mes}-${dia}`;
     fechaInput.min = formatoFecha;
- 
+
     // Deshabilitar domingos
     fechaInput.addEventListener('change', (event) => {
         const fechaSeleccionada = new Date(event.target.value);
         const diaSemana = fechaSeleccionada.getDay();
- 
+
         if (diaSemana === 6) { // 0 es domingo
             alert('No se pueden seleccionar domingos. Por favor, elija otro día.');
             fechaInput.value = '';
             fechaInput.focus();
         }
     });
- 
+
     obtenerInventario();
- 
+
     cantidadAcompanantesInput.addEventListener('input', () => {
         acompanantesContainer.innerHTML = '';
- 
+
         const cantidadacom = parseInt(cantidadAcompanantesInput.value);
         if (isNaN(cantidadacom) || cantidadacom < 0) {
             return;
         }
- 
+
         for (let i = 1; i <= cantidadacom; i++) {
             const div = document.createElement('div');
             div.classList.add('acompanante');
- 
+
             div.innerHTML = `
                 <h3>Asistente ${i}</h3>
                 <label for="nombre_acompanante_${i}">Nombre:</label>
@@ -114,25 +122,35 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <option value="4">Ingeniería Financiera</option>
             `;
             acompanantesContainer.appendChild(div);
- 
+
             const nombreField = div.querySelector(`#nombre_acompanante_${i}`);
             nombreField.addEventListener('input', (e) => {
                 // Reemplaza cualquier carácter que no sea letra, espacio
                 nombreField.value = nombreField.value.replace(/[^a-zA-Z\s]/g, '');
             });
- 
+
         }
     });
 
 
- 
+
     reservaForm.addEventListener('submit', async (e) => {
         e.preventDefault();
- 
         const formData = new FormData(reservaForm);
+
+        const idCodigo1 = formData.get('id_codigo_1');
+        const storedId = sessionStorage.getItem('id');
+
+        if (idCodigo1 !== storedId) {
+            alert("Tiene que ingresar el código de la persona que hace la reserva en el primer acompañante");
+            return;
+        }
         const acompanantes = [];
         const cantidadacom = parseInt(formData.get('numero_personas'));
- 
+        const boton = document.getElementById('miBoton');
+        boton.disabled = true;
+        boton.show = false;
+        alert("Se está procesando su solicitud, por favor espere unos segundos");
         for (let i = 1; i <= cantidadacom; i++) {
             const acompanante = {
                 id_codigo: formData.get(`id_codigo_${i}`),
@@ -141,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             };
             acompanantes.push(acompanante);
         }
- 
+
         const inventarioSeleccionado = [];
         document.querySelectorAll('input[type="number"][data-inventario="true"]').forEach(input => {
             const cantidadsele = parseInt(input.value);
@@ -153,14 +171,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
             }
         });
- 
+
         const fecha = formData.get('fecha');
         const formattedDate = fecha ? fecha.split('/').reverse().join('-') : new Date().toISOString().split('T')[0];
- 
+
         const horaInicio = formData.get('hora_inicio');
         const horasSumar = parseInt(formData.get('Horas'), 10);
         const horasFin = parseInt(formData.get('hora_inicio'), 10) + parseInt(formData.get('Horas'), 10);
- 
+
         const data = {
             fecha: formattedDate,
             hora_inicio: horaInicio + ":00:00",
@@ -174,30 +192,32 @@ document.addEventListener('DOMContentLoaded', async () => {
             equiposList: inventarioSeleccionado,
             estudiantesList: acompanantes
         };
- 
-        //alert(JSON.stringify(data, null, 0));
- 
+
+
         try {
-            const response = await fetch('http://localhost:8080/ResEst/SaveRes', {
+            const response = await fetch(`${link}/ResEst/SaveRes`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data),
             });
-        
+
             if (response.ok) {
                 const responseBody = await response.json(); // Obtén el cuerpo de la respuesta en formato JSON
-                alert(`Reserva creada con éxito: ${JSON.stringify(responseBody)}`);
+                alert(`Reserva creada con éxito: se han enviado los detalles al correo electronico`);
                 reservaForm.reset();
                 acompanantesContainer.innerHTML = '';
+                window.location.href = 'Usuario.html';
             } else {
                 const errorBody = await response.text(); // Obtén el cuerpo de la respuesta en caso de error
                 alert(`Error al crear la reserva: ${errorBody}`);
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
             }
         } catch (error) {
-            console.error('Error al crear la reserva:', error);
+            console.error('Error al crear la reserva');
         }
-        
+
     });
- 
+
 });
- 

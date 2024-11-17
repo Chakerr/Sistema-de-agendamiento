@@ -51,20 +51,6 @@ input {
     margin: 0 auto;
     margin-bottom: 10px;
 }
-
-/*
-.btn {
-    background-color: var(--color-principal);
-    color: var(--color-fondo);
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s ease; 
-}
-*/
 .btn:hover {
     background-color: var(--color-acento);
     transform: scale(1.05); /* Ligeramente agranda el botón */

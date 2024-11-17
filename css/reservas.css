@@ -38,7 +38,7 @@ label {
 }
 
 input, button {
-    width: 377px;
+    width: 275px;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid var(--color-secundario);
@@ -46,7 +46,7 @@ input, button {
 }
 
 select{
-    width: 400px;
+    width: 295px;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid var(--color-secundario);

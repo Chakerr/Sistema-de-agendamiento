@@ -1,3 +1,5 @@
+const link = "http://localhost:8080"
+
 document.addEventListener('DOMContentLoaded', () => {
 
     const fechaInput = document.getElementById('fecha');
@@ -14,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function consultarTotalVisitas() {
-        fetch('http://localhost:8080/administradores/total-visitas')
+        fetch(`${link}/administradores/total-visitas`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('numero-visitas').textContent = `${data}`;
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function consultarTotalReservas() {
-        fetch('http://localhost:8080/administradores/total-reservas')
+        fetch(`${link}/administradores/total-reservas`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('numero-reservas').textContent = `${data}`;
@@ -33,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function consultarReservas() {
         const codigoEstudiante = document.getElementById('codigoEstudianteReservas').value;
-        fetch(`http://localhost:8080/administradores/reservas-activas/${codigoEstudiante}`)
+        fetch(`${link}/administradores/reservas-activas/${codigoEstudiante}`)
             .then(response => response.json())
             .then(reservas => {
                 const resultadoReservas = document.getElementById('resultadoReservas');
@@ -144,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
  
-        fetch(`http://localhost:8080/administradores/reservas-fecha/${fechaSeleccionada}`)
+        fetch(`${link}/administradores/reservas-fecha/${fechaSeleccionada}`)
             .then(response => response.json())
             .then(reservas => {
                 // Convertir horas al formato de dos dígitos
@@ -168,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function verDetallesReserva() {
         console.log("Botón 'Ver Detalles de Reservas' presionado."); // Comprobación inicial
 
-        fetch('http://localhost:8080/administradores/reservas')
+        fetch(`${link}/administradores/reservas`)
             .then(response => {
                 console.log("Respuesta recibida del servidor:", response);
                 return response.json();
@@ -212,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('consultarVisitasBtn').addEventListener('click', function () {
         const codigoEstudiante = document.getElementById('codigoEstudianteVisitas').value;
-        fetch(`http://localhost:8080/administradores/visitas/${codigoEstudiante}`)
+        fetch(`${link}/administradores/visitas/${codigoEstudiante}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('resultadoVisitas').textContent = `Número de visitas del estudiante ${codigoEstudiante}: ${data}`;
@@ -242,7 +244,16 @@ document.addEventListener('DOMContentLoaded', () => {
     function processJsonData(json) {
         const categorias = Object.keys(json);
         const valores = Object.values(json);
-        return { categorias, valores };
+    
+        // Filtrar categorÃ­as y valores donde el valor es mayor a 0
+        const categoriasConValores = categorias
+            .map((categoria, index) => ({ categoria, valor: valores[index] }))
+            .filter(item => item.valor > 0) // Eliminar entradas con valor 0
+            .map(item => `${item.categoria}: ${item.valor}`); // Concatenar nombre y valor
+    
+        const valoresFiltrados = valores.filter(valor => valor > 0);
+    
+        return { categorias: categoriasConValores, valores: valoresFiltrados };
     }
 
     // Función para crear la gráfica de pastel
@@ -276,11 +287,10 @@ document.addEventListener('DOMContentLoaded', () => {
     //Fetch solamente para inventario
     async function fetchDataAndRenderChart(fecha) {
         try {
-            const response = await fetch(`http://localhost:8080/JefeL/stats/${fecha}`, {
+            const response = await fetch(`${link}/JefeL/stats/${fecha}`, {
                 method: 'GET'
             });
             const jsonData = await response.json();
-
             const processedData = processJsonData(jsonData);
             renderPieChart(processedData);
         } catch (error) {
@@ -356,8 +366,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fetch para reservas creadas y confirmadas sin enviar fecha ni método GET
     async function fetchDataAndRenderChart1() {
         try {
-            const responseTotal = await fetch('http://localhost:8080/Gerente/total-reservas');
-            const responseConfirmed = await fetch('http://localhost:8080/Gerente/reservas-Activas');
+            const responseTotal = await fetch(`${link}/Gerente/total-reservas`);
+            const responseConfirmed = await fetch(`${link}/Gerente/reservas-Activas`);
 
             const totalData = await responseTotal.json();      // Datos de reservas creadas
             const confirmedData = await responseConfirmed.json(); // Datos de reservas confirmadas

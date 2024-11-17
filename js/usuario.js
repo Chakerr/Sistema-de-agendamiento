@@ -1,33 +1,34 @@
+const link = "http://localhost:8080"
 document.addEventListener('DOMContentLoaded', () => {
     const cancelarReservaBtn = document.getElementById('cancelarReservaBtn');
     const codigoReservaInput = document.getElementById('codigoReserva');
-    const resultadoReservasDiv = document.getElementById('resultadoReservas');
+    const messageDiv = document.getElementById('message');
+    let codigoReserva; // Variable para almacenar el código de reserva
 
-    // Función para cancelar una reserva
+    // Función para enviar el código de reserva y mostrar el campo de token
     cancelarReservaBtn.addEventListener('click', async () => {
-        const codigoReserva = codigoReservaInput.value.trim();
-        
+        codigoReserva = codigoReservaInput.value.trim();
+        const storedId = sessionStorage.getItem('id');
         if (!codigoReserva) {
-            resultadoReservasDiv.textContent = 'Por favor, ingresa el código de la reserva.';
+            messageDiv.textContent = 'Por favor, ingresa el código de la reserva.';
             return;
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/ResEst/borrarRes/${codigoReserva}`, {
-                method: 'DELETE',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ codigo: codigoReserva })
-            });
-
+            const response = await fetch(`${link}/ResEst/verificar?reservaId=${codigoReserva}&codigoEstudiante=${storedId}`);
             if (response.ok) {
-                resultadoReservasDiv.textContent = 'Reserva cancelada exitosamente.';
-                codigoReservaInput.value = ''; // Limpiar el campo de entrada
+                const deleteResponse = await fetch(`${link}/ResEst/borrarRes/${codigoReserva}`, {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                alert("Se ha cancelado exitosamente su reserva, revise su correo con la confirmación");
             } else {
-                resultadoReservasDiv.textContent = 'Error al cancelar la reserva. Verifica el código.';
+                alert("Error al cancelar su reserva, revise que su id está bien escrito");
             }
         } catch (error) {
             console.error('Error de conexión:', error);
-            resultadoReservasDiv.textContent = 'Error de conexión al cancelar la reserva. Intenta de nuevo.';
+            messageDiv.textContent = 'Error de conexión al enviar la confirmación. Intenta de nuevo.';
         }
     });
 });

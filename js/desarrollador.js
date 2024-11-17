@@ -1,7 +1,8 @@
+const link = "https://ede7-191-107-128-227.ngrok-free.app"
 // Función para eliminar un estudiante
 function eliminarEstudiante() {
     const id = document.getElementById('eliminarId').value;
-    fetch(`http://localhost:8080/jsons/estudiantes/${id}`, {
+    fetch(`${link}/jsons/estudiantes/${id}`, {
         method: 'DELETE'
     })
     .then(response => {
@@ -19,7 +20,7 @@ function modificarEstudiante() {
     const id = document.getElementById('modificarId').value;
     const nuevoCodigo = document.getElementById('nuevoCodigoCarnet').value;
 
-    fetch(`http://localhost:8080/jsons/estudiantes/${id}/codigoCarnet`, {
+    fetch(`${link}/jsons/estudiantes/${id}/codigoCarnet`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -36,7 +37,7 @@ function modificarEstudiante() {
     .catch(error => console.error('Error:', error));
 }
 function consultarEstudiantes() {
-    fetch('http://localhost:8080/jsons/estudiantes')
+    fetch(`${link}/jsons/estudiantes`)
         .then(response => response.json())
         .then(data => {
             const resultContainer = document.getElementById('resultContainer');

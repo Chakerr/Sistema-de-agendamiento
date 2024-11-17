@@ -1,6 +1,8 @@
+const link = "https://ede7-191-107-128-227.ngrok-free.app"
+
 document.addEventListener('DOMContentLoaded', () => {
     function enviarAlBackend(codigo, tipo) {
-        fetch('http://localhost:8080/estudiantes/carnet', {
+        fetch(`${link}/estudiantes/carnet`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -19,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function enviarAlBackend1(codigo, tipo) {
-        fetch('http://localhost:8080/estudiantes/validarCedula', {
+        fetch(`${link}/estudiantes/validarCedula`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -23,7 +23,7 @@ form {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 90%;
     max-width: 400px; /* Limitar el ancho del formulario */
-    min-width: 300px; /* Ancho mínimo */
+    min-width: 100px; /* Ancho mínimo */
     margin: 20px auto; /* Centra el formulario */
 }
 
@@ -35,12 +35,24 @@ label {
 }
 
 input {
-    width: 320px;
+    width: 285px;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid var(--color-secundario);
     border-radius: 5px;
     color: var(--color-texto);
+}
+
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 32%;
+    transform: translateY(-50%);
+    cursor: pointer;
 }
 
 button {

@@ -1,3 +1,45 @@
+const link = "http://localhost:8080"
+document.getElementById('InvBtn').addEventListener('click', obtenerInventario);
+
+function obtenerInventario() {
+    fetch(`${link}/inventarios/obtener`)
+        .then(response => response.json())
+        .then(data => {
+            const resultContainer = document.getElementById('inventarioContainer');
+            resultContainer.innerHTML = '';
+
+            if (data.length === 0) {
+                resultContainer.innerHTML = '<p>No hay inventario registrado.</p>';
+                return;
+            }
+
+            // Aquí cambias el sort si lo deseas para ordenar alfabéticamente por el equipo
+            data.sort((a, b) => {
+                const equipoA = a.equipo.toLowerCase();
+                const equipoB = b.equipo.toLowerCase();
+                if (equipoA < equipoB) return -1;
+                if (equipoA > equipoB) return 1;
+                return 0;
+            });
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<th>ID</th><th>Equipo</th><th>Disponible</th>';
+            table.appendChild(headerRow);
+
+            data.forEach((inventario) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td class="id-cuadro">${inventario.idInventario}</td>
+                    <td class="nombre-equipo">${inventario.equipo}</td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${inventario.cantidad}</td>
+                `;
+                table.appendChild(row);
+            });
+            resultContainer.appendChild(table);
+        })
+        .catch(error => console.error('Error:', error));
+}
 document.addEventListener('DOMContentLoaded', () => {
 
     const fechaInput = document.getElementById('fecha');
@@ -14,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function consultarTotalVisitas() {
-        fetch('http://localhost:8080/administradores/total-visitas')
+        fetch(`${link}/administradores/total-visitas`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('numero-visitas').textContent = `${data}`;
@@ -23,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function consultarTotalReservas() {
-        fetch('http://localhost:8080/administradores/total-reservas')
+        fetch(`${link}/administradores/total-reservas`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('numero-reservas').textContent = `${data}`;
@@ -33,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function consultarReservas() {
         const codigoEstudiante = document.getElementById('codigoEstudianteReservas').value;
-        fetch(`http://localhost:8080/administradores/reservas-activas/${codigoEstudiante}`)
+        fetch(`${link}/administradores/reservas-activas/${codigoEstudiante}`)
             .then(response => response.json())
             .then(reservas => {
                 const resultadoReservas = document.getElementById('resultadoReservas');
@@ -134,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
             resultadoReservasPorFecha.appendChild(reservaDiv);
         }
     }
-    //`http://localhost:8080/administradores/reservas-fecha/${fecha}`
 
     // Función para consultar reservas por fecha
     function consultarReservasPorFecha() {
@@ -145,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
  
-        fetch(`http://localhost:8080/administradores/reservas-fecha/${fechaSeleccionada}`)
+        fetch(`${link}/administradores/reservas-fecha/${fechaSeleccionada}`)
             .then(response => response.json())
             .then(reservas => {
                 // Convertir horas al formato de dos dígitos
@@ -171,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function verDetallesReserva() {
         console.log("Botón 'Ver Detalles de Reservas' presionado."); // Comprobación inicial
 
-        fetch('http://localhost:8080/administradores/reservas')
+        fetch(`${link}/administradores/reservas`)
             .then(response => {
                 console.log("Respuesta recibida del servidor:", response);
                 return response.json();
@@ -214,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('consultarVisitasBtn').addEventListener('click', function () {
         const codigoEstudiante = document.getElementById('codigoEstudianteVisitas').value;
-        fetch(`http://localhost:8080/administradores/visitas/${codigoEstudiante}`)
+        fetch(`${link}/administradores/visitas/${codigoEstudiante}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('resultadoVisitas').textContent = `Número de visitas del estudiante ${codigoEstudiante}: ${data}`;

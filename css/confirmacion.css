@@ -42,7 +42,7 @@ label {
     margin: 10px 0 5px;
 }
 
-input, select, button {
+input, select{
     width: 93%;
     max-width: 450px; /* Limita el ancho máximo */
     padding: 10px;
@@ -63,6 +63,11 @@ button {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    width: 310px;
+    max-width: 450px; /* Limita el ancho máximo */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
 }
 
 button:hover {

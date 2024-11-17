@@ -10,15 +10,6 @@ html, body {
     color: var(--color-secundario);
 }
 
-/* Main adjustments */
-main {
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    flex-grow: 1; /* Takes up remaining space */
-}
 
 section {
     background-color: var(--color-acento);

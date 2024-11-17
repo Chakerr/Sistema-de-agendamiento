@@ -1,3 +1,4 @@
+const link = "http://localhost:8080"
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const messageDiv = document.getElementById('message');
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     studentLoginBtn.addEventListener('click', () => {
-        showLoginForm('student', 'Código:', 'text', 'id_codigo');
+        showLoginForm('student', 'Código o Cedula (para no estudiante):', 'text', 'id_codigo');
     });
 
     adminLoginBtn.addEventListener('click', () => {
@@ -57,14 +58,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         const url = userType === 'admin'
-            ? 'http://localhost:8080/administradores/loginLab'
+            ? `${link}/administradores/loginLab`
             : userType === 'manager'
-                ? 'http://localhost:8080/administradores/loginLab' // URL para Gerente
+                ? `${link}/administradores/loginLab` // URL para Gerente
                 : userType === 'chief'
-                    ? 'http://localhost:8080/administradores/loginLab' // URL para Jefe
+                    ? `${link}/administradores/loginLab` // URL para Jefe
                     : userType === 'developer'
-                        ? 'http://localhost:8080/jsons/loginAdm' // URL para Desarrollador
-                        : 'http://localhost:8080/estudiantes/login'; // URL para Estudiante
+                        ? `${link}/jsons/loginAdm` // URL para Desarrollador
+                        : `${link}/estudiantes/login`; // URL para Estudiante
 
         try {
             const response = await fetch(url, {
@@ -76,6 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
+                if (userType === 'student') {
+                    sessionStorage.setItem('id', data.id_codigo);
+                }
                 const redirectPage = userType === 'admin'
                     ? 'laboratorista.html'
                     : userType === 'manager'

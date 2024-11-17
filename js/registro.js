@@ -1,3 +1,4 @@
+const link = "http://localhost:8080"
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const messageDiv = document.getElementById('message');
@@ -32,8 +33,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // Manejar el envío del formulario de registro
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const formData = new FormData(form);
+        const  boton = document.getElementById('miBoton');
+        const recaptchaResponse = grecaptcha.getResponse();
+        if (!recaptchaResponse) {
+        alert('Por favor, completa el reCAPTCHA');
+    }
+else{
+        boton.disabled = true;
+        boton.show = false;
         storedData = { // Guardar datos para reutilizar en la verificación del token
             id_codigo: formData.get('codigo_estudiante'),
             correo: formData.get('correo'),
@@ -41,24 +49,27 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const response = await fetch('http://localhost:8080/pre-register', {
+            const response = await fetch(`${link}/pre-register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(storedData),
             });
-
             if (response.ok) {
+                alert("Se envió el token a su correo electrónico, por favor espere unos segundos");
                 // Mostrar el campo para ingresar el token y el botón de verificación
                 tokenFieldDiv.style.display = 'block';
                 messageDiv.textContent = 'Registro exitoso. Ingresa el token enviado a tu correo electrónico.';
                 startTimer(5 * 60); // Iniciar cronómetro de 5 minutos
-            } else {
+            }
+            else {
                 messageDiv.textContent = 'Error en el registro. Intenta de nuevo.';
             }
+            
         } catch (error) {
             console.log(error);
-            messageDiv.textContent = 'Error de conexión. Intenta de nuevo.';
+            messageDiv.textContent = 'Datos ya existentes o error de conexión';
         }
+    }
     });
 
     // Manejar la verificación del token
@@ -72,18 +83,18 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const tokenResponse = await fetch('http://localhost:8080/verify-token', {
+            const tokenResponse = await fetch(`${link}/verify-token`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(tokenData),
             });
 
             if (tokenResponse.ok) {
-                clearInterval(countdownInterval); // Detener el cronómetro
-                messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
-                setTimeout(() => {
-                    window.location.href = 'login.html';
-                }, 2000);
+               // clearInterval(countdownInterval); // Detener el cronómetro
+                //messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
+                //setTimeout(() => {
+                  //  window.location.href = 'login.html';
+                //}, 2000);
 
                 const selectCarrera = document.getElementById('carrera');
                 const registro = {
@@ -99,11 +110,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
 
                 // Guardar los datos finales de registro en la base de datos
-                await fetch('http://localhost:8080/estudiantes/save', {
+                const registrarEstudiante = await fetch(`${link}/estudiantes/save`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(registro),
                 });
+                if(registrarEstudiante.ok){
+                    clearInterval(countdownInterval); // Detener el cronómetro
+                messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
+                setTimeout(() => {
+                    window.location.href = 'login.html';
+                }, 2000);
+                }
             } else {
                 messageDiv.textContent = 'Token inválido. Intenta de nuevo.';
             }
