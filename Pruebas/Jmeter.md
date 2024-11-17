@@ -1,7 +1,7 @@
 **Pruebas de concurrencia con JMeter**  
 Para probar la eficiencia de la plataforma web se llevaron a cabo distintas pruebas para analizar el comportamiento de la misma mediante varias peticiones al mismo tiempo, específicamente 200, estos fueron los resultados dados por JMeter.  
 
-*Registrar Estudiante*  
+**Registrar Estudiante** 
 ![][image1]  
 ![][image2]  
 Nota: Solo aparece bien un request porque solo se puede agregar un estudiante igual  
