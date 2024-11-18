@@ -1,4 +1,4 @@
-const link = "http://localhost:8080"
+const link = "https://sistema-agendamiento-1-back-472b7073b8ab.herokuapp.com"
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const messageDiv = document.getElementById('message');
@@ -40,11 +40,12 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Por favor, completa el reCAPTCHA');
     }
 else{
-        boton.disabled = true;
-        boton.show = false;
+        //boton.disabled = true;
+        //boton.show = false;
         storedData = { // Guardar datos para reutilizar en la verificación del token
             id_codigo: formData.get('codigo_estudiante'),
             correo: formData.get('correo'),
+            cedula: formData.get('cedula'),
             contrasena: formData.get('contrasena')
         };
 
@@ -62,12 +63,13 @@ else{
                 startTimer(5 * 60); // Iniciar cronómetro de 5 minutos
             }
             else {
-                messageDiv.textContent = 'Error en el registro. Intenta de nuevo.';
+                const errorBody = await response.text();
+                messageDiv.textContent = `Error al crear registrar: ${errorBody}`;
             }
             
         } catch (error) {
-            console.log(error);
-            messageDiv.textContent = 'Datos ya existentes o error de conexión';
+            const errorBody = await response.text();
+            messageDiv.textContent = `Error al crear registrar: ${errorBody}`;
         }
     }
     });
@@ -88,14 +90,12 @@ else{
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(tokenData),
             });
-
             if (tokenResponse.ok) {
                // clearInterval(countdownInterval); // Detener el cronómetro
                 //messageDiv.textContent = 'Token verificado exitosamente. Ahora puedes iniciar sesión.';
                 //setTimeout(() => {
                   //  window.location.href = 'login.html';
                 //}, 2000);
-
                 const selectCarrera = document.getElementById('carrera');
                 const registro = {
                     id_codigo: storedData.id_codigo,
@@ -123,7 +123,8 @@ else{
                 }, 2000);
                 }
             } else {
-                messageDiv.textContent = 'Token inválido. Intenta de nuevo.';
+                const errorBody = await tokenResponse.text();
+                messageDiv.textContent = `Error al registrar: ${errorBody}`;
             }
         } catch (error) {
             console.log(error);

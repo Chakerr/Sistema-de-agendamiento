@@ -1,4 +1,4 @@
-const link = "https://ede7-191-107-128-227.ngrok-free.app"
+const link = "https://sistema-agendamiento-1-back-472b7073b8ab.herokuapp.com"
 
 document.addEventListener('DOMContentLoaded', () => {
     function enviarAlBackend(codigo, tipo) {

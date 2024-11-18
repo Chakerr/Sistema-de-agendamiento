@@ -1,4 +1,4 @@
-const link = "http://localhost:8080"
+const link = "https://sistema-agendamiento-1-back-472b7073b8ab.herokuapp.com"
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const messageDiv = document.getElementById('message');

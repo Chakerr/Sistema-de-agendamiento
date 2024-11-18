@@ -1,4 +1,4 @@
-const link = "http://localhost:8080"
+const link = "https://sistema-agendamiento-1-back-472b7073b8ab.herokuapp.com"
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('form');
     const messageDiv = document.getElementById('message');
@@ -41,11 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
         alert('Por favor, completa el reCAPTCHA');
     }
 else{
-        boton.disabled = true;
-        boton.show = false;
+        //boton.disabled = true;
+        //boton.show = false;
         storedData = { // Guardar datos para reutilizar en la verificación del token
             id_codigo: formData.get('cedula'),
             correo: formData.get('correo'),
+            cedula: formData.get('cedula'),
             contrasena: formData.get('contrasena')
         };
 
@@ -62,7 +63,8 @@ else{
                 messageDiv.textContent = 'Registro exitoso. Ingresa el token enviado a tu correo electrónico.';
                 startTimer(5 * 60); // Iniciar cronómetro de 5 minutos
             } else {
-                messageDiv.textContent = 'Error en el registro. Intenta de nuevo.';
+                const errorBody = await response.text();
+                messageDiv.textContent = `Error al registrar: ${errorBody}`;
             }
         } catch (error) {
             console.log(error);
@@ -121,7 +123,8 @@ else{
                 }, 2000);
                 }
             } else {
-                messageDiv.textContent = 'Token inválido. Intenta de nuevo.';
+                const errorBody = await tokenResponse.text();
+                messageDiv.textContent = `Error al registrar: ${errorBody}`;
             }
         } catch (error) {
             console.log(error);
