@@ -1,0 +1,92 @@
+
+/* General adjustments */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+}
+
+/* Main adjustments */
+main {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1; /* Takes up remaining space */
+}
+
+section {
+    background-color: var(--color-acento);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Ocupa el 90% del ancho disponible */
+    max-width: 500px; /* Limita el ancho máximo a 500px */
+    margin-bottom: 20px; /* Espacio entre secciones */
+}
+
+h1, h2 {
+    color: var(--color-principal);
+    text-align: center; /* Centrar texto */
+    margin-bottom: 15px; /* Espacio debajo del encabezado */
+}
+
+/* Form field adjustments */
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input, select{
+    width: 93%;
+    max-width: 450px; /* Limita el ancho máximo */
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+input[type="number"], .input-numero {
+    width: 93%;
+    max-width: 428px;
+    padding: 10px;
+}
+
+button {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 310px;
+    max-width: 450px; /* Limita el ancho máximo */
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+button:hover {
+    background-color: var(--color-secundario);
+}
+
+/* Footer adjustments */
+footer {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    text-align: center;
+    padding: 10px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    section {
+        max-width: 90%; /* Ajusta el ancho en pantallas pequeñas */
+    }
+}

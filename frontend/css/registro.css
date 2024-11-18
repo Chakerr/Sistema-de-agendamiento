@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+h2 {
+    color: var(--color-principal);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: var(--color-acento);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px;
+    min-width: 300px;
+    margin: 0 auto;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input[type="number"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 25px;
+    top: 32%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+button {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: var(--color-secundario);
+}
+
+#message {
+    margin-top: 20px;
+    text-align: center;
+    color: green;
+}
+
+.select-carrera {
+    margin-bottom: 20px;
+}

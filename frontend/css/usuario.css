@@ -1,0 +1,193 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+}
+
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; /* Ocupa toda la altura de la pantalla */
+    max-width: 90%; /* Limita el ancho total */
+    margin: 0 auto; /* Centra el main */
+}
+
+.dashboard {
+    background-color: var(--color-acento); /* Color de fondo para el dashboard */
+    padding: 20px;
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    width: 90%;
+    max-width: 600px; /* Ancho máximo */
+    min-width: 300px; /* Ancho mínimo */
+    margin: 20px auto; /* Centra el dashboard */
+}
+
+button {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%; /* Hacer el botón del mismo ancho que el formulario */
+    margin-top: 30px; /* Espacio entre elementos */
+    border-radius: 5px; /* Redondeo consistente */
+}
+
+button:hover {
+    background-color: var(--color-acento);
+}
+
+
+/* General adjustments */
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+}
+
+/* Main adjustments */
+main {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1; /* Takes up remaining space */
+}
+
+section {
+    background-color: var(--color-acento);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Ocupa el 90% del ancho disponible */
+    max-width: 500px; /* Limita el ancho máximo a 500px */
+    margin-bottom: 20px; /* Espacio entre secciones */
+}
+
+h1, h2 {
+    color: var(--color-principal);
+    text-align: center; /* Centrar texto */
+    margin-bottom: 15px; /* Espacio debajo del encabezado */
+}
+
+/* Form field adjustments */
+label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+input {
+    width: 93%;
+    max-width: 450px; /* Limita el ancho máximo */
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+select {
+    width: 93%;
+    max-width: 450px; /* Limita el ancho máximo */
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+button {
+    width: 100%;
+    max-width: 450px; /* Limita el ancho máximo */
+    padding: 10px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    margin-bottom: 15px;
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--color-secundario);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    section {
+        max-width: 90%; /* Ajusta el ancho en pantallas pequeñas */
+    }
+}
+
+
+/* Styles for the cuadros */
+.cuadro {
+    background-color: var(--color-acento);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px; /* Limita el ancho máximo de los cuadros */
+    text-align: center; /* Centra el texto dentro del cuadro */
+    margin-bottom: 20px; /* Espacio entre los cuadros */
+}
+
+.cuadro h1 {
+    color: var(--color-principal);
+    margin-bottom: 10px;
+}
+
+.cuadro p {
+    color: var(--color-secundario);
+    font-size: 1.5em; /* Aumenta el tamaño de la cifra */
+    margin: 5px 0; /* Espacio entre párrafos */
+}
+
+.descripcion {
+    font-size: 0.9em; /* Tamaño de fuente más pequeño para la descripción */
+    color: var(--color-secundario); /* Usa el color secundario */
+}
+
+.detalles {
+    background-color: var(--color-fondo);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detalles p {
+    color: var(--color-secundario);
+    margin: 5px 0;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 270px;
+}
+
+.btn:hover {
+    background-color: var(--color-secundario);
+}

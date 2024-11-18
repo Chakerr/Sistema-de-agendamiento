@@ -1,0 +1,79 @@
+:root {
+    --color-principal: #E31F1A; /* Color principal */
+    --color-secundario: #333333; /* Color secundario */
+    --color-acento: #F0F0F0; /* Color de acento */
+    --color-fondo: #F8F8F8; /* Color de fondo */
+    --color-texto: #333333; /* Color del texto */
+}
+main {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1; /* Takes up remaining space */
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: var(--color-principal);
+}
+
+.logo img {
+    height: 50px; /* Ajusta el tamaño según sea necesario */
+}
+
+nav {
+    display: none; /* Oculta el menú por defecto */
+    position: absolute; /* Para que el menú se posicione correctamente */
+    background-color: (--color-fondo); /* Fondo blanco semitransparente */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para el menú */
+    z-index: 10; /* Asegúrate de que esté por encima de otros elementos */
+}
+
+
+nav ul {
+    list-style: none;
+    padding: 10px; /* Espacio alrededor del contenido */
+}
+
+nav ul li {
+    margin: 5px 0; /* Espacio entre los elementos del menú */
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: var(--color-secundario); /* Color del texto */
+    padding: 10px; /* Espacio interno */
+    display: block;
+    border-radius: 5px; /* Bordes redondeados */
+    background-color: var(--color-fondo); /* Color de fondo del enlace */
+}
+
+nav ul li a:hover {
+    background-color: var(--color-acento); /* Color de fondo al pasar el mouse */
+}
+
+footer {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    text-align: center;
+    padding: 10px 20px;
+    width: 95.6%;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    section {
+        max-width: 90%; /* Ajusta el ancho en pantallas pequeñas */
+    }
+}

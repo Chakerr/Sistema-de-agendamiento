@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-fondo);
+    color: var(--color-secundario);
+    margin: 0;
+}
+
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh; 
+    max-width: 90%; 
+    margin: 0 auto; 
+}
+
+form {
+    background-color: var(--color-acento);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 400px; 
+    min-width: 300px; 
+    margin: 20px auto; 
+}
+
+input {
+    width: 320px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--color-secundario);
+    border-radius: 5px;
+    color: var(--color-texto);
+}
+
+.btn {
+    background-color: var(--color-principal);
+    color: var(--color-fondo);
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s ease;
+    display: block; 
+    width: 85%; 
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+.btn:hover {
+    background-color: var(--color-acento);
+    transform: scale(1.05); /* Ligeramente agranda el botón */
+}
