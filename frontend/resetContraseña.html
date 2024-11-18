@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecer Contraseña</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/jefe.css">
+    <link rel="stylesheet" href="css/resetContraseña.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="img/logo.png" alt="Logo Universidad Piloto">
+        </div>
+    </header>
+    <main>
+        <h2>Restablecer Contraseña</h2>
+        <form id="resetPasswordForm">
+            <!-- Paso 1: Ingresar correo -->
+            <div id="emailStep">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" placeholder="Ingresa tu correo" required>
+                <button type="button" id="sendTokenBtn">Enviar</button>
+            </div>
+
+            <!-- Paso 2: Verificar token -->
+            <div id="tokenStep" style="display: none;">
+                <label for="token">Token:</label>
+                <input type="text" id="token" placeholder="Ingresa el token" required>
+                <button type="button" id="verifyTokenBtn">Verificar Token</button>
+            </div>
+
+            <!-- Paso 3: Restablecer contraseña -->
+            <div id="passwordStep" style="display: none;">
+                <label for="newPassword">Nueva contraseña:</label>
+                <div class="password-container">
+                    <input type="password" id="newPassword" minlength="8" placeholder="Ingresa tu nueva contraseña" required>
+                    <span class="toggle-password" onclick="togglePassword()">
+                        <i id="eyeIcon" class="fas fa-eye"></i>
+                    </span>
+                </div>
+
+                <label for="confirmPassword">Confirmar nueva contraseña:</label>
+                <div class="password-container">
+                    <input type="password" id="confirmPassword" minlength="8" placeholder="Confirma tu nueva contraseña" required>
+                    <span class="toggle-password" onclick="togglePassword()">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+
+                <button type="button" id="changePasswordBtn">Actualizar Contraseña</button>
+            </div>
+        </form>
+
+        <!-- Mensajes de estado -->
+        <div id="message"></div>
+    </main>
+
+    <footer>
+        <p>© 2024 Jsons. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="js/resetContraseña.js"></script>
+    <script>
+        // Función para mostrar u ocultar las contraseñas
+        function togglePassword() {
+            const passwordFields = [document.getElementById("newPassword"), document.getElementById("confirmPassword")];
+            const eyeIcons = document.querySelectorAll(".toggle-password i");
+
+            passwordFields.forEach((field, index) => {
+                if (field.type === "password") {
+                    field.type = "text";
+                    eyeIcons[index].classList.remove("fa-eye");
+                    eyeIcons[index].classList.add("fa-eye-slash");
+                } else {
+                    field.type = "password";
+                    eyeIcons[index].classList.remove("fa-eye-slash");
+                    eyeIcons[index].classList.add("fa-eye");
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
+
