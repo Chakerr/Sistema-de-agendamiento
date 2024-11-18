@@ -18,7 +18,7 @@ En este documento están los diagramas relacionados con la **Arquitectura de Sof
 ## Presupuesto
 
 **Notas:**
-1. Los precios de Azure incluyen base de datos y alojamiento de plataforma web.
+1. Los precios de Netlify y Heroku incluyen base de datos y alojamiento de plataforma web.
 2. El lector de RFID no tiene un costo recurrente (por semestre o por hora) ya que solo se paga una vez.
 
 ### Roles y Horas
