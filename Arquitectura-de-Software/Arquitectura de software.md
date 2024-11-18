@@ -17,24 +17,26 @@ En este documento están los diagramas relacionados con la **Arquitectura de Sof
 
 ## Presupuesto
 
-**Notas:**
-1. Los precios de Netlify y Heroku incluyen base de datos y alojamiento de plataforma web.
-2. El lector de RFID no tiene un costo recurrente (por semestre o por hora) ya que solo se paga una vez.
+**Nota:**
+ El lector de RFID no tiene un costo recurrente (por semestre o por hora) ya que solo se paga una vez.
 
-### Roles y Horas
+| Roles              | Arquitecto | Front       | Back        | Pruebas     | Requerimientos | Heroku    | Lector RFID |
+|--------------------|------------|-------------|-------------|-------------|----------------|-----------|-------------|
+| **Horas**          | 20         | 30          | 30          | 21          | 15             |           |             |
+| **Personal**       | 1          | 2           | 3           | 1           | 1              |           |             |
+| **Valor por hora** | $66,800.00 | $27,473.00  | $39,567.65  | $18,956.00  | $56,000.00     | $344.42   |             |
+| **Valor por semestre** | $1,336,000.00 | $1,648,380.00 | $3,561,088.50 | $398,076.00 | $840,000.00 | $82,660.00 | $71,990.00 |
 
-| Roles             | Arquitecto | Front     | Back       | Pruebas   | Requerimientos | Lector RFID |
-|-------------------|------------|-----------|------------|-----------|----------------|-------------|
-| Horas             | 20         | 30        | 30         | 21        | 15             |$71,990.00  |
-| Personal          | 1          | 1         | 2          | 5         | 1              |             
-| Valor por hora    | $66,800.00 | $27,473.00| $39,567.65 | $18,956.00| $56,000.00     |           
-| Valor por semestre| $1,336,000.00 | $824,190.00 | $2,374,059.00 | $1,990,380.00 |  $3,062,883.64 |
+| **Total por semestre** | **$7,938,194.50** |
+|------------------------|-------------------|
+| **Total por hora**     | **$209,141.07**  |
+| **Total mantenimiento**| **$208,796.65**  |
 
-### Totales
+| Heroku   | **Por mes** |
+|----------|-------------|
+| **USD**  | $5.00       |
+| **COP**  | $20,665.00  |
 
-- **Total por semestre:** $9,587,512.6
-- **Total por hora:** $208,796.65
-- **Total de mantenimiento:** $208,796.65
 
 [Presupuesto detallado en Google Sheets](https://docs.google.com/spreadsheets/d/1iy-0-saQVEFqAielRdeRvCwI8DtNj4ieGSFYFCTH5F4/edit?gid=0#gid=0)
 
