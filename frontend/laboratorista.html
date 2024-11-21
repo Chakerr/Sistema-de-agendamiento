@@ -56,7 +56,13 @@
             <div id="resultadoVisitas"></div>
             <div id="totalVisitas"></div>
         </section>
-
+        <section>
+            <div>
+                <h2>Consultar Estudiantes</h2>
+                <button onclick="consultarEstudiantes()">Consultar Todos los Estudiantes</button>
+            </div>
+        </section>
+        <div class="result" id="resultContainer"></div>
         <button id="InvBtn">Mostrar Inventario</button>
         <div id="inventarioContainer"></div>
         
@@ -74,7 +80,12 @@
                 <!-- Aquí se mostrarán los detalles de las reservas -->
             </div>
         </section>
-
+        <section id="gestionReservas">
+            <h2>Cancelación de Reservas Activas</h2>
+            <input type="text" id="codigoReserva" placeholder="Código de la Reserva">
+            <button type="submit" id="cancelarReservaBtn">Cancelar Reserva</button>
+            <div id="message"></div>
+        </section>
     </main>
 
     <footer>

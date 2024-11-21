@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Usuario</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/usuario.css">
+    <link rel="stylesheet" href="css/laboratorista.css">
 </head>
 
 <body>
@@ -17,6 +17,14 @@
     </header>
 
     <main>
+        <section id="gestionReservas">
+            <h2>Gestión de Reservas Activas</h2>
+            <button id="consultarReservasBtn">Consultar Reservas</button>
+            <div id="listaReservas">
+                <!-- Aquí se cargará la lista de reservas -->
+            </div>
+            <div id="resultadoReservas"></div>
+        </section>
         <section id="dashboard">
             <h2>Creación de Reservas</h2>
             <button onclick="window.location.href='reservas.html'">Hacer Nueva Reserva</button>
@@ -34,6 +42,7 @@
     </footer>
 
     <script src="js/usuario.js"></script>
+    
 </body>
 
 </html>

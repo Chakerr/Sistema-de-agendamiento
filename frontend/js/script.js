@@ -79,6 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok) {
                 if (userType === 'student') {
                     sessionStorage.setItem('id', data.id_codigo);
+                    sessionStorage.removeItem('jefe'); // Elimina el valor de 'jefe' si existe
+                } else {
+                    sessionStorage.setItem('jefe', data.id_codigo);
+                    sessionStorage.removeItem('id'); // Elimina el valor de 'id' si existe
                 }
                 const redirectPage = userType === 'admin'
                     ? 'laboratorista.html'

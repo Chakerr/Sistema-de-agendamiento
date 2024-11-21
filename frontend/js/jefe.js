@@ -394,3 +394,11 @@ function renderPieChart(data) {
     });
 
 });
+document.addEventListener("DOMContentLoaded", function () {
+    // Verificar si 'id' está almacenado en sessionStorage
+    if (!sessionStorage.getItem('jefe')) {
+        // Si no existe, redirigir a inicio.html
+        alert('No tienes permiso para acceder a esta página.');
+        window.location.href = 'index.html'; // Cambia a la ruta correspondiente de tu página de inicio
+    }
+});

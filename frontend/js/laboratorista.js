@@ -1,4 +1,5 @@
 const link = "https://sistema-agendamiento-1-back-472b7073b8ab.herokuapp.com"
+
 document.getElementById('InvBtn').addEventListener('click', obtenerInventario);
 
 function obtenerInventario() {
@@ -41,7 +42,6 @@ function obtenerInventario() {
         .catch(error => console.error('Error:', error));
 }
 document.addEventListener('DOMContentLoaded', () => {
-
     const fechaInput = document.getElementById('fecha');
 
     fechaInput.addEventListener('change', (event) => {
@@ -268,3 +268,80 @@ document.addEventListener('DOMContentLoaded', () => {
     consultarTotalVisitas();
     consultarTotalReservas();
 });
+document.addEventListener("DOMContentLoaded", function () {
+    // Verificar si 'id' está almacenado en sessionStorage
+    if (!sessionStorage.getItem('jefe')) {
+        // Si no existe, redirigir a inicio.html
+        alert('No tienes permiso para acceder a esta página.');
+        window.location.href = 'index.html'; // Cambia a la ruta correspondiente de tu página de inicio
+    }
+});
+function consultarEstudiantes() {
+    fetch(`${link}/jsons/estudiantes`)
+        .then(response => response.json())
+        .then(data => {
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            if (data.length === 0) {
+                resultContainer.innerHTML = '<p>No hay estudiantes registrados.</p>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<th>ID</th><th>Nombre</th><th>Cédula</th><th>Visitas</th><th>Correo</th><th>Código</th>';
+            table.appendChild(headerRow);
+
+            data.forEach(estudiante => {
+                const row = document.createElement('tr');
+                row.innerHTML =` 
+                    <td>${estudiante.id_codigo}</td>
+                    <td>${estudiante.nombre}</td>
+                    <td>${estudiante.cedula}</td>
+                    <td>${estudiante.visitas}</td>
+                    <td>${estudiante.correo}</td>
+                    <td>${estudiante.codigoCarnet}</td>`
+                ;
+                table.appendChild(row);
+            });
+
+            resultContainer.appendChild(table);
+        })
+        .catch(error => console.error('Error:', error));
+}
+const cancelarReservaBtn = document.getElementById('cancelarReservaBtn');
+const codigoReservaInput = document.getElementById('codigoReserva');
+const messageDiv = document.getElementById('message');
+
+cancelarReservaBtn.addEventListener('click', async () => {
+    const codigoReserva = codigoReservaInput.value.trim();
+    const storedId = sessionStorage.getItem('id'); // Opcional si planeas usarlo después
+
+    if (!codigoReserva) {
+        messageDiv.textContent = 'Por favor, ingresa el código de la reserva.';
+        messageDiv.style.color = 'red';
+        return;
+    }
+
+    try {
+        const deleteResponse = await fetch(`${link}/ResEst/borrarRes/${codigoReserva}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (deleteResponse.ok) {
+            messageDiv.textContent = 'Reserva cancelada exitosamente. Se ha enviado un correo de confirmación.';
+            messageDiv.style.color = 'green';
+            alert('Reserva cancelada exitosamente.');
+        } else {
+            messageDiv.textContent = 'Error al cancelar la reserva. Verifica el código e intenta nuevamente.';
+            messageDiv.style.color = 'red';
+        }
+    } catch (error) {
+        console.error('Error de conexión:', error);
+        messageDiv.textContent = 'Error de conexión al cancelar la reserva. Intenta de nuevo.';
+        messageDiv.style.color = 'red';
+    }
+});
+

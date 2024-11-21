@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 data.sort((a, b) => {
                     const equipoA = a.equipo.toLowerCase();
                     const equipoB = b.equipo.toLowerCase();
-    
+
                     if (equipoA < equipoB) return -1;
                     if (equipoA > equipoB) return 1;
                     return 0; // Si son iguales
@@ -79,12 +79,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     const formatoFecha = `${año}-${mes}-${dia}`;
     fechaInput.min = formatoFecha;
 
-    // Deshabilitar domingos
     fechaInput.addEventListener('change', (event) => {
         const fechaSeleccionada = new Date(event.target.value);
         const diaSemana = fechaSeleccionada.getDay();
 
-        if (diaSemana === 6) { // 0 es domingo
+        // Obtener la fecha actual
+        const hoy = new Date();
+
+        // Calcular la fecha que está en 8 días (es decir, el próximo miércoles)
+        const ochoDias = new Date(hoy);
+        ochoDias.setDate(hoy.getDate() + 8);
+
+        // Comprobar si la fecha seleccionada es dentro de los próximos 8 días
+        if (fechaSeleccionada < hoy || fechaSeleccionada > ochoDias) {
+            alert('Por favor, seleccione una fecha dentro de los próximos 8 días.');
+            fechaInput.value = '';
+            fechaInput.focus();
+            return; // Salir de la función si la fecha no está dentro del rango permitido
+        }
+
+        // Comprobar si el día seleccionado es un domingo
+        if (diaSemana === 0) { // 0 es domingo
             alert('No se pueden seleccionar domingos. Por favor, elija otro día.');
             fechaInput.value = '';
             fechaInput.focus();
@@ -210,9 +225,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             } else {
                 const errorBody = await response.text(); // Obtén el cuerpo de la respuesta en caso de error
                 alert(`Error al crear la reserva: ${errorBody}`);
-                setTimeout(() => {
-                    location.reload();
-                }, 2000);
+                boton.disabled = false;
+                boton.show = true;
             }
         } catch (error) {
             console.error('Error al crear la reserva');
@@ -221,3 +235,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
 });
+document.addEventListener("DOMContentLoaded", function () {
+    // Verificar si 'id' está almacenado en sessionStorage
+    if (!sessionStorage.getItem('id')) {
+        // Si no existe, redirigir a inicio.html
+        alert('No tienes permiso para acceder a esta página.');
+        window.location.href = 'index.html'; // Cambia a la ruta correspondiente de tu página de inicio
+    }
+}); 
