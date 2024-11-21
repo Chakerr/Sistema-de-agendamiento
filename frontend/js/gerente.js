@@ -40,19 +40,19 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(reservas => {
                 const resultadoReservas = document.getElementById('resultadoReservas');
                 resultadoReservas.innerHTML = '';
-     
+
                 if (Array.isArray(reservas) && reservas.length > 0) {
                     reservas.forEach(reserva => {
                         const reservaDiv = document.createElement('div');
                         reservaDiv.classList.add('reserva-item');
-     
+
                         // Procesar equiposList para mostrar id_equipo, nombre y cantidad
-                        const equiposInfo = reserva.equiposList.length > 0 
-                            ? reserva.equiposList.map(equipo => 
+                        const equiposInfo = reserva.equiposList.length > 0
+                            ? reserva.equiposList.map(equipo =>
                                 `ID: ${equipo.id_equipo}, Nombre: ${equipo.nombre}, Cantidad: ${equipo.cantidad}`
-                              ).join('<br>')
+                            ).join('<br>')
                             : 'Ninguno';
-     
+
                         reservaDiv.innerHTML = `
                         <p><strong>ID:</strong> ${reserva.id}</p>
                         <p><strong>Fecha:</strong> ${reserva.fecha}</p>
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(error => console.error('Error al consultar reservas:', error));
-     
+
         consultarTotalReservas();
     }
 
@@ -140,12 +140,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Función para consultar reservas por fecha
     function consultarReservasPorFecha() {
         const fechaSeleccionada = document.getElementById('fecha').value;
- 
+
         if (!fechaSeleccionada) {
             alert('Por favor, selecciona una fecha.');
             return;
         }
- 
+
         fetch(`${link}/administradores/reservas-fecha/${fechaSeleccionada}`)
             .then(response => response.json())
             .then(reservas => {
@@ -154,14 +154,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     reserva.hora_inicio = reserva.hora_inicio.padStart(8, '0');
                     reserva.hora_fin = reserva.hora_fin.padStart(8, '0');
                 });
- 
+
                 const reservasFiltradas = reservas.filter(reserva => reserva.fecha === fechaSeleccionada);
                 console.log('Reservas filtradas:', reservasFiltradas); // Verifica el resultado del filtrado
                 mostrarHorarioReservas(reservasFiltradas);
             })
             .catch(error => console.error('Error al consultar reservas por fecha:', error));
     }
-    
+
 
     // Asociar la función al botón
     document.getElementById('consultarReservasFechasBtn').addEventListener('click', consultarReservasPorFecha);
@@ -183,14 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 reservas.forEach(reserva => {
                     const reservaDetalle = document.createElement('div');
                     reservaDetalle.classList.add('reserva-detalle');
-                
+
                     // Crear lista de equipos
                     const equipos = reserva.equiposList.map(equipo => {
                         return `${equipo.nombre} (ID:    ${equipo.id_equipo}, Cantidad: ${equipo.cantidad})`;
                     }).join(', ');
-                
-                    reservaDetalle.innerHTML = 
-                    `<p><strong>ID:</strong> ${reserva.id}</p>
+
+                    reservaDetalle.innerHTML =
+                        `<p><strong>ID:</strong> ${reserva.id}</p>
                         <p><strong>Fecha:</strong> ${reserva.fecha}</p>
                         <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
                        <p><strong>Horas:</strong> ${reserva.horas}</p>
@@ -199,8 +199,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
                         <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
                         <p><strong>Equipos:</strong> ${equipos || 'Ninguno'}</p>`
-                    ;
-                
+                        ;
+
                     detallesReserva.appendChild(reservaDetalle);
                 });
             })
@@ -244,15 +244,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function processJsonData(json) {
         const categorias = Object.keys(json);
         const valores = Object.values(json);
-    
+
         // Filtrar categorÃ­as y valores donde el valor es mayor a 0
         const categoriasConValores = categorias
             .map((categoria, index) => ({ categoria, valor: valores[index] }))
             .filter(item => item.valor > 0) // Eliminar entradas con valor 0
             .map(item => `${item.categoria}: ${item.valor}`); // Concatenar nombre y valor
-    
+
         const valoresFiltrados = valores.filter(valor => valor > 0);
-    
+
         return { categorias: categoriasConValores, valores: valoresFiltrados };
     }
 
@@ -392,3 +392,37 @@ document.addEventListener("DOMContentLoaded", function () {
         window.location.href = 'index.html'; // Cambia a la ruta correspondiente de tu página de inicio
     }
 });
+function consultarEstudiantes() {
+    fetch(`${link}/jsons/estudiantes`)
+        .then(response => response.json())
+        .then(data => {
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            if (data.length === 0) {
+                resultContainer.innerHTML = '<p>No hay estudiantes registrados.</p>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<th>ID</th><th>Nombre</th><th>Cédula</th><th>Visitas</th><th>Correo</th><th>Código</th>';
+            table.appendChild(headerRow);
+
+            data.forEach(estudiante => {
+                const row = document.createElement('tr');
+                row.innerHTML = ` 
+                    <td>${estudiante.id_codigo}</td>
+                    <td>${estudiante.nombre}</td>
+                    <td>${estudiante.cedula}</td>
+                    <td>${estudiante.visitas}</td>
+                    <td>${estudiante.correo}</td>
+                    <td>${estudiante.codigoCarnet}</td>`
+                    ;
+                table.appendChild(row);
+            });
+
+            resultContainer.appendChild(table);
+        })
+        .catch(error => console.error('Error:', error));
+}

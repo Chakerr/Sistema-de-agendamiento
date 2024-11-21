@@ -1,6 +1,41 @@
 const link = "https://sistema-agendamiento-1-back-472b7073b8ab.herokuapp.com"
 document.getElementById('InvBtn').addEventListener('click', obtenerInventario);
 
+function consultarEstudiantes() {
+    fetch(`${link}/jsons/estudiantes`)
+        .then(response => response.json())
+        .then(data => {
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+
+            if (data.length === 0) {
+                resultContainer.innerHTML = '<p>No hay estudiantes registrados.</p>';
+                return;
+            }
+
+            const table = document.createElement('table');
+            const headerRow = document.createElement('tr');
+            headerRow.innerHTML = '<th>ID</th><th>Nombre</th><th>Cédula</th><th>Visitas</th><th>Correo</th><th>Código</th>';
+            table.appendChild(headerRow);
+
+            data.forEach(estudiante => {
+                const row = document.createElement('tr');
+                row.innerHTML = ` 
+                    <td>${estudiante.id_codigo}</td>
+                    <td>${estudiante.nombre}</td>
+                    <td>${estudiante.cedula}</td>
+                    <td>${estudiante.visitas}</td>
+                    <td>${estudiante.correo}</td>
+                    <td>${estudiante.codigoCarnet}</td>`
+                    ;
+                table.appendChild(row);
+            });
+
+            resultContainer.appendChild(table);
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 function obtenerInventario() {
     fetch(`${link}/inventarios/obtener`)
         .then(response => response.json())
@@ -80,19 +115,19 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(reservas => {
                 const resultadoReservas = document.getElementById('resultadoReservas');
                 resultadoReservas.innerHTML = '';
-     
+
                 if (Array.isArray(reservas) && reservas.length > 0) {
                     reservas.forEach(reserva => {
                         const reservaDiv = document.createElement('div');
                         reservaDiv.classList.add('reserva-item');
-     
+
                         // Procesar equiposList para mostrar id_equipo, nombre y cantidad
-                        const equiposInfo = reserva.equiposList.length > 0 
-                            ? reserva.equiposList.map(equipo => 
+                        const equiposInfo = reserva.equiposList.length > 0
+                            ? reserva.equiposList.map(equipo =>
                                 `ID: ${equipo.id_equipo}, Nombre: ${equipo.nombre}, Cantidad: ${equipo.cantidad}`
-                              ).join('<br>')
+                            ).join('<br>')
                             : 'Ninguno';
-     
+
                         reservaDiv.innerHTML = `
                         <p><strong>ID:</strong> ${reserva.id}</p>
                         <p><strong>Fecha:</strong> ${reserva.fecha}</p>
@@ -111,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
             .catch(error => console.error('Error al consultar reservas:', error));
-     
+
         consultarTotalReservas();
     }
 
@@ -208,26 +243,26 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("Botón 'Ver Detalles de Reservas' presionado."); // Comprobación inicial
 
         fetch(`${link}/administradores/reservas`)
-        .then(response => {
-            console.log("Respuesta recibida del servidor:", response);
-            return response.json();
-        })
-        .then(reservas => {
-            console.log("Datos de reservas:", reservas); // Verifica los datos obtenidos
-            const detallesReserva = document.getElementById('detallesReserva');
-            detallesReserva.style.display = 'block'; // Mostrar detalles
-            detallesReserva.innerHTML = '';
-            reservas.forEach(reserva => {
-                const reservaDetalle = document.createElement('div');
-                reservaDetalle.classList.add('reserva-detalle');
-            
-                // Crear lista de equipos
-                const equipos = reserva.equiposList.map(equipo => {
-                    return `${equipo.nombre} (ID:    ${equipo.id_equipo}, Cantidad: ${equipo.cantidad})`;
-                }).join(', ');
-            
-                reservaDetalle.innerHTML = 
-                `<p><strong>ID:</strong> ${reserva.id}</p>
+            .then(response => {
+                console.log("Respuesta recibida del servidor:", response);
+                return response.json();
+            })
+            .then(reservas => {
+                console.log("Datos de reservas:", reservas); // Verifica los datos obtenidos
+                const detallesReserva = document.getElementById('detallesReserva');
+                detallesReserva.style.display = 'block'; // Mostrar detalles
+                detallesReserva.innerHTML = '';
+                reservas.forEach(reserva => {
+                    const reservaDetalle = document.createElement('div');
+                    reservaDetalle.classList.add('reserva-detalle');
+
+                    // Crear lista de equipos
+                    const equipos = reserva.equiposList.map(equipo => {
+                        return `${equipo.nombre} (ID:    ${equipo.id_equipo}, Cantidad: ${equipo.cantidad})`;
+                    }).join(', ');
+
+                    reservaDetalle.innerHTML =
+                        `<p><strong>ID:</strong> ${reserva.id}</p>
                     <p><strong>Fecha:</strong> ${reserva.fecha}</p>
                     <p><strong>Hora de Inicio:</strong> ${reserva.hora_inicio}</p>
                    <p><strong>Horas:</strong> ${reserva.horas}</p>
@@ -236,12 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <p><strong>Estado:</strong> ${reserva.estado ? 'Activa' : 'Inactiva'}</p>
                     <p><strong>Área de Estudio:</strong> ${reserva.id_areaEstudio.area}</p>
                     <p><strong>Equipos:</strong> ${equipos || 'Ninguno'}</p>`
-                ;
-            
-                detallesReserva.appendChild(reservaDetalle);
-            });
-        })
-        .catch(error => console.error('Error al consultar detalles de la reserva:', error));
+                        ;
+
+                    detallesReserva.appendChild(reservaDetalle);
+                });
+            })
+            .catch(error => console.error('Error al consultar detalles de la reserva:', error));
     }
 
     document.getElementById('consultarReservasBtn').addEventListener('click', consultarReservas);
@@ -264,13 +299,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Obtener los valores de los inputs
         const codigoInventario = document.getElementById('codigoInventario').value;
         const codigoInventarioCantidad = document.getElementById('codigoInventarioCantidad').value;
-    
+
         // Validar que ambos campos tengan datos
         if (!codigoInventario || !codigoInventarioCantidad) {
             alert('Por favor, ingresa ambos valores (Código inventario y cantidad).');
             return;
         }
-    
+
         // Crear el objeto con los datos a enviar
         const datosInventario = {
             equipo: codigoInventario,
@@ -285,15 +320,15 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             body: JSON.stringify(datosInventario) // Convertimos el objeto a JSON
         })
-        .then(response => {
-            if (response.ok) {
-                document.getElementById('resultado').textContent = `Inventario agregado con éxito.`;
-                return response.json(); // Si la respuesta es OK, parseamos el JSON
-            } else {
-                document.getElementById('resultado').textContent = `Error al agregar inventario.`;
-                throw new Error('Error en la respuesta del servidor');
-            }
-        })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('resultado').textContent = `Inventario agregado con éxito.`;
+                    return response.json(); // Si la respuesta es OK, parseamos el JSON
+                } else {
+                    document.getElementById('resultado').textContent = `Error al agregar inventario.`;
+                    throw new Error('Error en la respuesta del servidor');
+                }
+            })
         /*
         .then(response => {
             document.getElementById('resultado').textContent = `Inventario agregado con éxito. ${response.message}`;
@@ -323,48 +358,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Función para procesar el JSON dinámico
-function processJsonData(json) {
-    const categorias = Object.keys(json);
-    const valores = Object.values(json);
+    function processJsonData(json) {
+        const categorias = Object.keys(json);
+        const valores = Object.values(json);
 
-    // Filtrar categorías y valores donde el valor es mayor a 0
-    const categoriasConValores = categorias
-        .map((categoria, index) => ({ categoria, valor: valores[index] }))
-        .filter(item => item.valor > 0) // Eliminar entradas con valor 0
-        .map(item => `${item.categoria}: ${item.valor}`); // Concatenar nombre y valor
+        // Filtrar categorías y valores donde el valor es mayor a 0
+        const categoriasConValores = categorias
+            .map((categoria, index) => ({ categoria, valor: valores[index] }))
+            .filter(item => item.valor > 0) // Eliminar entradas con valor 0
+            .map(item => `${item.categoria}: ${item.valor}`); // Concatenar nombre y valor
 
-    const valoresFiltrados = valores.filter(valor => valor > 0);
+        const valoresFiltrados = valores.filter(valor => valor > 0);
 
-    return { categorias: categoriasConValores, valores: valoresFiltrados };
-}
+        return { categorias: categoriasConValores, valores: valoresFiltrados };
+    }
 
-// Función para crear la gráfica de pastel
-function renderPieChart(data) {
-    const ctx = document.getElementById('pieChart').getContext('2d');
+    // Función para crear la gráfica de pastel
+    function renderPieChart(data) {
+        const ctx = document.getElementById('pieChart').getContext('2d');
 
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: data.categorias, // Usar categorías sin valores de 0
-            datasets: [{
-                data: data.valores,
-                backgroundColor: generateColors(data.categorias.length),
-                hoverBackgroundColor: generateColors(data.categorias.length)
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top'
-                },
-                tooltip: {
-                    enabled: true
+        new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: data.categorias, // Usar categorías sin valores de 0
+                datasets: [{
+                    data: data.valores,
+                    backgroundColor: generateColors(data.categorias.length),
+                    hoverBackgroundColor: generateColors(data.categorias.length)
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        enabled: true
+                    }
                 }
             }
-        }
-    });
-}
+        });
+    }
 
 
     async function fetchDataAndRenderChart(fecha) {
