@@ -59,5 +59,15 @@ Este proyecto fue desarrollado por un equipo interdisciplinario:
 - **Requerimientos**: [Julián Nova](https://github.com/JulianNova2004)  
 ---
 ## Contacto
+
+Para colaborar y comunicarse con el equipo, puedes utilizar las siguientes herramientas en este repositorio:
+
+1. **Discussions**: Usa la pestaña "Discussions" para plantear ideas, preguntas o temas abiertos al equipo.
+2. **Issues**: Reporta errores, sugiere mejoras o discute tareas específicas mediante la pestaña "Issues".
+3. **Pull Requests**: Propón cambios y colabora en la revisión de código utilizando *Pull Requests*.
+
+### Organización GitHub
+Si tienes preguntas específicas, también puedes contactarnos a través de la página principal de nuestra organización: [Jsons](https://github.com/JsonsWorks).
+
 ---
 ## Licencia
