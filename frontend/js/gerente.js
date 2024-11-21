@@ -1,4 +1,5 @@
 const link = "https://sistema-agendamiento-1-back-472b7073b8ab.herokuapp.com"
+let pieChartInstance = null; // Almacena la instancia del gráfico
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -260,13 +261,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderPieChart(data) {
         const ctx = document.getElementById('pieChart').getContext('2d');
 
-        new Chart(ctx, {
+        // Destruir el gráfico anterior si existe
+        if (pieChartInstance) {
+            pieChartInstance.destroy();
+        }
+
+        // Crear el nuevo gráfico y almacenarlo en la variable global
+        pieChartInstance = new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: data.categorias,
                 datasets: [{
                     data: data.valores,
-                    backgroundColor: generateColors(data.categorias.length), // Genera colores dinámicamente
+                    backgroundColor: generateColors(data.categorias.length),
                     hoverBackgroundColor: generateColors(data.categorias.length)
                 }]
             },
@@ -283,6 +290,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
 
     //Fetch solamente para inventario
     async function fetchDataAndRenderChart(fecha) {
