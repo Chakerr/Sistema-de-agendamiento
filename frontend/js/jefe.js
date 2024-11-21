@@ -1,5 +1,6 @@
 const link = "https://sistema-agendamiento-1-back-472b7073b8ab.herokuapp.com"
 document.getElementById('InvBtn').addEventListener('click', obtenerInventario);
+let pieChartInstance = null;
 
 function consultarEstudiantes() {
     fetch(`${link}/jsons/estudiantes`)
@@ -375,12 +376,56 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para crear la gráfica de pastel
     function renderPieChart(data) {
-        const ctx = document.getElementById('pieChart').getContext('2d');
+        const canvas = document.getElementById('pieChart');
+        const parent = canvas.parentNode;
 
-        new Chart(ctx, {
+        // Validar si no hay datos o si los valores incluyen 500 y las categorías incluyen "status"
+        if (
+            data.valores.length === 0 ||
+            data.categorias.length === 0 ||
+            (data.valores.includes(500) && data.categorias.some(categoria => categoria.toLowerCase() === "status: 500"))
+        ) {
+            // Buscar si ya existe un mensaje previo
+            let message = document.getElementById('noDataMessage');
+            if (!message) {
+                // Crear el mensaje si no existe
+                message = document.createElement('p');
+                message.id = 'noDataMessage';
+                message.textContent = "No hay información para esa fecha";
+                message.style.color = "red"; // Estilo opcional
+                message.style.textAlign = "center";
+                parent.appendChild(message); // Insertar mensaje en el contenedor
+            }
+
+            // Ocultar el canvas, pero no eliminarlo
+            canvas.style.display = 'none';
+
+            // Limpiar la instancia del gráfico si existe
+            if (pieChartInstance) {
+                pieChartInstance.destroy();
+                pieChartInstance = null;
+            }
+
+            return; // Salir de la función
+        }
+
+        // Si hay datos válidos, eliminar mensaje y mostrar el canvas
+        const existingMessage = document.getElementById('noDataMessage');
+        if (existingMessage) {
+            existingMessage.remove(); // Eliminar el mensaje
+        }
+        canvas.style.display = 'block'; // Mostrar el canvas
+
+        // Destruir el gráfico anterior si existe
+        if (pieChartInstance) {
+            pieChartInstance.destroy();
+        }
+
+        // Crear el nuevo gráfico y almacenarlo en la variable global
+        pieChartInstance = new Chart(canvas.getContext('2d'), {
             type: 'pie',
             data: {
-                labels: data.categorias, // Usar categorías sin valores de 0
+                labels: data.categorias,
                 datasets: [{
                     data: data.valores,
                     backgroundColor: generateColors(data.categorias.length),
@@ -400,6 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
 
 
     async function fetchDataAndRenderChart(fecha) {

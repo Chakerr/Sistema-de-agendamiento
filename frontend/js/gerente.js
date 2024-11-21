@@ -1,5 +1,6 @@
 const link = "https://sistema-agendamiento-1-back-472b7073b8ab.herokuapp.com"
 let pieChartInstance = null; // Almacena la instancia del gráfico
+let pieChartInstance1 = null; // Almacena la instancia del gráfico pieChart1
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -259,7 +260,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para crear la gráfica de pastel
     function renderPieChart(data) {
-        const ctx = document.getElementById('pieChart').getContext('2d');
+        const canvas = document.getElementById('pieChart');
+        const parent = canvas.parentNode;
+
+        // Validar si no hay datos o si los valores incluyen 500 y las categorías incluyen "status"
+        if (
+            data.valores.length === 0 ||
+            data.categorias.length === 0 ||
+            (data.valores.includes(500) && data.categorias.some(categoria => categoria.toLowerCase() === "status: 500"))
+        ) {
+            // Buscar si ya existe un mensaje previo
+            let message = document.getElementById('noDataMessage');
+            if (!message) {
+                // Crear el mensaje si no existe
+                message = document.createElement('p');
+                message.id = 'noDataMessage';
+                message.textContent = "No hay información para esa fecha";
+                message.style.color = "red"; // Estilo opcional
+                message.style.textAlign = "center";
+                parent.appendChild(message); // Insertar mensaje en el contenedor
+            }
+
+            // Ocultar el canvas, pero no eliminarlo
+            canvas.style.display = 'none';
+
+            // Limpiar la instancia del gráfico si existe
+            if (pieChartInstance) {
+                pieChartInstance.destroy();
+                pieChartInstance = null;
+            }
+
+            return; // Salir de la función
+        }
+
+        // Si hay datos válidos, eliminar mensaje y mostrar el canvas
+        const existingMessage = document.getElementById('noDataMessage');
+        if (existingMessage) {
+            existingMessage.remove(); // Eliminar el mensaje
+        }
+        canvas.style.display = 'block'; // Mostrar el canvas
 
         // Destruir el gráfico anterior si existe
         if (pieChartInstance) {
@@ -267,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Crear el nuevo gráfico y almacenarlo en la variable global
-        pieChartInstance = new Chart(ctx, {
+        pieChartInstance = new Chart(canvas.getContext('2d'), {
             type: 'pie',
             data: {
                 labels: data.categorias,
@@ -347,7 +386,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderPieChart1(data) {
         const ctx = document.getElementById('pieChart1').getContext('2d');
 
-        new Chart(ctx, {
+        // Destruir el gráfico anterior si existe
+        if (pieChartInstance1) {
+            pieChartInstance1.destroy();
+        }
+
+        // Crear el nuevo gráfico y almacenarlo en la variable global
+        pieChartInstance1 = new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: data.categorias,
@@ -371,6 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+
     // Fetch para reservas creadas y confirmadas sin enviar fecha ni método GET
     async function fetchDataAndRenderChart1() {
         try {
@@ -388,8 +434,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Agregar el evento de clic al botón
-    document.getElementById('loadChartBtn1').addEventListener('click', fetchDataAndRenderChart1);
+    // Ejecutar la función cada 2 segundos
+    setInterval(fetchDataAndRenderChart1, 5000);
+
 
 });
 document.addEventListener("DOMContentLoaded", function () {
