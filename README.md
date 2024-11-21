@@ -53,9 +53,9 @@ El backend se encarga de la gestión de las reservas, incluyendo el almacenamien
 Este proyecto fue desarrollado por un equipo interdisciplinario:
 
 - **Arquitecto**: [Tomás Vera](https://github.com/Tomver27)  
-- **Frontend**: [Luis Gabriel Romero](https://github.com/Chakerr?tab=following), [Tomás Vera](https://github.com/Tomver27)  
+- **Frontend**: [Luis Gabriel Romero](https://github.com/Chakerr?tab=following) 
 - **Backend**:  [Nicolas Moreno Ramirez](https://github.com/Nicolas041020), [Felipe Triviño](https://github.com/Petriv2004)
-- **Pruebas**:  [Julián Nova](https://github.com/JulianNova2004)  
+- **Pruebas**:  [Tomás Vera](https://github.com/Tomver27)  
 - **Requerimientos**: [Julián Nova](https://github.com/JulianNova2004)  
 ---
 ## Contacto
