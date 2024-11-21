@@ -78,5 +78,5 @@ Este proyecto está licenciado bajo la **GNU Affero General Public License v3.0 
 - Cualquier modificación debe ser publicada bajo los mismos términos si se utiliza en un servidor público.
 - Las contribuciones son bienvenidas y serán revisadas por el equipo antes de ser integradas.
 
-Para más detalles, consulta el archivo [LICENSE](./LICENSE).
+Para más detalles, consulta el archivo [LICENSE](./LICENSE.md).
 
