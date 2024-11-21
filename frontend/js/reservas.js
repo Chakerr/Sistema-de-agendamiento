@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         // Comprobar si el día seleccionado es un domingo
-        if (diaSemana === 0) { // 0 es domingo
+        if (diaSemana === 6) { // 0 es domingo
             alert('No se pueden seleccionar domingos. Por favor, elija otro día.');
             fechaInput.value = '';
             fechaInput.focus();
@@ -137,13 +137,22 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <option value="4">Ingeniería Financiera</option>
             `;
             acompanantesContainer.appendChild(div);
-
             const nombreField = div.querySelector(`#nombre_acompanante_${i}`);
+            const idField = div.querySelector(`#id_codigo_${i}`);
+
             nombreField.addEventListener('input', (e) => {
                 // Reemplaza cualquier carácter que no sea letra, espacio
                 nombreField.value = nombreField.value.replace(/[^a-zA-Z\s]/g, '');
             });
-
+            idField.addEventListener('input', () => {
+                idField.value = idField.value.replace(/[^0-9]/g, '').slice(0, 10);
+            });
+            idField.addEventListener('blur', () => {
+                if (idField.value.length < 7) {
+                    alert(`El código o cédula debe tener al menos 7 dígitos.`);
+                    idField.focus();
+                }
+            });
         }
     });
 
