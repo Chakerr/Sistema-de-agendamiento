@@ -21,10 +21,10 @@ El proyecto está organizado en las siguientes carpetas:
 3. **Requerimientos**  
    Documentación detallada de los requerimientos funcionales y no funcionales del sistema.
 
-4. **Backend**  
-   Implementado en [...]. Este módulo gestiona la lógica del negocio, las conexiones a la base de datos y las API utilizadas por el frontend.
+4. **Backend**
+   Este módulo gestiona la lógica del negocio, las conexiones a la base de datos y las API utilizadas por el frontend.
 
-5. **Frontend**
+6. **Frontend**
    Este módulo gestiona la interfaz de usuario y la interacción del sistema, asegurando una experiencia fluida en dispositivos móviles y computadoras.
 
 ---
