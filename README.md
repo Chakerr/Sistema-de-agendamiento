@@ -57,17 +57,7 @@ Este proyecto fue desarrollado por un equipo interdisciplinario:
 - **Backend**:  [Nicolas Moreno Ramirez](https://github.com/Nicolas041020), [Felipe Triviño](https://github.com/Petriv2004)
 - **Pruebas**:  [Julián Nova](https://github.com/JulianNova2004)  
 - **Requerimientos**: [Julián Nova](https://github.com/JulianNova2004)  
-
-Si deseas contribuir al proyecto, por favor, abre un *issue* o envía un *pull request* con tus propuestas.
-
 ---
-
 ## Contacto
-
-Si tienes preguntas o comentarios sobre el proyecto, puedes contactar al equipo a través de [correo institucional o medio de contacto].
-
 ---
-
 ## Licencia
-
-Este proyecto es propiedad de la Universidad Piloto de Colombia y está protegido por las leyes de derechos de autor. Su uso está limitado a fines educativos y no comerciales.
