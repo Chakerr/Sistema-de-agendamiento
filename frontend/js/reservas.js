@@ -169,12 +169,14 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert("Tiene que ingresar el código de la persona que hace la reserva en el primer acompañante");
             return;
         }
+
         const acompanantes = [];
         const cantidadacom = parseInt(formData.get('numero_personas'));
         const boton = document.getElementById('miBoton');
         boton.disabled = true;
         boton.show = false;
         alert("Se está procesando su solicitud, por favor espere unos segundos");
+
         for (let i = 1; i <= cantidadacom; i++) {
             const acompanante = {
                 id_codigo: formData.get(`id_codigo_${i}`),
@@ -185,9 +187,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         const inventarioSeleccionado = [];
+        let totalInventarioSeleccionado = 0;
+
         document.querySelectorAll('input[type="number"][data-inventario="true"]').forEach(input => {
             const cantidadsele = parseInt(input.value);
             if (cantidadsele > 0) {
+                totalInventarioSeleccionado += cantidadsele;
                 inventarioSeleccionado.push({
                     id_equipo: input.getAttribute('data-id'),
                     nombre: input.getAttribute('data-nombre'),
@@ -195,6 +200,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 });
             }
         });
+
+        // Verificar si el total de inventario excede el límite permitido
+        const maxInventarioPorAsistente = cantidadacom * 3;
+        if (totalInventarioSeleccionado > maxInventarioPorAsistente) {
+            alert("No se puede seleccionar más de 3 ítems por asistente. Para seleccionar más, realice la solicitud una vez ingrese a su práctica.");
+            boton.disabled = false;
+            boton.show = true;
+            return;
+        }
 
         const fecha = formData.get('fecha');
         const formattedDate = fecha ? fecha.split('/').reverse().join('-') : new Date().toISOString().split('T')[0];
@@ -216,7 +230,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             equiposList: inventarioSeleccionado,
             estudiantesList: acompanantes
         };
-
 
         try {
             const response = await fetch(`${link}/ResEst/SaveRes`, {
@@ -240,8 +253,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         } catch (error) {
             console.error('Error al crear la reserva');
         }
-
     });
+
 
 });
 document.addEventListener("DOMContentLoaded", function () {
