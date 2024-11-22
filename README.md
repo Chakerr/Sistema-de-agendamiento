@@ -53,12 +53,12 @@ El backend se encarga de la gestión de las reservas, incluyendo el almacenamien
 Este proyecto fue desarrollado por un equipo interdisciplinario:
 
 - **Arquitecto**: [Tomás David Vera Molano](https://github.com/Tomver27). 
-- **Frontend**: [Luis Gabriel Romero Castro](https://github.com/Chakerr?tab=following) .
-- **Backend**:  [Nicolás Moreno Ramirez](https://github.com/Nicolas041020), [Andrés Felipe Triviño Garzón](https://github.com/Petriv2004)
-- **Pruebas**:  [Tomás David Vera Molano](https://github.com/Tomver27)  
-- **Requerimientos**: [Julián David Nova Torroledo](https://github.com/JulianNova2004)  
+- **Frontend**: [Luis Gabriel Romero Castro](https://github.com/Chakerr?tab=following).
+- **Backend**:  [Nicolás Moreno Ramirez](https://github.com/Nicolas041020), [Andrés Felipe Triviño Garzón](https://github.com/Petriv2004).
+- **Pruebas**:  [Tomás David Vera Molano](https://github.com/Tomver27).  
+- **Requerimientos**: [Julián David Nova Torroledo](https://github.com/JulianNova2004).  
 ---
-## Contacto
+## Contacto.
 
 Para colaborar y comunicarse con el equipo, puedes utilizar las siguientes herramientas en este repositorio:
 
@@ -67,6 +67,6 @@ Para colaborar y comunicarse con el equipo, puedes utilizar las siguientes herra
 3. **Pull Requests**: Propón cambios y colabora en la revisión de código utilizando *Pull Requests*.
 
 ### Organización GitHub
-Si tienes preguntas específicas, también puedes contactarnos a través de la página principal de nuestra organización: [Jsons](https://github.com/JsonsWorks).
+Si tienes preguntas específicas, también puedes contactarnos a través de la página principal de nuestra organización: [Jsons].(https://github.com/JsonsWorks).
 
 ---
