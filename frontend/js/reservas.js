@@ -80,23 +80,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     fechaInput.min = formatoFecha;
 
     fechaInput.addEventListener('change', (event) => {
-        const fechaSeleccionada = new Date(event.target.value);
+        // Obtener la fecha seleccionada del input y establecerla a las 00:00:00 GMT-0500
+        const fechaSeleccionada = new Date(fechaInput.value);
+        fechaSeleccionada.setHours(0, 0, 0, 0);
         const diaSemana = fechaSeleccionada.getDay();
 
-        // Obtener la fecha actual
+        // Obtener la fecha actual y establecerla a las 00:00:00 GMT-0500
         const hoy = new Date();
+        hoy.setHours(0, 0, 0, 0);
 
-        // Calcular la fecha que está en 8 días (es decir, el próximo miércoles)
+        // Calcular la fecha que está en 8 días, también a las 00:00:00 GMT-0500
         const ochoDias = new Date(hoy);
         ochoDias.setDate(hoy.getDate() + 8);
 
+
+
         // Comprobar si la fecha seleccionada es dentro de los próximos 8 días
         if (fechaSeleccionada < hoy || fechaSeleccionada > ochoDias) {
+            console.log('Esta es la fecha de hoy ' + hoy + ' Esta es la fecha seleccionada ' + fechaSeleccionada
+                + ' Este es ocho días ' + ochoDias
+            );
+
             alert('Por favor, seleccione una fecha dentro de los próximos 8 días.');
             fechaInput.value = '';
             fechaInput.focus();
             return; // Salir de la función si la fecha no está dentro del rango permitido
         }
+
 
         // Comprobar si el día seleccionado es un domingo
         if (diaSemana === 6) { // 0 es domingo
