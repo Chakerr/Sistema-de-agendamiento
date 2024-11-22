@@ -70,3 +70,14 @@ Para colaborar y comunicarse con el equipo, puedes utilizar las siguientes herra
 Si tienes preguntas específicas, también puedes contactarnos a través de la página principal de nuestra organización: [Jsons].(https://github.com/JsonsWorks).
 
 ---
+## ISO/IEC 15288: Cierre del Ciclo de Vida del Sistema.
+
+Este proyecto sigue los principios establecidos por la **ISO/IEC 15288**, lo cual asegura que cada fase del ciclo de vida del sistema, desde la concepción hasta la retirada, sea gestionada adecuadamente. Las etapas principales que se han seguido incluyen:
+
+1. **Definición de Requerimientos**: Identificación y documentación detallada de los requerimientos del sistema.
+2. **Desarrollo y Implementación**: Desarrollo y despliegue del sistema, utilizando las mejores prácticas de ingeniería de software.
+3. **Verificación y Validación**: Realización de pruebas de rendimiento y funcionalidad, como se describe en los informes de JMeter.
+4. **Mantenimiento**: Planificación y ejecución de actualizaciones para garantizar la operatividad continua del sistema.
+5. **Cierre del Proyecto**: Evaluación final y cierre, incluyendo la documentación necesaria para la futura retirada del sistema.
+
+---
