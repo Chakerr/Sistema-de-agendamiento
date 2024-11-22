@@ -70,5 +70,3 @@ Para colaborar y comunicarse con el equipo, puedes utilizar las siguientes herra
 Si tienes preguntas específicas, también puedes contactarnos a través de la página principal de nuestra organización: [Jsons](https://github.com/JsonsWorks).
 
 ---
-## Licencia
-
