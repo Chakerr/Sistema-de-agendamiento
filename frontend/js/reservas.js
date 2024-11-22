@@ -118,8 +118,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     obtenerInventario();
 
-    cantidadAcompanantesInput.addEventListener('input', () => {
-        acompanantesContainer.innerHTML = '';
+    // Define la función para generar los campos dinámicamente
+    function generarCamposAcompanantes() {
+        acompanantesContainer.innerHTML = ''; // Limpia el contenedor
 
         const cantidadacom = parseInt(cantidadAcompanantesInput.value);
         if (isNaN(cantidadacom) || cantidadacom < 0) {
@@ -131,27 +132,29 @@ document.addEventListener('DOMContentLoaded', async () => {
             div.classList.add('acompanante');
 
             div.innerHTML = `
-                <h3>Asistente ${i}</h3>
-                <label for="nombre_acompanante_${i}">Nombre:</label>
-                <input type="text" id="nombre_acompanante_${i}" name="nombre_acompanante_${i}" required>
+            <h3>Asistente ${i}</h3>
+            <label for="nombre_acompanante_${i}">Nombre:</label>
+            <input type="text" id="nombre_acompanante_${i}" name="nombre_acompanante_${i}" required>
  
-                <label for="id_codigo_${i}">Código o Cédula (para no estudiante):</label>
-                <input type="text" id="id_codigo_${i}" name="id_codigo_${i}" required>
+            <label for="id_codigo_${i}">Código o Cédula (para no estudiante):</label>
+            <input type="text" id="id_codigo_${i}" name="id_codigo_${i}" required>
  
-                <label for="carrera_acompanante_${i}">Seleccione una Carrera:</label>
-                <select id="carrera_acompanante_${i}" name="carrera_acompanante_${i}" required>
-                <option value="" disabled selected> Seleccione una carrera</option>
+            <label for="carrera_acompanante_${i}">Seleccione una Carrera:</label>
+            <select id="carrera_acompanante_${i}" name="carrera_acompanante_${i}" required>
+                <option value="" disabled selected>Seleccione una carrera</option>
                 <option value="1">Ingeniería de Sistemas</option>
                 <option value="2">Ingeniería de Telecomunicaciones</option>
                 <option value="3">Ingeniería Mecatrónica</option>
                 <option value="4">Ingeniería Financiera</option>
-            `;
+            </select>
+        `;
             acompanantesContainer.appendChild(div);
+
+            // Validaciones para los campos
             const nombreField = div.querySelector(`#nombre_acompanante_${i}`);
             const idField = div.querySelector(`#id_codigo_${i}`);
 
-            nombreField.addEventListener('input', (e) => {
-                // Reemplaza cualquier carácter que no sea letra, espacio
+            nombreField.addEventListener('input', () => {
                 nombreField.value = nombreField.value.replace(/[^a-zA-Z\s]/g, '');
             });
             idField.addEventListener('input', () => {
@@ -164,9 +167,13 @@ document.addEventListener('DOMContentLoaded', async () => {
                 }
             });
         }
-    });
+    }
 
+    // Llama a la función cuando cambia el input
+    cantidadAcompanantesInput.addEventListener('input', generarCamposAcompanantes);
 
+    // Llama a la función externamente según sea necesario
+    generarCamposAcompanantes(); // Por ejemplo, para inicializar los campos al cargar la página
 
     reservaForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -225,7 +232,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const horaInicio = formData.get('hora_inicio');
         const horasSumar = parseInt(formData.get('Horas'), 10);
-        const horasFin = parseInt(formData.get('hora_inicio'), 10) + parseInt(formData.get('Horas'), 10);
+        const horasFin = parseInt(horaInicio, 10) + horasSumar;
+
+        // Verificar las horas de fin
+        if (horasFin === 22 || horasFin === 23) {
+            alert(`No se puede hacer una reserva hasta las horas ${horasFin}:00.`);
+            boton.disabled = false;
+            boton.show = true;
+            return;
+        }
 
         const data = {
             fecha: formattedDate,
