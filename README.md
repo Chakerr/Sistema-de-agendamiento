@@ -1,6 +1,6 @@
-# Sistema de Reservas de Laboratorios - Universidad Piloto de Colombia
+# Sistema de Reservas de Laboratorios - Universidad Piloto de Colombia.
 
-## Descripción del Proyecto
+## Descripción del Proyecto.
 
 Este proyecto tiene como objetivo la implementación y automatización del proceso de reservas para el laboratorio de **Redes y Telecomunicaciones** de la Universidad Piloto de Colombia. El sistema está diseñado para facilitar la gestión de horarios y recursos del laboratorio, permitiendo a los estudiantes y profesores realizar reservas de forma eficiente a través de una plataforma web.
 
@@ -8,28 +8,28 @@ El proyecto incluye tanto la parte de frontend como de backend, desplegados en s
 
 ---
 
-## Estructura del Proyecto
+## Estructura del Proyecto.
 
 El proyecto está organizado en las siguientes carpetas:
 
-1. **Arquitectura de Software**  
+1. **Arquitectura de Software.**  
    Contiene los diagramas y documentación técnica del sistema. Incluye la distribución del frontend en **Netlify** y el backend en **Heroku**, detallando la comunicación entre ambas partes.
 
-2. **Pruebas con JMeter**  
+2. **Pruebas con JMeter.**  
    Contiene los scripts y reportes de pruebas de rendimiento realizadas con JMeter para evaluar el comportamiento del sistema bajo diferentes niveles de carga.
 
-3. **Requerimientos**  
+3. **Requerimientos.**  
    Documentación detallada de los requerimientos funcionales y no funcionales del sistema.
 
-4. **Backend**
+4. **Backend.**
    Este módulo gestiona la lógica del negocio, las conexiones a la base de datos y las API utilizadas por el frontend.
 
-6. **Frontend**
+6. **Frontend.**
    Este módulo gestiona la interfaz de usuario y la interacción del sistema, asegurando una experiencia fluida en dispositivos móviles y computadoras.
 
 ---
 
-## Características Principales
+## Características Principales.
 
 - **Reservas Simples y Rápidas**: Los usuarios pueden reservar en pocos pasos.
 - **Gestión Centralizada**: Administradores tienen acceso para gestionar horarios y disponibilidad.
@@ -38,22 +38,22 @@ El proyecto está organizado en las siguientes carpetas:
 
 ---
 
-## Implementación
+## Implementación.
 
-### Frontend
+### Frontend.
 El frontend está diseñado para ser intuitivo y fácil de usar. Fue desarrollado teniendo en cuenta los colores y la identidad visual de la Universidad Piloto de Colombia. Está alojado en **Netlify** para garantizar disponibilidad constante.
 
-### Backend
+### Backend.
 El backend se encarga de la gestión de las reservas, incluyendo el almacenamiento en base de datos y el manejo de solicitudes API. Está desplegado en **Heroku**.
 
 ---
 
-## Contribución
+## Contribución.
 
 Este proyecto fue desarrollado por un equipo interdisciplinario:
 
-- **Arquitecto**: [Tomás David Vera Molano](https://github.com/Tomver27)  
-- **Frontend**: [Luis Gabriel Romero Castro](https://github.com/Chakerr?tab=following) 
+- **Arquitecto**: [Tomás David Vera Molano](https://github.com/Tomver27). 
+- **Frontend**: [Luis Gabriel Romero Castro](https://github.com/Chakerr?tab=following) .
 - **Backend**:  [Nicolás Moreno Ramirez](https://github.com/Nicolas041020), [Andrés Felipe Triviño Garzón](https://github.com/Petriv2004)
 - **Pruebas**:  [Tomás David Vera Molano](https://github.com/Tomver27)  
 - **Requerimientos**: [Julián David Nova Torroledo](https://github.com/JulianNova2004)  
