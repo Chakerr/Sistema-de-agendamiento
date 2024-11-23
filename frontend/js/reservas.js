@@ -160,12 +160,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             idField.addEventListener('input', () => {
                 idField.value = idField.value.replace(/[^0-9]/g, '').slice(0, 10);
             });
-            idField.addEventListener('blur', () => {
-                if (idField.value.length < 7) {
-                    alert(`El código o cédula debe tener al menos 7 dígitos.`);
-                    idField.focus();
-                }
-            });
         }
     }
 
@@ -182,9 +176,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         const idCodigo1 = formData.get('id_codigo_1');
         const storedId = sessionStorage.getItem('id');
 
-        if (idCodigo1 !== storedId) {
+        if (idCodigo1 !== storedId && !sessionStorage.getItem('jefe')) {
             alert("Tiene que ingresar el código de la persona que hace la reserva en el primer acompañante");
             return;
+        }
+
+        const idFields = document.querySelectorAll('[id^="id_codigo_"]');
+
+        for (const idField of idFields) {
+            if (idField.value.length < 7) {
+                e.preventDefault(); // Detener el envío
+                alert(`El código o cédula debe tener al menos 7 dígitos.`);
+                idField.focus();
+                return; // Salir de la función para evitar múltiples alertas
+            }
         }
 
         const acompanantes = [];
@@ -268,7 +273,12 @@ document.addEventListener('DOMContentLoaded', async () => {
                 alert(`Reserva creada con éxito: se han enviado los detalles al correo electronico`);
                 reservaForm.reset();
                 acompanantesContainer.innerHTML = '';
-                window.location.href = 'Usuario.html';
+                if (!sessionStorage.getItem('id')) {
+                    window.location.href = 'laboratorista.html';
+                } else {
+                    window.location.href = 'Usuario.html';
+                }
+
             } else {
                 const errorBody = await response.text(); // Obtén el cuerpo de la respuesta en caso de error
                 alert(`Error al crear la reserva: ${errorBody}`);
@@ -284,7 +294,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 document.addEventListener("DOMContentLoaded", function () {
     // Verificar si 'id' está almacenado en sessionStorage
-    if (!sessionStorage.getItem('id')) {
+    if (!sessionStorage.getItem('id') && !sessionStorage.getItem('jefe')) {
         // Si no existe, redirigir a inicio.html
         alert('No tienes permiso para acceder a esta página.');
         window.location.href = 'index.html'; // Cambia a la ruta correspondiente de tu página de inicio

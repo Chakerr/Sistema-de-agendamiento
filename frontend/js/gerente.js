@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Función para crear la gráfica de pastel
     function renderPieChart(data) {
-        const canvas = document.getElementById('pieChart');
+        const canvas = document.getElementById('pieChart'); // Usa el mismo canvas
         const parent = canvas.parentNode;
 
         // Validar si no hay datos o si los valores incluyen 500 y las categorías incluyen "status"
@@ -307,10 +307,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Crear el nuevo gráfico y almacenarlo en la variable global
         pieChartInstance = new Chart(canvas.getContext('2d'), {
-            type: 'pie',
+            type: 'bar', // Sigue siendo 'bar'
             data: {
                 labels: data.categorias,
                 datasets: [{
+                    label: '', // No mostrar leyenda
                     data: data.valores,
                     backgroundColor: generateColors(data.categorias.length),
                     hoverBackgroundColor: generateColors(data.categorias.length)
@@ -320,10 +321,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 responsive: true,
                 plugins: {
                     legend: {
-                        position: 'top'
+                        display: false // Ocultar leyenda
                     },
                     tooltip: {
                         enabled: true
+                    }
+                },
+                indexAxis: 'y', // Aquí está el cambio: eje invertido
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Valores' // Título del eje X
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: false // No mostrar título del eje Y
+                        }
+                    }
+                },
+                animation: {
+                    onComplete: function () {
+                        const ctx = canvas.getContext('2d');
+                        const chart = this;
+                        ctx.font = '12px Arial';
+                        ctx.fillStyle = 'black';
+                        chart.data.datasets[0].data.forEach((value, index) => {
+                            const meta = chart.getDatasetMeta(0).data[index];
+                            const x = meta.x;
+                            const y = meta.y;
+                            ctx.fillText(value, x + 5, y); // Mostrar valor al lado de cada barra
+                        });
                     }
                 }
             }
