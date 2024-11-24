@@ -78,7 +78,7 @@ La **ISO/IEC 15288:2015** se utiliza en el proyecto para asegurar que se sigan p
 
 A lo largo de este proyecto, se implementarán procesos relacionados con la definición de requisitos, la gestión de riesgos, la verificación y validación, y el mantenimiento continuo del sistema, todos ellos basados en los lineamientos de la **ISO/IEC 15288** para garantizar una correcta administración del ciclo de vida del sistema.
 
-Para más detalles sobre esta norma, consulta el documento completo de la **ISO/IEC 15288:2015** disponible en la sección correspondiente de este proyecto [ISO/IEC 15288:2015 - Documento Completo](ISO/IEC15288.md).
+Para más detalles sobre esta norma, consulta el documento completo de la **ISO/IEC 15288:2015** disponible en la sección correspondiente de este proyecto [ISO/IEC 15288:2015 - Documento Completo](ISO/README.md).
 
 Para más detalles, puedes consultar la norma completa:  
 *International Organization for Standardization. (2015). "ISO/IEC 15288: Systems and software engineering — System life cycle processes". Geneva, Switzerland: ISO.*&#8203;:contentReference[oaicite:0]{index=0}.
