@@ -70,14 +70,17 @@ Para colaborar y comunicarse con el equipo, puedes utilizar las siguientes herra
 Si tienes preguntas específicas, también puedes contactarnos a través de la página principal de nuestra organización: [Jsons].(https://github.com/JsonsWorks).
 
 ---
-## ISO/IEC 15288: Cierre del Ciclo de Vida del Sistema.
+## ISO
 
-Este proyecto sigue los principios establecidos por la **ISO/IEC 15288**, lo cual asegura que cada fase del ciclo de vida del sistema, desde la concepción hasta la retirada, sea gestionada adecuadamente. Las etapas principales que se han seguido incluyen:
+En el marco del desarrollo del sistema de reservas de laboratorios, se aplican las normativas y estándares internacionales, destacándose la **ISO/IEC 15288:2015** como un elemento clave en la gestión del ciclo de vida del sistema. Esta norma define los procesos necesarios para gestionar un sistema desde su concepción hasta su disposición final, asegurando que se cubren todas las fases del ciclo de vida de un sistema, incluyendo la planificación, diseño, implementación, mantenimiento y mejora continua.
 
-1. **Definición de Requerimientos**: Identificación y documentación detallada de los requerimientos del sistema.
-2. **Desarrollo y Implementación**: Desarrollo y despliegue del sistema, utilizando las mejores prácticas de ingeniería de software.
-3. **Verificación y Validación**: Realización de pruebas de rendimiento y funcionalidad, como se describe en los informes de JMeter.
-4. **Mantenimiento**: Planificación y ejecución de actualizaciones para garantizar la operatividad continua del sistema.
-5. **Cierre del Proyecto**: Evaluación final y cierre, incluyendo la documentación necesaria para la futura retirada del sistema.
+La **ISO/IEC 15288:2015** se utiliza en el proyecto para asegurar que se sigan prácticas consistentes y estandarizadas, garantizando la calidad y eficiencia en el desarrollo del sistema. Se orienta a organizar las actividades y procesos de manera que se logre una integración adecuada de los recursos, así como una trazabilidad efectiva de las decisiones durante todo el ciclo de vida del sistema.
+
+A lo largo de este proyecto, se implementarán procesos relacionados con la definición de requisitos, la gestión de riesgos, la verificación y validación, y el mantenimiento continuo del sistema, todos ellos basados en los lineamientos de la **ISO/IEC 15288** para garantizar una correcta administración del ciclo de vida del sistema.
+
+Para más detalles sobre esta norma, consulta el documento completo de la **ISO/IEC 15288:2015** disponible en la sección correspondiente de este proyecto [ISO/IEC 15288:2015 - Documento Completo](ISO/IEC 15288.md).
+
+Para más detalles, puedes consultar la norma completa:  
+*International Organization for Standardization. (2015). "ISO/IEC 15288: Systems and software engineering — System life cycle processes". Geneva, Switzerland: ISO.*&#8203;:contentReference[oaicite:0]{index=0}.
 
 ---
