@@ -197,6 +197,898 @@ Adicionalmente, existe la posibilidad de escalar el proyecto y contemplar la fun
 
 **Historias de usuario**
 
+- **HU1.1**
+
+
+# **Versión 1.2**
+
+#  
+
+# **23/11/2024**
+
+ 
+
+**Historia de Usuario 1.1 – Registro e inicio de sesión por parte del usuario**
+
+ 
+
+# **Descripción:**
+
+#  
+
+# **Se requiere registrar e ingresar al usuario hacia la plataforma para poder efectuar procesos posteriores, por ende, el mismo usuario debe de contar con credenciales establecidas y válidas.**
+
+#  
+
+**Como: USUARIO (ESTUDIANTE/LABORATORISTA).**
+
+ 
+
+**Quiero: Acceder a la plataforma a través de un usuario y contraseña ya establecidos. En caso de aún no contar con credenciales válidas que existan en la base de datos, debe permitirle al usuario llegar a la creación de las mismas para que pueda efectuar el inicio de sesión.**
+
+ 
+
+**Para: Tener acceso al servicio de la plataforma, la cual le permitirá reservar una sala de laboratorio para efectuar una correspondiente práctica.**
+
+#  
+
+# **Criterio de aceptación 1 – En el proceso de inscripción a la plataforma, debe existir una diferenciación para aquellos usuarios que sean estudiantes y aquellos que no pertenezcan a la universidad**
+
+#  
+
+# **Dado:** Que debe distinguirse aquellos estudiantes que posean un carnet que indique la pertenencia a la institución de aquellos que no.
+
+#  
+
+# **Cuando:** El interesado esté llevando a cabo el proceso de inscripción.
+
+#  
+
+# **Entonces:** Se mostrará una interfaz que separe a los estudiantes de los no estudiantes. A los estudiantes se les pedirá el código del carnet, el nombre, la cédula, un correo electrónico válido, una contraseña, la carrera a la que pertenecen y validar un recaptcha.
+
+# En caso de no ser un estudiante que pertenezca a la universidad, se le pedirán los mismos campos de datos que al estudiante perteneciente a la institución, únicamente difiere que no se le pedirá el código del carnet ya que no cuenta con él.
+
+# Las credenciales del estudiante perteneciente será el código del carnet y la contraseña que haya ingresado, mientras que para el estudiante que no pertenece a la universidad, será la cédula y la contraseña que haya ingresado.
+
+#  
+
+# **Criterio de aceptación 2 – El usuario debe ser capaz de iniciar sesión en la plataforma con credenciales ya existentes en la base de datos.**
+
+ 
+
+# **Dado:** Que al haber efectuado ya el proceso de inscripción, el usuario se encuentra con los insumos necesarios para poder iniciar sesión.
+
+#  
+
+# **Cuando:** El usuario quiera iniciar sesión en la plataforma y de clic al botón “Entrar”.
+
+#  
+
+# **Entonces:** Se llevará a cabo la verificación de la existencia de las credenciales ingresadas en los campos de la interfaz, que corresponden al número de identificación, diferenciando cuando sea estudiante perteneciente a estudiante no perteneciente y la contraseña, datos que serán enviados a comparar a la base de datos y en caso de coincidir, se le permitirá el acceso a la plataforma, de caso contrario, se le negará la entrada a la plataforma acompañado del mensaje “Error en inicio de sesión”.
+
+ 
+
+**OBSERVACIÓN:**
+
+ 
+
+La consideración de los estudiantes no pertenecientes radica en que estudiantes de distintas universidades han demostrado interés por tomar clases dictadas por la institución. Por ende, al efectuar dichas materias, existe una necesidad implícita por realizar prácticas en los laboratorios de la universidad.
+
+ 
+
+Por otro lado, los roles de laboratoristas, jefe y gerente ya cuentan con credenciales creadas en la base de datos de la aplicación, donde el registro de cada fila contiene un correo y una contraseña para cada perfil.
+
+- **HU1.2**
+
+
+# **Versión 1.3**
+
+#  
+
+# **23/11/2024**
+
+ 
+
+**Historia de Usuario 1.2 – Reserva de laboratorio**
+
+ 
+
+# **Descripción:**
+
+#  
+
+# **Al haber ingresado a la plataforma, el usuario desea llevar a cabo la reserva del laboratorio.**
+
+#  
+
+**Como: USUARIO (ESTUDIANTE).**
+
+ 
+
+**Quiero: Reservar una sala de laboratorio después de haber llenado los campos de fecha de asistencia, hora de ingreso, horas de laboratorio, carrera y total de acompañantes, seguido de verificaciones del sistema en términos de capacidad, inventario y materias**
+
+ 
+
+**Para: Efectuar una determinada práctica en una hora disponible y poder usar el inventario adecuado para la misma**
+
+#  
+
+# **Criterio de aceptación 1 – La práctica a realizar debe ser acorde a una materia que debe tener el correspondiente inventario.**
+
+#  
+
+# **Dado:** Que las distintas prácticas difieren en cuanto a conceptos e implícitamente materiales, por lo cual difiere en términos de inventario y salón según la necesidad del usuario.
+
+#  
+
+# **Cuando:** El usuario esté especificando la materia de la práctica que va a llevar a cabo.
+
+#  
+
+#  
+
+# **Entonces:** Se buscará en la base de datos la materia y la disponibilidad de capacidad laboratorio donde se llevan a cabo dichas prácticas, para así saber cuál es el área de interés del usuario para llevar a cabo la reserva.
+
+#  
+
+# **Criterio de aceptación 2 – El usuario debe llenar los campos de fecha de ingreso, hora de ingreso, horas a realizar y total de acompañantes.**
+
+ 
+
+# **Dado:** Que indicar la hora de llegada y la hora de duración son aspectos relevantes en el proceso de reserva para verificar la disponibilidad de inventario y de salón.
+
+#  
+
+# **Cuando:** El usuario esté especificando los detalles de su reserva.
+
+#  
+
+# **Entonces:** Se buscará en la base de datos que en esa hora no se esté cruzando ni con alguna clase, reserva o que la capacidad del laboratorio no sea superada, y adicionalmente, la disponibilidad del inventario con respecto a la materia a ejecutar previamente mencionada en el criterio 1\.
+
+#  
+
+# Si no existe ningún cruce en términos de laboratorio, de capacidad y de material, se hará efectiva la reserva, de caso contrario, se le informará al usuario “No es posible agendar la práctica en el horario solicitado”. El usuario puede volver a llenar la reserva variando los campos de hora y fecha.
+
+ 
+
+**OBSERVACIÓN:**
+
+ 
+
+En versiones pasadas de esta historia de usuario se mencionó que, inicialmente, las primeras entregas no mostrarían el mensaje por el cual no se lograra hacer la reserva en términos o de disponibilidad de inventario o de capacidad del laboratorio. En consecuente, dentro de las funcionalidades de la última versión del proyecto entregado a la fecha, si muestra la razón por la cual no se puede obtener la reserva.
+
+ 
+
+Por otro lado, se manejaron un par de limitaciones por parte del usuario que quiera reservar el laboratorio. Inicialmente, no puede usar más de 3 horas de sala, tampoco puede hacer más de una reserva al día, debe incluirse a sí mismo en la lista de estudiantes que aparece antes del botón de reservar y, por último, se pueden solicitar como máximo 3 elementos de inventario por estudiante listado en la práctica.
+
+ 
+
+- **HU2.1**
+
+
+# **Versión 1.2**
+
+#  
+
+# **23/11/2024**
+
+#  
+
+**Historia de Usuario 2.1– Confirmación de reserva del laboratorio**
+
+ 
+
+# **Descripción:**
+
+#  
+
+# **El usuario recibirá una confirmación de la reserva que acaba de hacer previamente frente a la validación de todas las condiciones que requiere apartar una sala.**
+
+#  
+
+**Como: USUARIO (ESTUDIANTE).**
+
+ 
+
+**Quiero: Recibir una confirmación de la reserva de laboratorio exitosa hecha a través del correo electrónico, que es el mismo usuario de la plataforma**
+
+ 
+
+**Para: Efectuar una práctica que manifiesta seguridad, transparencia y comunicación efectiva con el usuario**
+
+#  
+
+# **Criterio de aceptación 1 – La reserva cumplió con todos los criterios de aceptación de la historia de usuario 1.2.**
+
+#  
+
+# **Dado:** Que la historia de usuario anterior presentaba las condiciones y requerimientos establecidos a la hora de realizar una reserva óptima en todos los aspectos (horario, aforo e instrumentación).
+
+#  
+
+# **Cuando:** El usuario llene todos los campos del proceso de reserva y ninguna validación de disponibilidad haya presentado inconvenientes.
+
+#  
+
+# **Entonces:** Hará efectiva la reserva, añadiéndola a la base de datos con la información pertinente a la práctica.
+
+#  
+
+# **Criterio de aceptación 2 – El usuario debe revisar un tiempo después su correo electrónico.**
+
+ 
+
+# **Dado:** Que la confirmación enviada por la plataforma será a través del correo electrónico brindado por el usuario en el proceso de registro en la plataforma
+
+#  
+
+# **Cuando:** El sistema haya añadido de manera exitosa la reserva del usuario a la base de datos.
+
+#  
+
+# **Entonces:** La plataforma enviará de manera automática un correo donde se le notifique al usuario los detalles de su reserva, donde se le va a recordar la hora, fecha, práctica, elementos de inventario y acompañantes de la reserva que fueron diligenciadas en los campos llenados en el proceso, para que el usuario tenga presente dicho evento y a su vez, evidencie el funcionamiento óptimo de la plataforma.
+
+#  
+
+**OBSERVACIÓN:**
+
+ 
+
+Después de pruebas realizadas, se sabe con certeza que para correos de extensión ‘@gmail.com’ el correo de confirmación de la reserva llega a la bandeja principal, mientras que en correos de extensión ‘@outlook.com’ o en este caso, haciendo uso de la suite de office con el dominio de la universidad ‘@upc.edu.co’ llega a la bandeja de spam. Por ende, se le recomienda al usuario revisar ambas bandejas para visualizar el mensaje de verificación. Adicionalmente, se le envía al laboratorista un correo donde se le informan los detalles de dicha reserva para que esté enterado y pueda administrar su agenda de manera correcta..
+
+ 
+
+También se le recomienda al usuario recargar el correo durante un pequeño periodo de tiempo, aproximadamente un par de minutos, ya que existe la posibilidad de que la llegada del correo de confirmación no sea de manera instantánea, ya que puede tardarse un poco más de lo esperado por distintos motivos, tales como retrasos en el servidor de correo, problemas de red, configuración del correo del cliente, etc.
+
+- **HU3.1**
+
+
+# **Versión 1.2**
+
+#  
+
+# **24/11/2024**
+
+ 
+
+**Historia de Usuario 3.1– Manejo de la plataforma por parte del administrador**
+
+ 
+
+# **Descripción:**
+
+#  
+
+# **El laboratorista, quien en este caso va a ser usuario de administrador, va a poder interactuar con los distintos elementos que se le muestran en su interfaz propia.**
+
+#  
+
+**Como: USUARIO ADMINISTRADOR (LABORATORISTA).**
+
+ 
+
+**Quiero: Manejar de manera adecuada la interfaz entregada.**
+
+ 
+
+**Para: Ver aprovechar la funcionalidad completa del sistema, así como optimizar el tiempo y distribuir mejor las tareas del día.**
+
+#  
+
+# **Criterio de aceptación 1 – El administrador inicie sesión con sus credenciales**
+
+#  
+
+# **Dado:** Que los administradores, en este caso los laboratoristas, tienen credenciales distintas a los estudiantes.
+
+#  
+
+# **Cuando:** El administrador haya ingresado sus credenciales y le haya dado clic al botón “Entrar” para iniciar sesión.
+
+#  
+
+# **Entonces:** Efectuará el inicio de sesión de manera exitosa y accederá a la interfaz propia de los administradores para ver las reservas.
+
+#  
+
+# **Criterio de aceptación 2 – El administrador pueda confirmar una reserva realizada en la plataforma.**
+
+ 
+
+# **Dado:** Que el administrador va a validar que la reserva se haya efectuado en la fecha y hora correspondiente.
+
+#  
+
+# **Cuando:** El estudiante le comunique al administrador(laboratorista) que quiere empezar y finalizar su reserva.
+
+#  
+
+# **Entonces:** Se efectuará todo el proceso mencionado en la HU4.1.
+
+#  
+
+# **Criterio de aceptación 2 – El administrador vaya a reservar por parte de un estudiante.**
+
+ 
+
+# **Dado:** Que el administrador(laboratorista) debe tener la posibilidad de reservar a nombre de un usuario estudiante/no estudiante.
+
+#  
+
+# **Cuando:** Por poco probable que sea, exista la posibilidad de que un usuario estudiante/no estudiante no se encuentre con los medios para realizar un proceso de reserva por sí mismo.
+
+#  
+
+# **Entonces:** El usuario estudiante/no estudiante se comunicará con el laboratorista ya sea vía telefónica, por correo o presencialmente donde le indicará cada uno de los campos a llenar para efectuar una reserva y el laboratorista le colaborará con el proceso de diligenciar estos datos en la plataforma.
+
+#  
+
+# **Criterio de aceptación 3 – El administrador hace una consulta sobre todas las reservas activas de un estudiante.**
+
+ 
+
+# **Dado:** Que el administrador quiere conocer toda la información acerca de las reservas hechas por parte de ese usuario
+
+#  
+
+# **Cuando:** El administrador quiera ver todas las reservas a nombre de ese usuario en la interfaz.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los datos de todas las reservas activas en la plataforma, devolviendo el contenido del día, la hora, la práctica y los elementos de inventario seleccionados, en caso de no encontrar registros en la base de datos, se le informará al administrador que no hay reservas para dicho estudiante.
+
+#  
+
+# **Criterio de aceptación 4 – El administrador hace una consulta sobre todas las reservas activas por fecha.**
+
+ 
+
+# **Dado:** Que el administrador quiere conocer toda la información acerca de las reservas hechas para una fecha en concreto
+
+#  
+
+# **Cuando:** El administrador quiera ver todas las reservas en una fecha específica.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los datos de todas las reservas activas en la plataforma, devolviendo el contenido del día, la hora, la práctica y los elementos de inventario seleccionados, en caso de no encontrar registros en la base de datos, se le informará al administrador que no hay reservas para dicho estudiante.
+
+#  
+
+# **Criterio de aceptación 5 – El administrador hace una consulta para conocer el número de visitas de un estudiante.**
+
+ 
+
+# **Dado:** Que el administrador quiere conocer la cantidad de veces que ha ido un estudiante en específico
+
+#  
+
+# **Cuando:** El administrador quiera ver o confirmar la cantidad de veces que un usuario haya ido a realizar una práctica de laboratorio.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará la cantidad de veces que ese usuario estudiante/no estudiante haya ido a realizar su práctica de laboratorio previamente reservada datos de todas las reservas activas en la plataforma.
+
+#  
+
+# **Criterio de aceptación 6 – El administrador hace una consulta sobre los estudiantes registrados en el sistema.**
+
+ 
+
+# **Dado:** Que el administrador quiere conocer la información detallada acerca los usuarios registrados en la plataforma
+
+#  
+
+# **Cuando:** El administrador quiera verificar la existencia de un usuario y su información.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará todos los usuarios estudiantes/no estudiantes que existan en la base de datos que hayan sido registrados a través de la plataforma.
+
+#  
+
+# **Criterio de aceptación 7 – El administrador hace una consulta sobre todas las reservas registradas.**
+
+ 
+
+# **Dado:** Que el administrador quiere conocer la información detallada acerca todas las reservas
+
+#  
+
+# **Cuando:** El administrador quiera visualizar la información detallada acerca todas las reservas registradas en el sistema.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará todas las reservas que estén en la base de datos, con la respectiva información de la reserva que previamente se ha mencionado en los procesos de reserva.
+
+#  
+
+# **Criterio de aceptación 8 – El administrador va a borrar una reserva.**
+
+#  
+
+# **Dado:** Que el administrador quiera cancelar una reserva previamente hecha a través de la plataforma
+
+#  
+
+# **Cuando:** Se le solicite hacerlo, ya sea porque el usuario de la reserva lo pidió o porque el laboratorista vio que no llegó a la hora de la reserva.
+
+#  
+
+# **Entonces:** La plataforma realizará una modificación en la base de datos, eliminando la reserva en cuestión, y, por ende, todos sus detalles, liberando cupos de capacidad y de disponibilidad de inventario.
+
+#  
+
+# **OBSERVACIÓN:**
+
+#  
+
+# Cabe aclarar que no deben poner número telefónico ya que ellos cuentan con su propia extensión en caso de querer contactarse con ellos, tal y como funciona el resto de entidades administrativas de la universidad.
+
+#  
+
+# Adicionalmente, el laboratorista podrá tener acceso a los registros de la base de datos, pero no podrá manipular la base de datos. El permiso a la visibilidad de los registros lo hacen para realizar procesos de supervisión y control de los laboratorios y los insumos de los mismos para realizar informes posteriores.
+
+- **HU3.2**
+
+
+# **Versión 1.2**
+
+#  
+
+# **23/11/2024**
+
+ 
+
+**Historia de Usuario 3.2 – Validación de reserva con el carnet**
+
+ 
+
+# **Descripción:**
+
+#  
+
+# **Cuando el estudiante o grupo de estudiantes vayan a entrar al laboratorio a realizar la práctica de la reserva, se realizará la verificación de asistencia a partir del escaneo del carnet estudiantil.**
+
+#  
+
+**Como: USUARIO (ESTUDIANTE).**
+
+ 
+
+**Quiero: Confirmar mi asistencia a la reserva previamente agendada en la plataforma**
+
+ 
+
+**Para: Validar de manera segura la asistencia de los integrantes de la reserva a partir del usuario que realizó la reserva**
+
+ 
+
+# **Criterio de aceptación 1 – El usuario debe llevar el carnet consigo mismo a la hora de pasarlo por el lector.**
+
+ 
+
+# **Dado:** Que a partir de la lectura del carnet va a confirmarse la reserva.
+
+#  
+
+# **Cuando:** El usuario que realizó la reserva vaya a entrar al laboratorio.
+
+#  
+
+# **Entonces:** Se hará la validación de las credenciales del carnet. En caso de coincidir con el identificador de carnet del titular, se modificará en la base de datos el número de visitas, tanto del titular como de los integrantes y el estado de la reserva.
+
+#  
+
+# En caso de que el código leído coincida con el registro del usuario en la base de datos, se enviará un mensaje de confirmación de asistencia al correo del usuario, en caso que no, se enviará un mensaje al laboratorista de que el carnet escaneado no corresponde al registro del usuario que realizó la reserva
+
+#  
+
+# **Criterio de aceptación 2 – El usuario que realizó la reserva debe estar presente en la práctica.**
+
+#  
+
+# **Dado:** Que la confirmación de la asistencia se hace a partir de la presencia del usuario que efectuó la reserva
+
+#  
+
+# **Cuando:** El usuario vaya a validar su asistencia en la práctica de laboratorio.
+
+#   
+
+# **Entonces:** Se realizará la búsqueda en la base de datos y se harán las modificaciones previamente mencionadas.
+
+ 
+
+**OBSERVACIÓN:**
+
+ 
+
+En caso de que el código arrojado a la hora de escanear el carnet para confirmar la reserva por parte del titular no coincida con el registro de la base de datos, se le notificará al laboratorista esta situación. Las razones pueden ser las siguientes:
+
+ 
+
+      	\- El chip del carnet puede estar dañado
+
+\- El usuario pudo presentar un carnet falso, es decir, puede no ser un estudiante de la universidad
+
+      	\- El lector RFID puede estar dañado.
+
+ 
+
+El orden de estas posibilidades va de más probable a menos probable, es decir, lo último a verificar será el estado del lector. Por ende, el laboratorista deberá dirigirse a la sala de laboratorio y revisar cual es la falla de la situación.
+
+- **HU4.1**
+
+
+# **Versión 1.1**
+
+#  
+
+# **24/11/2024**
+
+ 
+
+**Historia de Usuario 4.1– Manejo de la plataforma por parte del gerente**
+
+ 
+
+# **Descripción:**
+
+#  
+
+# **El gerente va a poder interactuar con los distintos elementos que se le muestran en su interfaz propia.**
+
+#  
+
+**Como: Gerente.**
+
+ 
+
+**Quiero: Manejar de manera adecuada la interfaz entregada.**
+
+ 
+
+**Para: Ver aprovechar la funcionalidad completa del sistema, así como optimizar el tiempo y distribuir mejor las tareas del día.**
+
+#  
+
+# **Criterio de aceptación 1 – El gerente hace una consulta sobre todas las reservas activas de un estudiante.**
+
+ 
+
+# **Dado:** Que el gerente quiere conocer toda la información acerca de las reservas hechas por parte de ese usuario
+
+#  
+
+# **Cuando:** El gerente quiera ver todas las reservas a nombre de ese usuario en la interfaz.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los datos de todas las reservas activas en la plataforma, devolviendo el contenido del día, la hora, la práctica y los elementos de inventario seleccionados, en caso de no encontrar registros en la base de datos, se le informará al administrador que no hay reservas para dicho estudiante.
+
+#  
+
+# **Criterio de aceptación 2 – El gerente hace una consulta sobre todas las reservas activas por fecha.**
+
+ 
+
+# **Dado:** Que el gerente quiere conocer toda la información acerca de las reservas hechas para una fecha en concreto
+
+#  
+
+# **Cuando:** El gerente quiera ver todas las reservas en una fecha específica.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los datos de todas las reservas activas en la plataforma, devolviendo el contenido del día, la hora, la práctica y los elementos de inventario seleccionados, en caso de no encontrar registros en la base de datos, se le informará al administrador que no hay reservas para dicho estudiante.
+
+#  
+
+# **Criterio de aceptación 3 – El gerente hace una consulta para conocer el número de visitas de un estudiante.**
+
+ 
+
+# **Dado:** Que el gerente quiere conocer la cantidad de veces que ha ido un estudiante en específico
+
+#  
+
+# **Cuando:** El gerente quiera ver o confirmar la cantidad de veces que un usuario haya ido a realizar una práctica de laboratorio.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará la cantidad de veces que ese usuario estudiante/no estudiante haya ido a realizar su práctica de laboratorio previamente reservada datos de todas las reservas activas en la plataforma.
+
+#  
+
+# **Criterio de aceptación 4 – El gerente hace una consulta para conocer el porcentaje de inventario usado en una fecha en concreto.**
+
+ 
+
+# **Dado:** Que el gerente necesita saber la demanda del inventario del laboratorio
+
+#  
+
+# **Cuando:** El gerente quiera conocer que tanto se usó un inventario en una fecha en específico.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los porcentajes con respecto al inventario utilizado para esa fecha especificada y serán mostrados a través de un gráfico de barras.
+
+#  
+
+# **Criterio de aceptación 5 – El gerente hace una consulta para conocer las reservas confirmadas y las no confirmadas en la plataforma.**
+
+ 
+
+# **Dado:** Que el gerente necesita saber cuantas reservas se están concretando
+
+#  
+
+# **Cuando:** El gerente quiera saber la cifra de reservas confirmadas y de reservas no confirmadas.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los datos, que serán mostradas en un gráfico de pastel, que diferenciarán aquellas reservas confirmadas de aquellas no confirmadas.
+
+#  
+
+#  
+
+# **Criterio de aceptación 6 – El gerente hace una consulta sobre los estudiantes registrados en el sistema.**
+
+ 
+
+# **Dado:** Que el gerente quiere conocer la información detallada acerca los usuarios registrados en la plataforma
+
+#  
+
+# **Cuando:** El gerente quiera verificar la existencia de un usuario y su información.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará todos los usuarios estudiantes/no estudiantes que existan en la base de datos que hayan sido registrados a través de la plataforma.
+
+#  
+
+# **Criterio de aceptación 7 – El gerente hace una consulta sobre todas las reservas registradas.**
+
+ 
+
+# **Dado:** Que el gerente quiere conocer la información detallada acerca todas las reservas
+
+#  
+
+# **Cuando:** El gerente quiera visualizar la información detallada acerca todas las reservas registradas en el sistema.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará todas las reservas que estén en la base de datos, con la respectiva información de la reserva que previamente se ha mencionado en los procesos de reserva.
+
+#  
+
+# **Criterio de aceptación 8 – El gerente va a borrar una reserva.**
+
+#  
+
+# **Dado:** Que el gerente quiera cancelar una reserva previamente hecha a través de la plataforma
+
+#  
+
+# **Cuando:** Se le solicite hacerlo, ya sea porque el usuario de la reserva lo pidió o porque el laboratorista vio que no llegó a la hora de la reserva.
+
+#  
+
+# **Entonces:** La plataforma realizará una modificación en la base de datos, eliminando la reserva en cuestión, y, por ende, todos sus detalles, liberando cupos de capacidad y de disponibilidad de inventario.
+
+#  
+
+# **OBSERVACIÓN:**
+
+#  
+
+# Con respecto al gráfico de barras, el porcentaje será con respecto a la totalidad del uso del material en el día especificado. Es decir, que para llegar al 100% de un material en específico debieron haberse utilizado sus cantidades en todas las horas en las que se pueden hacer prácticas. Por ejemplo, si un material cuenta con 3 elementos de cantidad, el 100% será en caso de que esos 3 elementos se hayan usado en todas las horas entre las 6:00 am y las 9:00 pm.
+
+#  
+
+# Por solicitud de los laboratoristas, el gráfico del inventario antes fue presentado en forma de pastel y será cambiado a un gráfico de barras para mayor comodidad en la visualización.
+
+#  
+
+# Y para finalizar, la diferencia entre las reservas confirmadas de las no confirmadas consiste en que, las reservas no confirmadas son todas aquellas que se realizan a través de la plataforma y las reservas confirmadas son aquellas que pasan a este estado cuando el laboratorista vaya a confirmar la asistencia del titular de la reserva.
+
+- **HU5.1**
+
+
+# **Versión 1.1**
+
+#  
+
+# **24/11/2024**
+
+ 
+
+**Historia de Usuario 5.1– Manejo de la plataforma por parte del jefe**
+
+ 
+
+# **Descripción:**
+
+#  
+
+# **El gerente va a poder interactuar con los distintos elementos que se le muestran en su interfaz propia.**
+
+#  
+
+**Como: Jefe.**
+
+ 
+
+**Quiero: Manejar de manera adecuada la interfaz entregada.**
+
+ 
+
+**Para: Ver aprovechar la funcionalidad completa del sistema, así como optimizar el tiempo y distribuir mejor las tareas del día.**
+
+#  
+
+# **Criterio de aceptación 1 – El jefe hace una consulta sobre todas las reservas activas de un estudiante.**
+
+ 
+
+# **Dado:** Que el jefe quiere conocer toda la información acerca de las reservas hechas por parte de ese usuario
+
+#  
+
+# **Cuando:** El jefe quiera ver todas las reservas a nombre de ese usuario en la interfaz.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los datos de todas las reservas activas en la plataforma, devolviendo el contenido del día, la hora, la práctica y los elementos de inventario seleccionados, en caso de no encontrar registros en la base de datos, se le informará al administrador que no hay reservas para dicho estudiante.
+
+#  
+
+# **Criterio de aceptación 2 – El jefe hace una consulta sobre todas las reservas activas por fecha.**
+
+ 
+
+# **Dado:** Que el jefe quiere conocer toda la información acerca de las reservas hechas para una fecha en concreto
+
+#  
+
+# **Cuando:** El jefe quiera ver todas las reservas en una fecha específica.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los datos de todas las reservas activas en la plataforma, devolviendo el contenido del día, la hora, la práctica y los elementos de inventario seleccionados, en caso de no encontrar registros en la base de datos, se le informará al administrador que no hay reservas para dicho estudiante.
+
+#  
+
+# **Criterio de aceptación 3 – El jefe hace una consulta para conocer el número de visitas de un estudiante.**
+
+ 
+
+# **Dado:** Que el jefe quiere conocer la cantidad de veces que ha ido un estudiante en específico
+
+#  
+
+# **Cuando:** El jefe quiera ver o confirmar la cantidad de veces que un usuario haya ido a realizar una práctica de laboratorio.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará la cantidad de veces que ese usuario estudiante/no estudiante haya ido a realizar su práctica de laboratorio previamente reservada datos de todas las reservas activas en la plataforma.
+
+#  
+
+# **Criterio de aceptación 4 – El jefe va a añadir una determinada cantidad de un elemento del inventario en la plataforma.**
+
+ 
+
+# **Dado:** Que el jefe recibió más elementos de un equipo del inventario
+
+#  
+
+# **Cuando:** El jefe quiera añadir una cantidad nueva acerca un elemento del inventario de los laboratorios.
+
+#  
+
+# **Entonces:** El jefe deberá seleccionar un elemento en específico del inventario, y posteriormente, ingresar la cantidad que quiera añadir por medio de la plataforma, para finalmente agregar el inventario. Posteriormente, se irá a modificar en la base de datos la cantidad de dicho elemento del inventario.
+
+#  
+
+# **Criterio de aceptación 5 – El jefe va a visualizar todo el inventario de los laboratorios.**
+
+ 
+
+# **Dado:** Que el jefe desea conocer todo el inventario que hay en las instalaciones con su respectiva información
+
+#  
+
+# **Cuando:** El jefe quiera visualizar todos los elementos del inventario
+
+#  
+
+# **Entonces:** El jefe interactuará con el botón de la interfaz y al accionarlo, se traerá toda la información alojada en la base de datos de la plataforma, donde se especifica la ID del equipo, el nombre y la cantidad existente.
+
+#  
+
+# **Criterio de aceptación 6 – El jefe hace una consulta para conocer el porcentaje de inventario usado en una fecha en concreto.**
+
+ 
+
+# **Dado:** Que el jefe necesita saber la demanda del inventario del laboratorio
+
+#  
+
+# **Cuando:** El jefe quiera conocer que tanto se usó un inventario en una fecha en específico.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los porcentajes con respecto al inventario utilizado para esa fecha especificada y serán mostrados a través de un gráfico de barras.
+
+#  
+
+# **Criterio de aceptación 7 – El jefe hace una consulta para conocer las reservas confirmadas y las no confirmadas en la plataforma.**
+
+ 
+
+# **Dado:** Que el jefe necesita saber cuántas reservas se están concretando
+
+#  
+
+# **Cuando:** El jefe quiera saber la cifra de reservas confirmadas y de reservas no confirmadas.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará los datos, que serán mostradas en un gráfico de pastel, que diferenciarán aquellas reservas confirmadas de aquellas no confirmadas.
+
+#  
+
+#  
+
+# **Criterio de aceptación 8 – El jefe hace una consulta sobre los estudiantes registrados en el sistema.**
+
+ 
+
+# **Dado:** Que el jefe quiere conocer la información detallada acerca los usuarios registrados en la plataforma
+
+#  
+
+# **Cuando:** El jefe quiera verificar la existencia de un usuario y su información.
+
+#  
+
+# **Entonces:** La plataforma enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará todos los usuarios estudiantes/no estudiantes que existan en la base de datos que hayan sido registrados a través de la plataforma.
+
+#  
+
+# **Criterio de aceptación 9 – El jefe hace una consulta sobre todas las reservas registradas.**
+
+ 
+
+# **Dado:** Que el jefe quiere conocer la información detallada acerca todas las reservas
+
+#  
+
+# **Cuando:** El jefe quiera visualizar la información detallada acerca todas las reservas registradas en el sistema.
+
+#  
+
+# **Entonces:** La jefe enviará los resultados a partir de la información en la base de datos a la fecha. Por lo tanto, se le enviará todas las reservas que estén en la base de datos, con la respectiva información de la reserva que previamente se ha mencionado en los procesos de reserva.
+
+#  
+
+# **OBSERVACIÓN:**
+
+#  
+
+# En esta interfaz, el jefe tiene acceso a modificar la base de datos mediante la inserción de nuevos elementos de un equipo del inventario disponible en los laboratorios. Por ende, debe de tener precaución y seguridad cuando vaya a ingresar una nueva cantidad del inventario, ya que no tienen acceso a eliminar dicha cantidad en caso de cometer un error.
+
+#  
+
+# Por esa razón, justo debajo de ese menú de interacción se puede visualizar todo el inventario, para que el jefe cuando quiera realizar la acción de insertar nuevo inventario pueda verificar con la consulta de la totalidad del inventario que está referenciando el elemento correcto para la modificación de la base de datos de la plataforma.
+
+
 **Pruebas con JMETER**
 
 Para probar la eficiencia de la plataforma web se llevaron a cabo distintas pruebas para analizar el comportamiento de la misma mediante varias peticiones al mismo tiempo, específicamente 200, estos fueron los resultados dados por JMeter.  
