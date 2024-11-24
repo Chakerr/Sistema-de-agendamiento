@@ -80,7 +80,4 @@ A lo largo de este proyecto, se implementarán procesos relacionados con la defi
 
 Para más detalles sobre esta norma, consulta el documento completo de la **ISO/IEC 15288:2015** disponible en la sección correspondiente de este proyecto [ISO/IEC 15288:2015 - Documento Completo](ISO/README.md).
 
-Para más detalles, puedes consultar la norma completa:  
-*International Organization for Standardization. (2015). "ISO/IEC 15288: Systems and software engineering — System life cycle processes". Geneva, Switzerland: ISO.*​:contentReference[oaicite:0]{index=0}.
-
 ---
