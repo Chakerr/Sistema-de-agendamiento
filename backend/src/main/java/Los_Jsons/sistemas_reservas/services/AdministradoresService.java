@@ -16,11 +16,13 @@ public class AdministradoresService {
     private LaboratoristaRepository administradoresrepository;
     private EstudiantesRepository estudiantesRepository;
     private ReservasRepository reservasRepository;
+    private ReservasService reservasServices;
 
-    public AdministradoresService(LaboratoristaRepository administradoresrepository, EstudiantesRepository estudiantesRepository, ReservasRepository reservasRepository) {
+    public AdministradoresService(LaboratoristaRepository administradoresrepository, EstudiantesRepository estudiantesRepository, ReservasRepository reservasRepository, ReservasService reservasServices) {
         this.administradoresrepository = administradoresrepository;
         this.estudiantesRepository = estudiantesRepository;
         this.reservasRepository = reservasRepository;
+        this.reservasServices = reservasServices;
     }
 
     public boolean autenticar(String correo, String contrasena) {
@@ -50,9 +52,11 @@ public class AdministradoresService {
     public boolean eliminarEstudiante(Integer idCodigo) {
         List<Reservas> reservas = reservasRepository.findReservasByEstudianteId(idCodigo);
         if (reservas != null && !reservas.isEmpty()) {
-            reservasRepository.deleteAll(reservas);
+            //reservasRepository.deleteAll(reservas);
+            for(Reservas r : reservas){
+                reservasServices.borrarReserva(r.getId());
+            }
         }
-
         if (estudiantesRepository.existsById(idCodigo)) {
             estudiantesRepository.deleteById(idCodigo);
             return true;
