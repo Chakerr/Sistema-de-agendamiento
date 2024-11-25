@@ -93,7 +93,7 @@ En última instancia, la plataforma busca ser una herramienta confiable que apoy
     
 * **DNS:** Sistema de Nombres de Dominio (Domain Name System).
 
-### **Descripción del Sistema**
+## **Descripción del Sistema**
 
 El sistema es una **plataforma web automatizada para la reserva de laboratorios** en la Universidad Piloto de Colombia. Sus principales interacciones son:
 
@@ -102,16 +102,16 @@ El sistema es una **plataforma web automatizada para la reserva de laboratorios*
 * **Servicios de Correo Electrónico**: Se emplea SMTP para notificaciones, como confirmación de reservas, cambio de contraseñas y cancelaciones.  
 * **Hardware**: Incluye integración con dispositivos RFID para autenticar usuarios a través de sus carnets estudiantiles.
 
-#### **Arquitectura del Sistema**
+### **Arquitectura del Sistema**
 
 * **Esquema**: Arquitectura cliente-servidor.  
 * **Frontend**: Desarrollado con tecnologías alojadas en Netlify, proporcionando una interfaz accesible e intuitiva.  
 * **Backend**: Implementado en Heroku, gestionando la lógica de negocio y API del sistema.  
 * **Base de Datos**: PostgreSQL en Heroku, asegurando una estructura escalable y robusta.
 
-### **Procesos del Ciclo de Vida del Sistema**
+## **Procesos del Ciclo de Vida del Sistema**
 
-#### **Procesos Técnicos**
+### **Procesos Técnicos**
 
 * **Definición de Requisitos**:  
   Identificación de necesidades como accesibilidad (UI intuitiva), usabilidad (proceso ágil de reservas), y capacidad de integración (compatibilidad con RFID y notificaciones).  
@@ -122,7 +122,7 @@ El sistema es una **plataforma web automatizada para la reserva de laboratorios*
 * **Verificación y Validación**:  
   Se realizan pruebas automatizadas y manuales para asegurar que el sistema cumpla los requisitos funcionales y no funcionales. Herramientas como JMeter evalúan el rendimiento bajo diferentes condiciones de carga.
 
-#### **Procesos de Gestión**
+### **Procesos de Gestión**
 
 * **Gestión de Proyectos**:  
   Planificación basada en cronogramas con hitos definidos, asignación de recursos a roles como arquitecto, desarrolladores y testers.  
@@ -131,21 +131,21 @@ El sistema es una **plataforma web automatizada para la reserva de laboratorios*
 * **Gestión de Configuración**:  
   Control de cambios en el código y la base de datos mediante herramientas como Git para mantener la trazabilidad.
 
-#### **Procesos Organizacionales**
+### **Procesos Organizacionales**
 
 * **Gestión de Calidad**:  
   Aseguramiento de estándares mediante revisiones de código y pruebas continuas. Se sigue la norma ISO/IEC 25010 para evaluar la calidad del software.  
 * **Gestión del Conocimiento**:  
   Documentación de decisiones técnicas, diagramas, y lecciones aprendidas para facilitar futuras mejoras.
 
-#### **Procesos de Acuerdo**
+### **Procesos de Acuerdo**
 
 * **Definición de Contratos**:  
   Establecimiento de acuerdos con la universidad para la implementación del sistema y alineación con normas internas.  
 * **Adquisiciones**:  
   Identificación de recursos tecnológicos necesarios, como servidores en Heroku y dispositivos RFID.
 
-### **Cronograma del Ciclo de Vida**
+## **Cronograma del Ciclo de Vida**
 
 * **Fase 1: Análisis y Definición de Requisitos** (Mes 1):  
   Identificar necesidades de usuarios, modelar casos de uso y realizar un estudio de viabilidad técnica y económica.  
@@ -156,13 +156,13 @@ El sistema es una **plataforma web automatizada para la reserva de laboratorios*
 * **Fase 4: Implementación y Mantenimiento** (Mes 5 en adelante):  
   Despliegue en los entornos de producción (Netlify y Heroku) y mantenimiento correctivo, adaptativo y preventivo.
 
-#### **Hitos Clave:**
+### **Hitos Clave:**
 
 * **Mes 2**: Entrega del MVP para pruebas iniciales.  
 * **Mes 5**: Finalización de pruebas y despliegue en producción.  
 * **Post-Mes 5**: Inicio del mantenimiento y mejora continua, recopilación de métricas e implementación de nuevas funcionalidades.
 
-### **Mantenimiento y Mejora Continua**
+## **Mantenimiento y Mejora Continua**
 
 Se plantea como objetivo mantener en constante observación el desempeño de la plataforma, estando pendientes de los errores que puedan reportar los usuarios de la misma, que vienen siendo estudiantes, laboratoristas, jefes y gerentes, basado en la retroalimentación de dichos errores junto con adaptaciones y cambios en la plataforma.
 
