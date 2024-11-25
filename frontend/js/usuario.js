@@ -89,3 +89,20 @@ document.getElementById('consultarReservasBtn').addEventListener('click', () => 
         })
         .catch(error => console.error('Error al consultar reservas:', error));
 });
+
+document.getElementById('eliminarCuentaBtn').addEventListener('click', eliminarEstudiante);
+function eliminarEstudiante() {
+    const eliminarEstudiante = sessionStorage.getItem('id');
+    fetch(`${link}/jsons/estudiantes/${eliminarEstudiante}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (response.ok) {
+            alert('Estudiante eliminado exitosamente');
+            window.location.href = 'index.html';
+        } else {
+            alert('Error al eliminar estudiante');
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
