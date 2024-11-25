@@ -98,7 +98,7 @@ function eliminarEstudiante() {
     })
     .then(response => {
         if (response.ok) {
-            alert('Estudiante eliminado exitosamente');
+            alert('Su cuenta ha sido eliminada exitosamente.');
             window.location.href = 'index.html';
         } else {
             alert('Error al eliminar estudiante');
