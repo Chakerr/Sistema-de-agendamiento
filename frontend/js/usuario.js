@@ -90,18 +90,29 @@ document.getElementById('consultarReservasBtn').addEventListener('click', () => 
         .catch(error => console.error('Error al consultar reservas:', error));
 });
 
-document.getElementById('eliminarCuentaBtn').addEventListener('click', eliminarEstudiante);
+document.getElementById('eliminarCuentaBtn').addEventListener('click', () => {
+    const confirmacion = confirm('¿Desea eliminar su cuenta? Esta acción no se puede deshacer.');
+
+    if (confirmacion) {
+        eliminarEstudiante();
+    } else {
+        alert('Eliminación de cuenta cancelada.');
+    }
+});
+
 function eliminarEstudiante() {
-    const eliminarEstudiante = sessionStorage.getItem('id');
-    fetch(`${link}/jsons/estudiantes/${eliminarEstudiante}`, {
+    const eliminarEstudianteId = sessionStorage.getItem('id');
+
+    fetch(`${link}/jsons/estudiantes/${eliminarEstudianteId}`, {
         method: 'DELETE'
     })
     .then(response => {
         if (response.ok) {
             alert('Su cuenta ha sido eliminada exitosamente.');
-            window.location.href = 'index.html';
+            sessionStorage.clear(); // Limpiar la sesión después de eliminar la cuenta
+            window.location.href = 'index.html'; // Redirigir al inicio
         } else {
-            alert('Error al eliminar estudiante');
+            alert('Error al eliminar estudiante.');
         }
     })
     .catch(error => console.error('Error:', error));
